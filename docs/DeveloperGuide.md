@@ -317,11 +317,57 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+Here’s the full set of non-functional requirements with your original ones plus the additional ones I provided:
 
-*{More to be added}*
+---
+
+### **Non-Functional Requirements**
+
+1. **Cross-Platform Compatibility**
+    - Should work on any mainstream OS (Windows, macOS, Linux) as long as it has Java 17 or above installed.
+
+2. **Performance**
+    - Should be able to hold up to **1000 persons** without noticeable sluggishness in performance for typical usage.
+    - Should start up within **3 seconds** on a typical consumer laptop with at least **8GB RAM and an SSD**.
+    - Should be able to process and display search results within **1 second** for a dataset of up to **1000 persons**.
+
+3. **Scalability**
+    - Should maintain performance when handling up to **5000 persons**, though minor degradation is acceptable.
+    - Should allow for future expansion without requiring a complete system overhaul.
+
+4. **Usability**
+    - A user with **above-average typing speed** for regular English text (i.e., not code, not system admin commands) should be able to accomplish most tasks **faster using commands than using the mouse**.
+    - **Keyboard shortcuts** should be provided for power users to navigate the application efficiently.
+    - The UI should be **intuitive enough** for new users to accomplish basic tasks within **5 minutes of exploration**.
+
+5. **Accessibility**
+    - Should support **screen readers and keyboard navigation** to ensure usability for users with disabilities.
+    - Should have **sufficient contrast and text scaling options** to accommodate visually impaired users.
+
+6. **Portability**
+    - Should not require **installation beyond Java 17** (i.e., should work as a standalone JAR or similar distribution).
+    - Should not require **administrative privileges** to run on Windows, macOS, or Linux.
+
+7. **Security**
+    - Should not require **internet access** for core functionality to ensure **data privacy**.
+    - Should prevent **unauthorized modification** of critical data without explicit user confirmation.
+
+8. **Reliability**
+    - Should not crash or lose user data due to **unexpected shutdowns** (e.g., power failure).
+    - Should have **autosave functionality** to prevent accidental data loss.
+
+9. **Maintainability**
+    - Codebase should follow **clean code principles** to ensure ease of maintenance.
+    - Should be **modular**, allowing for feature enhancements without major rewrites.
+
+10. **Extensibility**
+    - Should allow for **plugin or extension support** to add additional functionalities in the future.
+    - Should support **external integrations via APIs or data imports**.
+
+11. **Logging & Debugging**
+    - Should maintain **logs of user actions and errors** to aid debugging and troubleshooting.
+    - Logs should **not contain sensitive personal data** to comply with privacy best practices.
+
 
 ### Glossary
 
