@@ -9,12 +9,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Liu Jihan
 
-<img src="images/johndoe.png" width="200px">
+<img src="file:///D:/CS2103T%20Git/tP/docs/images/liu-jihan.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
+[[github](https://github.com/Liu-Jihan)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Project Advisor
