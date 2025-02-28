@@ -38,12 +38,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Tan Sze Ling
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/szelingtan.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/szelingtan)]
+[[portfolio](https://www.linkedin.com/in/sze-ling-tan-921b74263/)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
