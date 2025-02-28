@@ -29,14 +29,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Luoqi Xu
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/luoq1-xu.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/Luoq1-Xu)] [[portfolio](https://crowded-kittens.vercel.app/about)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Develop functionalities for the app, including commands and features.
 
 ### Jean Doe
 
