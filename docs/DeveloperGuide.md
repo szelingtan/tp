@@ -275,16 +275,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​       | I want to …​                 | So that I can…​                                         |
+| -------- |---------------|------------------------------|---------------------------------------------------------|
+| `* * *`  | social worker | add contacts of new patients | keep track of the new patients' details                 |
+| `* * *`  | social worker | delete patient contacts      | remove discharged / deceased patients from address book |
+| `* * *`  | social worker | tag a patient                | identify the patient's condition                        |
+| `* * *`  | social worker | add patient medication       | keep track of medication taken by the patient           |
+| `* *`    | social worker | add last visit               | keep track of my last visit to the patient              |
+| `*`      | social worker | edit patient details         | update changes in patient information when necessary    |
+| `*`      | social worker | add remarks after each visit | document important information                          |
 
-*{More to be added}*
+
 
 ### Use cases
 
