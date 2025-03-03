@@ -326,8 +326,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Social Workers**: The target demographic, specifically those who 
+  do patient visits for the elderly
+* **Name**: The name of a patient in the application.
+* **Contacts**: Information such as phone number, address, and email that 
+  can be used to reach a patient in the application.
+* **Tag**: A label assigned to a patient in the application.
+* **Patient Details**: Details relating to a patient such as their illness,
+  required medication, etc.
+* **Remarks**: Any special detail related to visits to the patient.
 
 --------------------------------------------------------------------------------------------------------------------
 
