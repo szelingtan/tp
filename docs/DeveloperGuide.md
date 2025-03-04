@@ -329,10 +329,9 @@ Here’s the full set of non-functional requirements with your original ones plu
 2. **Performance**
     - Should be able to hold up to **1000 persons** without noticeable sluggishness in performance for typical usage.
     - Should start up within **3 seconds** on a typical consumer laptop with at least **8GB RAM and an SSD**.
-    - Should be able to process and display search results within **1 second** for a dataset of up to **1000 persons**.
 
 3. **Scalability**
-    - Should maintain performance when handling up to **5000 persons**, though minor degradation is acceptable.
+    - Should maintain performance when handling up to **10000 persons**, though minor degradation is acceptable.
     - Should allow for future expansion without requiring a complete system overhaul.
 
 4. **Usability**
@@ -357,16 +356,10 @@ Here’s the full set of non-functional requirements with your original ones plu
     - Should have **autosave functionality** to prevent accidental data loss.
 
 9. **Maintainability**
-    - Codebase should follow **clean code principles** to ensure ease of maintenance.
+    - Codebase should follow **OOP principles** to ensure ease of maintenance.
     - Should be **modular**, allowing for feature enhancements without major rewrites.
 
-10. **Extensibility**
-    - Should allow for **plugin or extension support** to add additional functionalities in the future.
-    - Should support **external integrations via APIs or data imports**.
-
-11. **Logging & Debugging**
-    - Should maintain **logs of user actions and errors** to aid debugging and troubleshooting.
-    - Logs should **not contain sensitive personal data** to comply with privacy best practices.
+    
 
 
 ### Glossary
