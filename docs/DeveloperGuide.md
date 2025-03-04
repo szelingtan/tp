@@ -317,12 +317,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-Here’s the full set of non-functional requirements with your original ones plus the additional ones I provided:
-
----
-
-### **Non-Functional Requirements**
-
 1. **Cross-Platform Compatibility**
     - Should work on any mainstream OS (Windows, macOS, Linux) as long as it has Java 17 or above installed.
 
