@@ -354,15 +354,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     - Codebase should follow **OOP principles** to ensure ease of maintenance.
     - Should be **modular**, allowing for feature enhancements without major rewrites.
 
-    
 
 
 ### Glossary
 
-* **Social Workers**: The target demographic, specifically those who 
+* **Social Workers**: The target demographic, specifically those who
   do patient visits for the elderly
 * **Name**: The name of a patient in the application.
-* **Contacts**: Information such as phone number, address, and email that 
+* **Contacts**: Information such as phone number, address, and email that
   can be used to reach a patient in the application.
 * **Tag**: A label assigned to a patient in the application.
 * **Patient Details**: Details relating to a patient such as their illness,
