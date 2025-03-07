@@ -36,7 +36,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/Luoq1-Xu)] [[portfolio](https://crowded-kittens.vercel.app/about)]
 
 * Role: Backend Engineer
-* Responsibilities: Backend engineer
+* Responsibilities: Develop backend logic and functionalities
 
 ### Tan Sze Ling
 
