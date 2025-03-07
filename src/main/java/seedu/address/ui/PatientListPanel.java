@@ -26,13 +26,13 @@ public class PatientListPanel extends UiPart<Region> {
     public PatientListPanel(ObservableList<Patient> patientList) {
         super(FXML);
         personListView.setItems(patientList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new PatientListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Patient> {
+    class PatientListViewCell extends ListCell<Patient> {
         @Override
         protected void updateItem(Patient patient, boolean empty) {
             super.updateItem(patient, empty);
