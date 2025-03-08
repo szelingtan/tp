@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Liu Jihan
 
-<img src="file:///D:/CS2103T%20Git/tP/docs/images/liu-jihan.png" width="200px">
+<img src="images/liu-jihan.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/Liu-Jihan)]
@@ -21,7 +21,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Ng Wan Ting Eunice
 
-<img src="images/Eun777.png" width="200px">
+<img src="images/eun777.png" width="200px">
 
 [[github](http://github.com/Eun777)]
 [[portfolio](https://www.linkedin.com/in/eunice-ng-wt)]
@@ -35,8 +35,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](https://github.com/Luoq1-Xu)] [[portfolio](https://crowded-kittens.vercel.app/about)]
 
-* Role: Developer
-* Responsibilities: Develop functionalities for the app, including commands and features.
+* Role: Backend Engineer
+* Responsibilities: Develop backend logic and functionalities
 
 ### Tan Sze Ling
 
