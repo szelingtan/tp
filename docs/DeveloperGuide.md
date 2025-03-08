@@ -58,7 +58,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.)
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -102,7 +102,7 @@ How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a patient).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -173,11 +173,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -185,7 +185,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
@@ -234,7 +234,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -260,73 +260,288 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user profile**: Social Workers 
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* has a need to manage a significant number of patient contacts
+* has a need to track patient visits
+* decent but not exceptional typing speed
+* prefers desktop apps over other types
+* may not be particularly comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage patient details and visits more efficiently than paper records
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​       | I want to …​                 | So that I can…​                                         |
+| -------- |---------------|------------------------------|---------------------------------------------------------|
+| `* * *`  | social worker | add contacts of new patients | keep track of the new patients' details                 |
+| `* * *`  | social worker | delete patient contacts      | remove discharged / deceased patients from address book |
+| `* * *`  | social worker | tag a patient                | identify the patient's condition                        |
+| `* * *`  | social worker | add patient medication       | keep track of medication taken by the patient           |
+| `* *`    | social worker | add last visit               | keep track of my last visit to the patient              |
+| `*`      | social worker | edit patient details         | update changes in patient information when necessary    |
+| `*`      | social worker | add remarks after each visit | document important information                          |
 
-*{More to be added}*
+
 
 ### Use cases
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Add a patient**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a patient
+2.  AddressBook prompts for patient details
+3.  User enters patient's name, phone number, email, and address
+4.  AddressBook adds the patient and confirms the addition
 
     Use case ends.
 
 **Extensions**
 
+* 3a. User enters an invalid phone number. 
+  * 3a1. AddressBook shows an error message.
+    * 3a2. User enters a valid phone number.
+
+        Use case resumes at step 3.
+
+* 3b. User enters an invalid email.
+  * 3b1. AddressBook shows an error message.
+    * 3b2. User enters a valid email.
+
+        Use case resumes at step 3.
+
+* 3c. User omits one or more required fields.
+  * 3c1. AddressBook shows an error message.
+    * 3c2. User enters all required information.
+
+        Use case resumes at step 3.
+
+* 3d. User enters details for a patient with same name and phone number as an existing patient.
+  * 3d1. AddressBook alerts the user about the duplicate.
+    * 3d2. User enters different information or cancels the operation.
+
+        Use case resumes at step 3.
+
+**Use case: Delete a patient**
+
+**MSS**
+
+1.  User requests to list patients
+2.  AddressBook shows a list of patients
+3.  User requests to delete a specific patient in the list
+4.  AddressBook deletes the patient and confirms the deletion
+
+Use case ends.
+
+**Extensions**
+
 * 2a. The list is empty.
 
-  Use case ends.
+    Use case ends.
 
 * 3a. The given index is invalid.
+  * 3a1. AddressBook shows an error message.
 
+    Use case resumes at step 2.
+
+* 3b. User does not specify an index.
+  * 3b1. AddressBook shows an error message.
+
+    Use case resumes at step 2.
+
+**Use case: Tag a patient**
+
+**MSS**
+
+1.  User requests to list patients
+2.  AddressBook shows a list of patients
+3.  User requests to tag a specific patient with a category
+4.  AddressBook adds the tag to the patient and confirms the addition
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. AddressBook shows an error message.
+
+        Use case resumes at step 2.
+
+* 3b. User does not specify a tag name.
+    * 3b1. AddressBook shows an error message.
+
+      Use case resumes at step 3.
+
+**Use case: Add medication to a patient**
+
+**MSS**
+
+1.  User requests to list patients
+2.  AddressBook shows a list of patients
+3.  User requests to add medication for a specific patient
+4.  AddressBook adds the medication to the patient's record and confirms the addition
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    Use case ends.
+
+* 3a. The given index is invalid.
+  * 3a1. AddressBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. User does not specify medication details.
+  * 3b1. AddressBook shows an error message.
+
+    Use case resumes at step 3.
+
+**Use case: Delete a medication for a patient**
+
+**MSS**
+
+1.  User requests to list patients
+2.  AddressBook shows a list of patients
+3.  User requests to delete medication for a specific patient
+4.  AddressBook removes the medication from the patient's record and confirms the deletion
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    Use case ends.
+
+* 3a. The given index is invalid.
+  * 3a1. AddressBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The patient has no medication records.
+  * AddressBook shows an error message.
+
+    Use case ends.
+
+**Use case: Add medication to a patient**
+
+**MSS**
+
+1.  User requests to list patients
+2.  AddressBook shows a list of patients
+3.  User requests to add medication for a specific patient
+4.  AddressBook adds the medication to the patient's record and confirms the addition
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    Use case ends.
+
+* 3a. The given index is invalid.
     * 3a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+* 3b. User does not specify medication details.
+    * 3b1. AddressBook shows an error message.
+
+      Use case resumes at step 3.
+
+**Use case: Delete last visit**
+
+**MSS**
+
+1.  User requests to list patients
+2.  AddressBook shows a list of patients
+3.  User requests to delete the last visit record of a specific patient
+4.  AddressBook removes the visit information and confirms the deletion
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. AddressBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The patient has no visit records.
+    * AddressBook shows an error message.
+
+      Use case ends.
+
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. **Cross-Platform Compatibility**
+    - Should work on any mainstream OS (Windows, macOS, Linux) as long as it has Java 17 or above installed.
 
-*{More to be added}*
+2. **Performance**
+    - Should be able to hold up to **1000 patients** without noticeable sluggishness in performance for typical usage.
+    - Should start up within **3 seconds** on a typical consumer laptop with at least **8GB RAM and an SSD**.
+
+3. **Scalability**
+    - Should maintain performance when handling up to **10000 patients**, though minor degradation is acceptable.
+    - Should allow for future expansion without requiring a complete system overhaul.
+
+4. **Usability**
+    - A user with **above-average typing speed** for regular English text (i.e., not code, not system admin commands) should be able to accomplish most tasks **faster using commands than using the mouse**.
+    - **Keyboard shortcuts** should be provided for power users to navigate the application efficiently.
+    - The UI should be **intuitive enough** for new users to accomplish basic tasks within **5 minutes of exploration**.
+
+5. **Accessibility**
+    - Should support **screen readers and keyboard navigation** to ensure usability for users with disabilities.
+    - Should have **sufficient contrast and text scaling options** to accommodate visually impaired users.
+
+6. **Portability**
+    - Should not require **installation beyond Java 17** (i.e., should work as a standalone JAR or similar distribution).
+    - Should not require **administrative privileges** to run on Windows, macOS, or Linux.
+
+7. **Security**
+    - Should not require **internet access** for core functionality to ensure **data privacy**.
+    - Should prevent **unauthorized modification** of critical data without explicit user confirmation.
+
+8. **Reliability**
+    - Should not crash or lose user data due to **unexpected shutdowns** (e.g., power failure).
+    - Should have **autosave functionality** to prevent accidental data loss.
+
+9. **Maintainability**
+    - Codebase should follow **OOP principles** to ensure ease of maintenance.
+    - Should be **modular**, allowing for feature enhancements without major rewrites.
+
+
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Social Workers**: The target demographic, specifically those who
+  do patient visits for the elderly
+* **Name**: The name of a patient in the application.
+* **Contacts**: Information such as phone number, address, and email that
+  can be used to reach a patient in the application.
+* **Tag**: A label assigned to a patient in the application.
+* **Patient Details**: Details relating to a patient such as their illness,
+  required medication, etc.
+* **Remarks**: Any special detail related to visits to the patient.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -356,17 +571,17 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a patient
 
-1. Deleting a person while all persons are being shown
+1. Deleting a patient while all patients are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
