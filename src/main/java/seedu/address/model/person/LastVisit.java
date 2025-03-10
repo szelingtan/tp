@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is always valid
  */
-public class Remark {
+public class LastVisit {
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
 
@@ -23,7 +23,7 @@ public class Remark {
      *
      * @param remark A valid address.
      */
-    public Remark(String remark) {
+    public LastVisit(String remark) {
         requireNonNull(remark);
         value = remark;
     }
@@ -40,12 +40,12 @@ public class Remark {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Remark)) {
+        if (!(other instanceof LastVisit)) {
             return false;
         }
 
-        Remark otherRemark = (Remark) other;
-        return value.equals(otherRemark.value);
+        LastVisit otherLastVisit = (LastVisit) other;
+        return value.equals(otherLastVisit.value);
     }
 
     @Override

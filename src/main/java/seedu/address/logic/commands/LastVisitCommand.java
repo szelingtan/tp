@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -11,38 +11,38 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.Remark;
+import seedu.address.model.person.LastVisit;
 
 /**
  * Changes the remark of an existing person in the address book.
  */
-public class RemarkCommand extends Command {
+public class LastVisitCommand extends Command {
 
-    public static final String COMMAND_WORD = "remark";
+    public static final String COMMAND_WORD = "lastVisit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the last visit of the person identified "
             + "by the index number used in the last person listing. "
-            + "Existing remark will be overwritten by the input.\n"
+            + "Existing last visit will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_REMARK + "[REMARK]\n"
+            + PREFIX_VISIT + "[LAST VISIT]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_REMARK + "Likes to swim.";
+            + PREFIX_VISIT + "Last visited on 5 March 2025. Followed medication schedule well.";
 
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_ADD_LAST_VISIT_SUCCESS = "Added last visit to Person: %1$s";
+    public static final String MESSAGE_DELETE_LAST_VISIT_SUCCESS = "Removed last visit from Person: %1$s";
 
     private final Index index;
-    private final Remark remark;
+    private final LastVisit lastVisit;
 
     /**
      * @param index of the person in the filtered person list to edit the remark
-     * @param remark of the person to be updated to
+     * @param lastVisit of the person to be updated to
      */
-    public RemarkCommand(Index index, Remark remark) {
-        requireAllNonNull(index, remark);
+    public LastVisitCommand(Index index, LastVisit lastVisit) {
+        requireAllNonNull(index, lastVisit);
 
         this.index = index;
-        this.remark = remark;
+        this.lastVisit = lastVisit;
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -54,7 +54,7 @@ public class RemarkCommand extends Command {
 
         Patient personToEdit = lastShownList.get(index.getZeroBased());
         Patient editedPerson = new Patient(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), remark, personToEdit.getTags());
+                personToEdit.getAddress(), lastVisit, personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -67,7 +67,8 @@ public class RemarkCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Patient personToEdit) {
-        String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        String message = !lastVisit.value.isEmpty() ? MESSAGE_ADD_LAST_VISIT_SUCCESS :
+                MESSAGE_DELETE_LAST_VISIT_SUCCESS;
         return String.format(message, personToEdit);
     }
 
@@ -79,13 +80,13 @@ public class RemarkCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RemarkCommand)) {
+        if (!(other instanceof LastVisitCommand)) {
             return false;
         }
 
         // state check
-        RemarkCommand e = (RemarkCommand) other;
+        LastVisitCommand e = (LastVisitCommand) other;
         return index.equals(e.index)
-                && remark.equals(e.remark);
+                && lastVisit.equals(e.lastVisit);
     }
 }
