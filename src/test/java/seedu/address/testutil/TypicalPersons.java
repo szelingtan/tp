@@ -26,10 +26,12 @@ public class TypicalPersons {
     public static final Patient ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
+            .withRemark("She likes aardvarks.")
             .withTags("friends").build();
     public static final Patient BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
+            .withRemark("He can't take beer!")
             .withTags("owesMoney", "friends").build();
     public static final Patient CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
@@ -48,7 +50,7 @@ public class TypicalPersons {
     public static final Patient IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    // Manually added - Patient's details found in {@code CommandTestUtil}
     public static final Patient AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Patient BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
@@ -64,8 +66,8 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Patient patient : getTypicalPersons()) {
-            ab.addPerson(patient);
+        for (Patient person : getTypicalPersons()) {
+            ab.addPerson(person);
         }
         return ab;
     }
