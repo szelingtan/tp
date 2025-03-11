@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * Represents a Person in the address book.
@@ -24,17 +25,19 @@ public class Patient {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Medicine> medicines = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Medicine> medicines) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.medicines.addAll(medicines);
     }
 
     public Name getName() {
@@ -59,6 +62,13 @@ public class Patient {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns the set of all medicines tagged to this patient.
+     */
+    public Set<Medicine> getMedicines() {
+        return medicines;
     }
 
     /**
@@ -111,6 +121,7 @@ public class Patient {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("medicines", medicines)
                 .toString();
     }
 

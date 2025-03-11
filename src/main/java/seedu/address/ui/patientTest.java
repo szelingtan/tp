@@ -12,7 +12,7 @@ import seedu.address.model.person.Patient;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class patientTest extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -44,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonCard(Patient patient, int displayedIndex) {
+    public patientTest(Patient patient, int displayedIndex) {
         super(FXML);
         this.patient = patient;
         id.setText(displayedIndex + ". ");
