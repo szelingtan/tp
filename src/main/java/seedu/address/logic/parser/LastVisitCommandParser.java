@@ -27,7 +27,8 @@ public class LastVisitCommandParser implements Parser<LastVisitCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LastVisitCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LastVisitCommand.MESSAGE_USAGE), ive);
         }
 
         String remark = argMultimap.getValue(PREFIX_VISIT).orElse("");

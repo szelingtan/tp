@@ -10,8 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.LastVisit;
+import seedu.address.model.person.Patient;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -67,8 +67,8 @@ public class LastVisitCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Patient personToEdit) {
-        String message = !lastVisit.value.isEmpty() ? MESSAGE_ADD_LAST_VISIT_SUCCESS :
-                MESSAGE_DELETE_LAST_VISIT_SUCCESS;
+        String message = !lastVisit.value.isEmpty() ? MESSAGE_ADD_LAST_VISIT_SUCCESS
+                : MESSAGE_DELETE_LAST_VISIT_SUCCESS;
         return String.format(message, personToEdit);
     }
 

@@ -44,7 +44,7 @@ public class PatientCard extends UiPart<Region> {
     private FlowPane tags;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PatientCode} with the given {@code Patient} and index to display.
      */
     public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
