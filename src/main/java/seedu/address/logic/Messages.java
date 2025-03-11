@@ -45,6 +45,8 @@ public class Messages {
                 .append(patient.getAddress())
                 .append("; Tags: ");
         patient.getTags().forEach(builder::append);
+        builder.append("; Medicines: ");
+        patient.getMedicines().forEach(builder::append);
         return builder.toString();
     }
 

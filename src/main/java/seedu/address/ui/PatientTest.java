@@ -12,7 +12,7 @@ import seedu.address.model.person.Patient;
 /**
  * A UI component that displays information of a {@code Person}.
  */
-public class PatientCard extends UiPart<Region> {
+public class PatientTest extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -39,16 +39,12 @@ public class PatientCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label lastVisit;
-    @FXML
     private FlowPane tags;
-    @FXML
-    private FlowPane medicines;
 
     /**
-     * Creates a {@code PatientCode} with the given {@code Patient} and index to display.
+     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PatientCard(Patient patient, int displayedIndex) {
+    public PatientTest(Patient patient, int displayedIndex) {
         super(FXML);
         this.patient = patient;
         id.setText(displayedIndex + ". ");
@@ -56,12 +52,8 @@ public class PatientCard extends UiPart<Region> {
         phone.setText(patient.getPhone().value);
         address.setText(patient.getAddress().value);
         email.setText(patient.getEmail().value);
-        lastVisit.setText(patient.getLastVisit().value);
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        patient.getMedicines().stream()
-                .sorted(Comparator.comparing(medicine -> medicine.medName))
-                .forEach(med -> medicines.getChildren().add(new Label(med.medName)));
     }
 }

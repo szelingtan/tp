@@ -37,6 +37,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(patient.getEmail());
         descriptor.setAddress(patient.getAddress());
         descriptor.setTags(patient.getTags());
+        descriptor.setMedicines(patient.getMedicines());
     }
 
     /**

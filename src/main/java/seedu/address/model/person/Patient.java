@@ -8,7 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Represents a Person in the address book.
@@ -25,18 +27,21 @@ public class Patient {
     private final Address address;
     private final LastVisit lastVisit;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Medicine> medicines = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Patient(Name name, Phone phone, Email email, Address address, LastVisit lastVisit, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, lastVisit, tags);
+    public Patient(Name name, Phone phone, Email email, Address address, LastVisit lastVisit,
+                   Set<Tag> tags, Set<Medicine> medicines) {
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.lastVisit = lastVisit;
         this.tags.addAll(tags);
+        this.medicines.addAll(medicines);
     }
 
     public Name getName() {
@@ -68,16 +73,23 @@ public class Patient {
     }
 
     /**
+     * Returns the set of all medicines tagged to this patient.
+     */
+    public Set<Medicine> getMedicines() {
+        return medicines;
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Patient otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Patient otherPatient) {
+        if (otherPatient == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherPatient != null
+                && otherPatient.getName().equals(getName());
     }
 
     /**
@@ -101,13 +113,14 @@ public class Patient {
                 && email.equals(otherPatient.email)
                 && address.equals(otherPatient.address)
                 && lastVisit.equals(otherPatient.lastVisit)
-                && tags.equals(otherPatient.tags);
+                && tags.equals(otherPatient.tags)
+                && medicines.equals(otherPatient.medicines);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, lastVisit);
+        return Objects.hash(name, phone, email, address, lastVisit, tags, medicines);
     }
 
     @Override
@@ -119,6 +132,7 @@ public class Patient {
                 .add("address", address)
                 .add("lastVisit", lastVisit)
                 .add("tags", tags)
+                .add("medicines", medicines)
                 .toString();
     }
 
