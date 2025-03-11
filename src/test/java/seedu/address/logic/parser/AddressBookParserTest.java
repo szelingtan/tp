@@ -95,8 +95,8 @@ public class AddressBookParserTest {
     public void parseCommand_prescribe() throws Exception {
         final Medicine medicine = new Medicine("Aspirin");
         PrescribeCommand prescribeCommandTest = (PrescribeCommand) parser.parseCommand(
-                PrescribeCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() +
-                        " " + PREFIX_PRESCRIBE + medicine.medName);
+                PrescribeCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + " " + PREFIX_PRESCRIBE + medicine.medName);
         assertEquals(new PrescribeCommand(INDEX_FIRST_PERSON, medicine), prescribeCommandTest);
     }
 

@@ -18,7 +18,6 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
      * Parses the given {@code String} of arguments in the context of the {@code PrescribeCommand}
      * and returns a {@code PrescribeCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
-     * Adapted from https://se-education.org/guides/tutorials/ab3AddRemark.html
      */
     public PrescribeCommand parse(String args) throws ParseException {
         requireNonNull(args);
