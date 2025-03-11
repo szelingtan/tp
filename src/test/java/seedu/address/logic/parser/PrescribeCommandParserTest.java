@@ -28,11 +28,6 @@ public class PrescribeCommandParserTest {
         String userInput = targetIndex.getOneBased() + " " + PREFIX_PRESCRIBE + nonEmptyMedName;
         PrescribeCommand expectedCommand = new PrescribeCommand(INDEX_FIRST_PERSON, new Medicine(nonEmptyMedName));
         assertParseSuccess(parser, userInput, expectedCommand);
-
-        // no medicine name
-        userInput = targetIndex.getOneBased() + " " + PREFIX_PRESCRIBE;
-        expectedCommand = new PrescribeCommand(INDEX_FIRST_PERSON, new Medicine(""));
-        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test

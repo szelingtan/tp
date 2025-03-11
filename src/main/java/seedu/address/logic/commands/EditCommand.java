@@ -140,6 +140,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Set<Medicine> medicines;
 
         public EditPersonDescriptor() {}
 
@@ -153,6 +154,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setMedicines(toCopy.medicines);
         }
 
         /**
@@ -203,6 +205,22 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code medicines} to this object's {@code medicines}.
+         * A defensive copy of {@code medicines} is used internally.
+         */
+        public void setMedicines(Set<Medicine> meds) {
+            this.medicines = (meds != null) ? new HashSet<>(meds) : null;
+        }
+
+        /**
+         * Returns the medicines set
+         * Returns {@code Optional#empty()} if {@code medicines} is null.
+         */
+        public Optional<Set<Medicine>> getMeds() {
+            return (medicines != null) ? Optional.of(medicines) : Optional.empty();
+        }
+
+        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
@@ -238,6 +256,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
+                    .add("medicines", medicines)
                     .toString();
         }
     }
