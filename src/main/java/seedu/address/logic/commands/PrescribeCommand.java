@@ -15,9 +15,16 @@ import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 
-
+/**
+ * Adds a medication to an existing patient in the address book.
+ * This command takes an index representing a patient in the displayed list
+ * and adds the specified medicine to that patient's medical record.
+ */
 public class PrescribeCommand extends Command {
     public static final String COMMAND_WORD = "prescribe";
+
+    private static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to Person: %1$s";
+    private static final String MESSAGE_DELETE_MED_SUCCESS = "Removed medication from Person: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the person specified "
             + "by the index number used in the last person listing. "
@@ -39,9 +46,6 @@ public class PrescribeCommand extends Command {
         this.index = index;
         this.medicine = medicine;
     }
-
-    public static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to Person: %1$s";
-    public static final String MESSAGE_DELETE_MED_SUCCESS = "Removed medication from Person: %1$s";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

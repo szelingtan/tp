@@ -28,7 +28,8 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrescribeCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    PrescribeCommand.MESSAGE_USAGE), ive);
         }
 
         String medicineName = argMultimap.getValue(PREFIX_PRESCRIBE).orElse("");
