@@ -48,6 +48,13 @@ public class LastVisit {
         return value.equals(otherLastVisit.value);
     }
 
+    /**
+     * Returns if a given string is a valid lastVisit.
+     */
+    public static boolean isValidLastVisit(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     @Override
     public int hashCode() {
         return value.hashCode();

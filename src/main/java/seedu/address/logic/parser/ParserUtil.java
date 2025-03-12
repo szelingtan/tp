@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LastVisit;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -78,6 +79,21 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String lastVisit} into an {@code lastVisit}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code lastVisit} is invalid.
+     */
+    public static LastVisit parseLastVisit(String lastVisit) throws ParseException {
+        requireNonNull(lastVisit);
+        String trimmedLastVisit = lastVisit.trim();
+        if (!LastVisit.isValidLastVisit(trimmedLastVisit)) {
+            throw new ParseException(LastVisit.MESSAGE_CONSTRAINTS);
+        }
+        return new LastVisit(trimmedLastVisit);
     }
 
     /**

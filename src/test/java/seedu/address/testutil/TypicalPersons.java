@@ -37,15 +37,26 @@ public class TypicalPersons {
             .withTags("owesMoney", "friends")
             .withMeds("penicillin").build();
     public static final Patient CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
+            .withEmail("heinz@example.com")
+            .withAddress("wall street")
+            .withLastVisit("1").build();
     public static final Patient DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com")
+            .withAddress("10th street")
+            .withLastVisit("2")
+            .withTags("friends").build();
     public static final Patient ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
+            .withEmail("werner@example.com")
+            .withAddress("michegan ave")
+            .withLastVisit("3").build();
     public static final Patient FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
+            .withEmail("lydia@example.com")
+            .withAddress("little tokyo")
+            .withLastVisit("4").build();
     public static final Patient GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+            .withEmail("anna@example.com")
+            .withAddress("4th street")
+            .withLastVisit("5").build();
 
     // Manually added
     public static final Patient HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -55,8 +66,7 @@ public class TypicalPersons {
 
     // Manually added - Patient's details found in {@code CommandTestUtil}
     public static final Patient AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-            .withTags(VALID_TAG_FRIEND).withMeds(VALID_MEDICATION_AMY).build();
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).build();
     public static final Patient BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
