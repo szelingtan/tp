@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -20,12 +20,12 @@ public class LastVisitCommandParserTest {
     public void parse_indexSpecified_success() {
         // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK + nonEmptyRemark;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_VISIT + nonEmptyRemark;
         LastVisitCommand expectedCommand = new LastVisitCommand(INDEX_FIRST_PERSON, new LastVisit(nonEmptyRemark));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // no remark
-        userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK;
+        userInput = targetIndex.getOneBased() + " " + PREFIX_VISIT;
         expectedCommand = new LastVisitCommand(INDEX_FIRST_PERSON, new LastVisit(""));
         assertParseSuccess(parser, userInput, expectedCommand);
     }

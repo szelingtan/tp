@@ -260,7 +260,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**: Social Workers 
+**Target user profile**: Social Workers
 
 * has a need to manage a significant number of patient contacts
 * has a need to track patient visits
@@ -304,7 +304,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 3a. User enters an invalid phone number. 
+* 3a. User enters an invalid phone number.
   * 3a1. AddressBook shows an error message.
     * 3a2. User enters a valid phone number.
 
