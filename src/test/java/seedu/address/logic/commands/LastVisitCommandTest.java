@@ -35,7 +35,7 @@ public class LastVisitCommandTest {
     @Test
     public void execute_addRemarkUnfilteredList_success() {
         Patient firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Patient editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
+        Patient editedPerson = new PersonBuilder(firstPerson).withLastVisit(REMARK_STUB).build();
 
         LastVisitCommand lastVisitCommand = new LastVisitCommand(INDEX_FIRST_PERSON,
                 new LastVisit(editedPerson.getLastVisit().value));
@@ -51,7 +51,7 @@ public class LastVisitCommandTest {
     @Test
     public void execute_deleteRemarkUnfilteredList_success() {
         Patient firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Patient editedPerson = new PersonBuilder(firstPerson).withRemark("").build();
+        Patient editedPerson = new PersonBuilder(firstPerson).withLastVisit("").build();
 
         LastVisitCommand lastVisitCommand = new LastVisitCommand(INDEX_FIRST_PERSON,
                 new LastVisit(editedPerson.getLastVisit().toString()));
@@ -70,7 +70,7 @@ public class LastVisitCommandTest {
 
         Patient firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Patient editedPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
-                .withRemark(REMARK_STUB).build();
+                .withLastVisit(REMARK_STUB).build();
 
         LastVisitCommand lastVisitCommand = new LastVisitCommand(INDEX_FIRST_PERSON,
                 new LastVisit(editedPerson.getLastVisit().value));
