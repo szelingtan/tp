@@ -77,6 +77,7 @@ public class PrescribeCommand extends Command {
      */
     private String generateSuccessMessage(Patient patientToEdit) {
         String message = !medicine.medName.isEmpty() ? MESSAGE_ADD_MED_SUCCESS : MESSAGE_DELETE_MED_SUCCESS;
+        // should this be a del med message or an error message that the medName does not exist - sl
         return String.format(message, Messages.format(patientToEdit));
     }
 
