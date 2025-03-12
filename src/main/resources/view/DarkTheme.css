@@ -350,3 +350,18 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#medicines {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+    -fx-padding: 10 0 10 0; /* top right bottom left */
+}
+
+#medicines .label {
+    -fx-text-fill: white;
+    -fx-background-color: #f5426c;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
