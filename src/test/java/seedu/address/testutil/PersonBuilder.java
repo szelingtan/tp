@@ -22,8 +22,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_LAST_VISIT = "Last visit on 5 March 2025.";
-    public static final String DEFAULT_MEDS = "paracetamol";
+    public static final String DEFAULT_LAST_VISIT = "";
 
     private Name name;
     private Phone phone;
@@ -44,7 +43,6 @@ public class PersonBuilder {
         lastVisit = new LastVisit(DEFAULT_LAST_VISIT);
         tags = new HashSet<>();
         medicines = new HashSet<>();
-        medicines.add(new Medicine(DEFAULT_MEDS));
     }
 
     /**
@@ -109,7 +107,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Remark} of the {@code Person} that we are building.
+     * Sets the {@code Last Visit} of the {@code Person} that we are building.
      */
     public PersonBuilder withLastVisit(String visit) {
         this.lastVisit = new LastVisit(visit);

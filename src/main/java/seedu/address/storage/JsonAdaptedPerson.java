@@ -39,7 +39,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("lastVisit") String lastVisit,
+            @JsonProperty("last visit") String lastVisit,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
             @JsonProperty("meds") List<JsonAdaptedMed> meds) {
         this.name = name;
@@ -121,10 +121,8 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         if (lastVisit == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LastVisit.class.getSimpleName()));
         }
         final LastVisit modelLastVisit = new LastVisit(lastVisit);
 
