@@ -51,7 +51,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String LAST_VISIT_AMY = " " + PREFIX_VISIT + VALID_VISIT_AMY;
-    public static final String LAST_VISIT_BOB= " " + PREFIX_VISIT + VALID_VISIT_BOB;
+    public static final String LAST_VISIT_BOB = " " + PREFIX_VISIT + VALID_VISIT_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
