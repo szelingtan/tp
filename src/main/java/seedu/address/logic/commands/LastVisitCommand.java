@@ -54,7 +54,7 @@ public class LastVisitCommand extends Command {
 
         Patient personToEdit = lastShownList.get(index.getZeroBased());
         Patient editedPerson = new Patient(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), lastVisit, personToEdit.getTags());
+                personToEdit.getAddress(), lastVisit, personToEdit.getTags(), personToEdit.getMedicines());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
