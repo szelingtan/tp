@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LastVisit;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
@@ -100,10 +101,13 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(patientToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(patientToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(patientToEdit.getAddress());
+        LastVisit updatedLastVisit = editPersonDescriptor.getLastVisit().orElse(patientToEdit.getLastVisit());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(patientToEdit.getTags());
-        Set<Medicine> updatedMedicines = patientToEdit.getMedicines(); // edit command does not allow editing medicines
+        Set<Medicine> updatedMedicines = editPersonDescriptor.getMeds().orElse(patientToEdit.getMedicines());
+        // edit command does not allow editing medicines
 
-        return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedMedicines);
+        return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedLastVisit,
+                updatedTags, updatedMedicines);
     }
 
     @Override
@@ -139,6 +143,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private LastVisit lastVisit;
         private Set<Tag> tags;
         private Set<Medicine> medicines;
 
@@ -153,6 +158,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setLastVisit(toCopy.lastVisit);
             setTags(toCopy.tags);
             setMedicines(toCopy.medicines);
         }
@@ -161,7 +167,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, lastVisit, address, tags, medicines);
         }
 
         public void setName(Name name) {
@@ -196,12 +202,29 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
+        public void setLastVisit(LastVisit visit) {
+            this.lastVisit = visit;
+        }
+
+        public Optional<LastVisit> getLastVisit() {
+            return Optional.ofNullable(lastVisit);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
+        public Optional<Set<Tag>> getTags() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
         /**
@@ -220,14 +243,6 @@ public class EditCommand extends Command {
             return (medicines != null) ? Optional.of(medicines) : Optional.empty();
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
 
         @Override
         public boolean equals(Object other) {
@@ -255,6 +270,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
+                    .add("lastVisit", lastVisit)
                     .add("tags", tags)
                     .add("medicines", medicines)
                     .toString();

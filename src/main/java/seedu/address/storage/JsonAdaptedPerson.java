@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LastVisit;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
@@ -28,6 +29,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String lastVisit;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedMed> meds = new ArrayList<>();
 
@@ -37,12 +39,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("last visit") String lastVisit,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
             @JsonProperty("meds") List<JsonAdaptedMed> meds) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.lastVisit = lastVisit;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -59,6 +63,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        lastVisit = source.getLastVisit().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .toList());
@@ -115,11 +120,17 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (lastVisit == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LastVisit.class.getSimpleName()));
+        }
+        final LastVisit modelLastVisit = new LastVisit(lastVisit);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final Set<Medicine> modelMedicines = new HashSet<>(personMeds);
 
-        return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMedicines);
+        return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelLastVisit, modelTags, modelMedicines);
     }
 
 }

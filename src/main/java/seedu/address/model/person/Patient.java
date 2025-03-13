@@ -25,18 +25,21 @@ public class Patient {
 
     // Data fields
     private final Address address;
+    private final LastVisit lastVisit;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Medicine> medicines = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Medicine> medicines) {
+    public Patient(Name name, Phone phone, Email email, Address address, LastVisit lastVisit,
+                   Set<Tag> tags, Set<Medicine> medicines) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.lastVisit = lastVisit;
         this.tags.addAll(tags);
         this.medicines.addAll(medicines);
     }
@@ -55,6 +58,10 @@ public class Patient {
 
     public Address getAddress() {
         return address;
+    }
+
+    public LastVisit getLastVisit() {
+        return lastVisit;
     }
 
     /**
@@ -105,13 +112,15 @@ public class Patient {
                 && phone.equals(otherPatient.phone)
                 && email.equals(otherPatient.email)
                 && address.equals(otherPatient.address)
-                && tags.equals(otherPatient.tags);
+                && lastVisit.equals(otherPatient.lastVisit)
+                && tags.equals(otherPatient.tags)
+                && medicines.equals(otherPatient.medicines);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, lastVisit, tags, medicines);
     }
 
     @Override
@@ -121,6 +130,7 @@ public class Patient {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("lastVisit", lastVisit)
                 .add("tags", tags)
                 .add("medicines", medicines)
                 .toString();
