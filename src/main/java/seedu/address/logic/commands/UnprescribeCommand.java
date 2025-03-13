@@ -1,11 +1,9 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -14,37 +12,31 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
-
 /**
- * Adds a medication to an existing patient in the address book.
+ * Removes all medication from an existing patient in the address book.
  * This command takes an index representing a patient in the displayed list
- * and adds the specified medicine to that patient's medical record.
+ * and removes all medicine from that patient's medical record.
  */
-public class PrescribeCommand extends Command {
-    public static final String COMMAND_WORD = "prescribe";
 
-    private static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to Person: %1$s";
-    private static final String MESSAGE_DELETE_MED_SUCCESS = "Removed medication from Person: %1$s";
+public class UnprescribeCommand extends Command {
+    public static final String COMMAND_WORD = "unprescribe";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the person specified "
+    private static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication from Person: %1$s";
+    private static final String MESSAGE_EMPTY_MED_LIST = "Person: %1$s currently has no "
+            + "prescribed medication";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": removes all medication from the"
+            + " person specified "
             + "by the index number used in the last person listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_MEDICINE + "[medicine name]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEDICINE + "Paracetamol";
 
+
     private final Index index;
-    private final Medicine medicine;
 
-    /**
-     * @param index of the person in the filtered person list to edit the remark
-     * @param medicine (name of the medicine to be added to the patient)
-     */
-    public PrescribeCommand(Index index, Medicine medicine) {
-        requireAllNonNull(index, medicine);
-
+    public UnprescribeCommand(Index index) {
         this.index = index;
-        this.medicine = medicine;
     }
 
     @Override
@@ -57,7 +49,8 @@ public class PrescribeCommand extends Command {
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
         Set<Medicine> newMedicines = patientToEdit.getMedicines();
-        newMedicines.add(medicine);
+        boolean isEmpty = newMedicines.isEmpty();
+        newMedicines.clear();
         Patient editedPatient = new Patient(
                 patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
@@ -68,32 +61,16 @@ public class PrescribeCommand extends Command {
         model.setPerson(patientToEdit, editedPatient);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPatient));
+        return new CommandResult(generateSuccessMessage(editedPatient, isEmpty));
     }
 
-    // not sure if you would like to edit the comment
     /**
      * Generates a command execution success message based on whether
-     * the remark is added to or removed from
+     * the initial set of medication is empty or non-empty
      * {@code patientToEdit}.
      */
-    private String generateSuccessMessage(Patient patientToEdit) {
-        String message = !medicine.medName.isEmpty() ? MESSAGE_ADD_MED_SUCCESS : MESSAGE_DELETE_MED_SUCCESS;
-        // should this be a del med message or an error message that the medName does not exist - sl
+    private String generateSuccessMessage(Patient patientToEdit, boolean isEmpty) {
+        String message = isEmpty ? MESSAGE_EMPTY_MED_LIST : MESSAGE_REMOVE_MED_SUCCESS;
         return String.format(message, Messages.format(patientToEdit));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof to check if other is also a PrescribeCommand
-        if (!(other instanceof PrescribeCommand e)) {
-            return false;
-        }
-
-        return index.equals(e.index) && Objects.equals(medicine, e.medicine);
     }
 }
