@@ -31,10 +31,6 @@ public class DelLastVisitCommand extends Command {
     public String generateSuccessMessage(Patient patient) {
         return "Last visit info successfully deleted from "
                 + patient.getName();
-//        return String.format(
-//                "Last Visit info successfully deleted from "
-//                patient
-//        );
     }
 
     @Override
@@ -62,14 +58,5 @@ public class DelLastVisitCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(generateSuccessMessage(editedPatient));
-
-//        Patient editedPerson = new Patient(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-//                personToEdit.getAddress(), lastVisit, personToEdit.getTags(), personToEdit.getMedicines());
-//
-//        model.setPerson(personToEdit, editedPerson);
-//        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-//        return new CommandResult(generateSuccessMessage(editedPerson));
-//        return null;
     }
 }
