@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRESCRIBE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -29,9 +29,9 @@ public class PrescribeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the person specified "
             + "by the index number used in the last person listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_PRESCRIBE + "[medicine name]\n"
+            + PREFIX_MEDICINE + "[medicine name]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PRESCRIBE + "Paracetamol";
+            + PREFIX_MEDICINE + "Paracetamol";
 
     private final Index index;
     private final Medicine medicine;
