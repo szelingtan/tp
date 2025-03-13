@@ -52,7 +52,7 @@ public class DelLastVisitCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @return The {@code CommandResult}.
-     * @throws CommandException If the index is out of range.
+     * @throws CommandException if the index is out of range.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
