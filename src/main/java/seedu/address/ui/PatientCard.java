@@ -39,12 +39,14 @@ public class PatientCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label lastVisit;
+    @FXML
     private FlowPane tags;
     @FXML
     private FlowPane medicines;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PatientCode} with the given {@code Patient} and index to display.
      */
     public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
@@ -54,6 +56,7 @@ public class PatientCard extends UiPart<Region> {
         phone.setText(patient.getPhone().value);
         address.setText(patient.getAddress().value);
         email.setText(patient.getEmail().value);
+        lastVisit.setText("Last visit:" + patient.getLastVisit().value);
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

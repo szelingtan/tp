@@ -64,6 +64,7 @@ public class EditPatientDescriptorTest {
                 + editPersonDescriptor.getName().orElse(null) + ", phone="
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
+                + editPersonDescriptor.getLastVisit().orElse(null) + ", lastVisit="
                 + editPersonDescriptor.getAddress().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", medicines="
                 + editPersonDescriptor.getMeds().orElse(null) + '}';
