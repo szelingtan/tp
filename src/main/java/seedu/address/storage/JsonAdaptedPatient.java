@@ -10,20 +10,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.LastVisit;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Patient;
-import seedu.address.model.person.Phone;
+import seedu.address.model.patient.Address;
+import seedu.address.model.patient.Email;
+import seedu.address.model.patient.LastVisit;
+import seedu.address.model.patient.Name;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Patient}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedPatient {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "patient's %s field is missing!";
 
     private final String name;
     private final String phone;
@@ -34,14 +34,14 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedMed> meds = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedpatient} with the given patient details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("last visit") String lastVisit,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags,
-            @JsonProperty("meds") List<JsonAdaptedMed> meds) {
+    public JsonAdaptedPatient(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                              @JsonProperty("email") String email, @JsonProperty("address") String address,
+                              @JsonProperty("last visit") String lastVisit,
+                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                              @JsonProperty("meds") List<JsonAdaptedMed> meds) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -56,9 +56,9 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code patient} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Patient source) {
+    public JsonAdaptedPatient(Patient source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -73,19 +73,19 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted patient object into the model's {@code patient} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted patient.
      */
     public Patient toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        final List<Medicine> personMeds = new ArrayList<>();
+        final List<Tag> patientTags = new ArrayList<>();
+        final List<Medicine> patientMeds = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
-            personTags.add(tag.toModelType());
+            patientTags.add(tag.toModelType());
         }
 
         for (JsonAdaptedMed med : meds) {
-            personMeds.add(med.toModelType());
+            patientMeds.add(med.toModelType());
         }
 
         if (name == null) {
@@ -126,9 +126,9 @@ class JsonAdaptedPerson {
         }
         final LastVisit modelLastVisit = new LastVisit(lastVisit);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(patientTags);
 
-        final Set<Medicine> modelMedicines = new HashSet<>(personMeds);
+        final Set<Medicine> modelMedicines = new HashSet<>(patientMeds);
 
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelLastVisit, modelTags, modelMedicines);
     }
