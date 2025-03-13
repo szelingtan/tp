@@ -16,7 +16,7 @@ import seedu.address.testutil.TypicalPersons;
 
 public class DelLastVisitCommandTest {
     @Test
-    public void function_input_expected() {
+    public void execute_onePerson_normal() {
         // Get a typical person, make the last visit guaranteed
         // to be non-empty for testing, then created the expected
         // version after running `delLastVisit`.
