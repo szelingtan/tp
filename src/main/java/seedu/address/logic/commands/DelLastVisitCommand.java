@@ -8,6 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.LastVisit;
 import seedu.address.model.person.Patient;
 
 public class DelLastVisitCommand extends Command {
@@ -27,15 +28,41 @@ public class DelLastVisitCommand extends Command {
         index = ind;
     }
 
+    public String generateSuccessMessage(Patient patient) {
+        return "Last visit info successfully deleted from "
+                + patient.getName();
+//        return String.format(
+//                "Last Visit info successfully deleted from "
+//                patient
+//        );
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         List<Patient> lastShownList = model.getFilteredPersonList();
-
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(
+                    Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Patient personToEdit = lastShownList.get(index.getZeroBased());
+        // Create new Patient with NA last visit
+        Patient patientToEdit = lastShownList.get(index.getZeroBased());
+        Patient editedPatient = new Patient(
+                patientToEdit.getName(),
+                patientToEdit.getPhone(),
+                patientToEdit.getEmail(),
+                patientToEdit.getAddress(),
+                new LastVisit("NA"),
+                patientToEdit.getTags(),
+                patientToEdit.getMedicines()
+        );
+
+        // Update the patient in the model
+        model.setPerson(patientToEdit, editedPatient);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(generateSuccessMessage(editedPatient));
+
 //        Patient editedPerson = new Patient(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
 //                personToEdit.getAddress(), lastVisit, personToEdit.getTags(), personToEdit.getMedicines());
 //
@@ -43,6 +70,6 @@ public class DelLastVisitCommand extends Command {
 //        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
 //        return new CommandResult(generateSuccessMessage(editedPerson));
-        return null;
+//        return null;
     }
 }
