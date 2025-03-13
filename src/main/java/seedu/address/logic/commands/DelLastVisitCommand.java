@@ -11,6 +11,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.LastVisit;
 import seedu.address.model.person.Patient;
 
+/**
+ * Deletes the last visit info of a patient by setting it to "NA".
+ */
 public class DelLastVisitCommand extends Command {
     public static final String COMMAND_WORD = "delLastVisit";
     public static final String MESSAGE_USAGE = COMMAND_WORD
