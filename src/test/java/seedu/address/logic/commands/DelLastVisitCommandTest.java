@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,12 +17,6 @@ import seedu.address.testutil.TypicalPersons;
 public class DelLastVisitCommandTest {
     @Test
     public void function_input_expected() {
-//        // Copied from LastVisitCommandTest.java/ListCommandTest.java
-//        Model m = new ModelManager(
-//                getTypicalAddressBook(),
-//                new UserPrefs()
-//        );
-
         // Get a typical person, make the last visit guaranteed
         // to be non-empty for testing, then created the expected
         // version after running `delLastVisit`.
@@ -54,6 +47,6 @@ public class DelLastVisitCommandTest {
         Model m1 = new ModelManager(ab1, new UserPrefs());
 
         // Check that actual model = expected model
-        assertEquals(m0,m1);
+        assertEquals(m0, m1);
     }
 }
