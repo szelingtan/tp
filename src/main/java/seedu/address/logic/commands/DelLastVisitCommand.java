@@ -24,6 +24,7 @@ public class DelLastVisitCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + '\n'
             + "Example: " + COMMAND_WORD + " 1 ";
+    public static final String None = "None";
 
     private final Index index;
 
@@ -69,7 +70,7 @@ public class DelLastVisitCommand extends Command {
                 patientToEdit.getPhone(),
                 patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
-                new LastVisit("NA"),
+                new LastVisit(None),
                 patientToEdit.getTags(),
                 patientToEdit.getMedicines()
         );
