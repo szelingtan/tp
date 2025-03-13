@@ -8,8 +8,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class LastVisit {
 
-    public static final String MESSAGE_CONSTRAINTS
-            = "Last visit can take any value, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Last visit can take any value, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
