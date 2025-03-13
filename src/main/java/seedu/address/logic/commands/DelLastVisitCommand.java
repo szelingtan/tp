@@ -81,4 +81,19 @@ public class DelLastVisitCommand extends Command {
 
         return new CommandResult(generateSuccessMessage(editedPatient));
     }
+
+    /**
+     * Checks for {@code DelLastVisitCommand} equality.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof DelLastVisitCommand)) {
+            return false;
+        }
+        DelLastVisitCommand o = (DelLastVisitCommand) other;
+        return index.equals(o.index);
+    }
 }
