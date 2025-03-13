@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICATION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICATION_BOB;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,11 +23,11 @@ public class PrescribeCommandTest {
 
     @Test
     public void equals() {
-        final PrescribeCommand standardCommand = new PrescribeCommand(INDEX_FIRST_PERSON,
+        final PrescribeCommand standardCommand = new PrescribeCommand(INDEX_FIRST_PATIENT,
                 new Medicine(VALID_MEDICATION_AMY));
 
         // Same medicine name -> returns true
-        PrescribeCommand sameMedNameCommand = new PrescribeCommand(INDEX_FIRST_PERSON,
+        PrescribeCommand sameMedNameCommand = new PrescribeCommand(INDEX_FIRST_PATIENT,
                 new Medicine(VALID_MEDICATION_AMY));
         assertTrue(standardCommand.equals(sameMedNameCommand));
 
@@ -35,11 +35,11 @@ public class PrescribeCommandTest {
         assertTrue(standardCommand.equals(standardCommand));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new PrescribeCommand(INDEX_SECOND_PERSON,
+        assertFalse(standardCommand.equals(new PrescribeCommand(INDEX_SECOND_PATIENT,
                 new Medicine(VALID_MEDICATION_AMY))));
 
         // different medicine name -> returns false
-        assertFalse(standardCommand.equals(new PrescribeCommand(INDEX_FIRST_PERSON,
+        assertFalse(standardCommand.equals(new PrescribeCommand(INDEX_FIRST_PATIENT,
                 new Medicine(VALID_MEDICATION_BOB))));
 
         // different command -> returns false

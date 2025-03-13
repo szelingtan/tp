@@ -8,29 +8,29 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Patient;
+import seedu.address.model.patient.Patient;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of patients.
  */
 public class PatientListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "patientListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PatientListPanel.class);
 
     @FXML
-    private ListView<Patient> personListView;
+    private ListView<Patient> patientListView;
 
     /**
-     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * Creates a {@code patientListPanel} with the given {@code ObservableList}.
      */
     public PatientListPanel(ObservableList<Patient> patientList) {
         super(FXML);
-        personListView.setItems(patientList);
-        personListView.setCellFactory(listView -> new PatientListViewCell());
+        patientListView.setItems(patientList);
+        patientListView.setCellFactory(listView -> new PatientListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code patient} using a {@code patientCard}.
      */
     class PatientListViewCell extends ListCell<Patient> {
         @Override

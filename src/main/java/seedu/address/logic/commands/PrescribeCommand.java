@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.person.Patient;
+import seedu.address.model.patient.Patient;
 
 /**
  * Adds a medication to an existing patient in the address book.
@@ -23,11 +23,11 @@ import seedu.address.model.person.Patient;
 public class PrescribeCommand extends Command {
     public static final String COMMAND_WORD = "prescribe";
 
-    private static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to Person: %1$s";
-    private static final String MESSAGE_DELETE_MED_SUCCESS = "Removed medication from Person: %1$s";
+    private static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to patient: %1$s";
+    private static final String MESSAGE_DELETE_MED_SUCCESS = "Removed medication from patient: %1$s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the person specified "
-            + "by the index number used in the last person listing. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the patient specified "
+            + "by the index number used in the last patient listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_MEDICINE + "[medicine name]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -37,7 +37,7 @@ public class PrescribeCommand extends Command {
     private final Medicine medicine;
 
     /**
-     * @param index of the person in the filtered person list to edit the remark
+     * @param index of the patient in the filtered patient list to edit the remark
      * @param medicine (name of the medicine to be added to the patient)
      */
     public PrescribeCommand(Index index, Medicine medicine) {
@@ -49,10 +49,10 @@ public class PrescribeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Patient> lastShownList = model.getFilteredPersonList();
+        List<Patient> lastShownList = model.getFilteredPatientList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
@@ -65,8 +65,8 @@ public class PrescribeCommand extends Command {
                 patientToEdit.getTags(),
                 newMedicines);
 
-        model.setPerson(patientToEdit, editedPatient);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setPatient(patientToEdit, editedPatient);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         return new CommandResult(generateSuccessMessage(editedPatient));
     }

@@ -1,9 +1,9 @@
-package seedu.address.model.person;
+package seedu.address.model.patient;
 
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a patient's address in the address book.
  * Guarantees: immutable; is always valid
  */
 public class LastVisit {

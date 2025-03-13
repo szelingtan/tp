@@ -11,26 +11,26 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Patient;
+import seedu.address.logic.commands.EditCommand.EditpatientDescriptor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for patient.
  */
-public class PersonUtil {
+public class PatientUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code patient}.
      */
     public static String getAddCommand(Patient patient) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(patient);
+        return AddCommand.COMMAND_WORD + " " + getpatientDetails(patient);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code patient}'s details.
      */
-    public static String getPersonDetails(Patient patient) {
+    public static String getpatientDetails(Patient patient) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + patient.getName().fullName + " ");
         sb.append(PREFIX_PHONE + patient.getPhone().value + " ");
@@ -47,9 +47,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditpatientDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditpatientDescriptorDetails(EditpatientDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
