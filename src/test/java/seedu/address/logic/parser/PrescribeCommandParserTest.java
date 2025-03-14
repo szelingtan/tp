@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRESCRIBE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +24,9 @@ public class PrescribeCommandParserTest {
     @Test
     public void parse_indexSpecified_success() {
         // have medicine name
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_PRESCRIBE + nonEmptyMedName;
-        PrescribeCommand expectedCommand = new PrescribeCommand(INDEX_FIRST_PERSON, new Medicine(nonEmptyMedName));
+        Index targetIndex = INDEX_FIRST_PATIENT;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_MEDICINE + nonEmptyMedName;
+        PrescribeCommand expectedCommand = new PrescribeCommand(INDEX_FIRST_PATIENT, new Medicine(nonEmptyMedName));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
