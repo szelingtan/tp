@@ -67,6 +67,16 @@ public class PrescribeCommandTest {
     }
 
     @Test
+    public void execute_duplicateMedicine_throwsCommandException() {
+        PrescribeCommand prescribeCommand = new PrescribeCommand(INDEX_FIRST_PATIENT,
+                new Medicine(VALID_MEDICATION_AMY));
+        String expectedFailureMessage = String.format(PrescribeCommand.MESSAGE_DUPLICATE_MED,
+                new Medicine(VALID_MEDICATION_AMY));
+
+        assertCommandFailure(prescribeCommand, model, expectedFailureMessage);
+    }
+
+    @Test
     public void equals() {
         final PrescribeCommand standardCommand = new PrescribeCommand(INDEX_FIRST_PATIENT,
                 new Medicine(VALID_MEDICATION_AMY));
