@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -72,5 +73,19 @@ public class UnprescribeCommand extends Command {
     private String generateSuccessMessage(Patient patientToEdit, boolean isEmpty) {
         String message = isEmpty ? MESSAGE_EMPTY_MED_LIST : MESSAGE_REMOVE_MED_SUCCESS;
         return String.format(message, Messages.format(patientToEdit));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof to check if other is also a UnrescribeCommand
+        if (!(other instanceof UnprescribeCommand e)) {
+            return false;
+        }
+
+        return index.equals(e.index);
     }
 }
