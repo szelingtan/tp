@@ -4,7 +4,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
