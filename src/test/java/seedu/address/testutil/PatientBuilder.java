@@ -75,12 +75,21 @@ public class PatientBuilder {
     }
 
     /**
-     * Parses the {@code medicines} into a {@code Set<Tag>} and set it to the {@code patient} that we are building.
+     * Parses the {@code medicines} into a {@code Set<Medicine>} and set it to the {@code patient} that we are building.
      */
     public PatientBuilder withMeds(String ... meds) {
         this.medicines = SampleDataUtil.getMedSet(meds);
         return this;
     }
+
+    /**
+     * Takes in a {@code Set<Medicine>} and set it to the {@code patient} that we are building.
+     */
+    public PatientBuilder withMeds(Set<Medicine> medicines) {
+        this.medicines = medicines;
+        return this;
+    }
+
 
     /**
      * Sets the {@code Address} of the {@code patient} that we are building.

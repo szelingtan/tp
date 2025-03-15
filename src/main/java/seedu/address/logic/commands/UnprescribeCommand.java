@@ -21,8 +21,8 @@ import seedu.address.model.patient.Patient;
 public class UnprescribeCommand extends Command {
     public static final String COMMAND_WORD = "unprescribe";
 
-    private static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication from patient: %1$s";
-    private static final String MESSAGE_EMPTY_MED_LIST = "patient: %1$s currently has no "
+    public static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication from patient: %1$s";
+    public static final String MESSAGE_EMPTY_MED_LIST = "patient: %1$s currently has no "
             + "prescribed medication";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": removes all medication from the"
             + " patient specified "

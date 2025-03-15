@@ -24,8 +24,8 @@ import seedu.address.model.patient.Patient;
 public class PrescribeCommand extends Command {
     public static final String COMMAND_WORD = "prescribe";
 
-    private static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to patient: %1$s";
-    private static final String MESSAGE_DUPLICATE_MED = "This patient already has medicine: %1$s";
+    public static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to patient: %1$s";
+    public static final String MESSAGE_DUPLICATE_MED = "This patient already has medicine: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the patient specified "
             + "by the index number used in the last patient listing. "
