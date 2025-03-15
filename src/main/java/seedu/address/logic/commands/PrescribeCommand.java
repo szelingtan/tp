@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -56,19 +57,24 @@ public class PrescribeCommand extends Command {
         }
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
-        Set<Medicine> newMedicines = patientToEdit.getMedicines();
+        Set<Medicine> currentMedicines = patientToEdit.getMedicines();
 
-        if (newMedicines.contains(medicine)) {
-            throw new CommandException(MESSAGE_DUPLICATE_MED);
+        for (Medicine existingMedicine : currentMedicines) {
+            if (existingMedicine.equals(medicine)) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MED, existingMedicine));
+            }
         }
 
-        newMedicines.add(medicine);
+        // Create a new set of medicines
+        Set<Medicine> updatedMedicines = new HashSet<>(currentMedicines);
+        updatedMedicines.add(medicine);
+
         Patient editedPatient = new Patient(
                 patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
                 patientToEdit.getLastVisit(),
                 patientToEdit.getTags(),
-                newMedicines);
+                updatedMedicines);
 
         model.setPatient(patientToEdit, editedPatient);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
