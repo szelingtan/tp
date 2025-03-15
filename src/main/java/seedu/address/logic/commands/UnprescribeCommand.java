@@ -73,4 +73,18 @@ public class UnprescribeCommand extends Command {
         String message = isEmpty ? MESSAGE_EMPTY_MED_LIST : MESSAGE_REMOVE_MED_SUCCESS;
         return String.format(message, Messages.format(patientToEdit));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof to check if other is also a UnrescribeCommand
+        if (!(other instanceof UnprescribeCommand e)) {
+            return false;
+        }
+
+        return index.equals(e.index);
+    }
 }
