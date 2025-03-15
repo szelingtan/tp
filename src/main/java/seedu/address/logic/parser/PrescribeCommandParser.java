@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRESCRIBE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -21,7 +21,7 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
      */
     public PrescribeCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PRESCRIBE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE);
 
         Index index;
         try {
@@ -31,7 +31,7 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
                     PrescribeCommand.MESSAGE_USAGE), ive);
         }
 
-        String medicineName = argMultimap.getValue(PREFIX_PRESCRIBE).orElse("");
+        String medicineName = argMultimap.getValue(PREFIX_MEDICINE).orElse("");
 
         return new PrescribeCommand(index, new Medicine(medicineName));
     }

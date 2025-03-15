@@ -8,7 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.LastVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.LastVisit;
+import seedu.address.model.patient.LastVisit;
 
 /**
  * Parses input arguments and creates a new {@code RemarkCommand} object
