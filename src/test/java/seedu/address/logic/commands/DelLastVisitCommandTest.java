@@ -16,7 +16,7 @@ import seedu.address.testutil.TypicalPatients;
 
 public class DelLastVisitCommandTest {
     @Test
-    public void execute_onepatient_normal() {
+    public void execute_onePatient_normal() {
         // Get a typical patient, make the last visit guaranteed
         // to be non-empty for testing, then created the expected
         // version after running `delLastVisit`.
