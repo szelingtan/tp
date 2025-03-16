@@ -70,7 +70,8 @@ public class DelLastVisitCommand extends Command {
                 patientToEdit.getPhone(),
                 patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
-                new LastVisit(NONE),
+                null,
+//                new LastVisit(NONE),
                 patientToEdit.getTags(),
                 patientToEdit.getMedicines()
         );
