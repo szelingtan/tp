@@ -119,7 +119,11 @@ public class PatientBuilder {
      * Sets the {@code Last Visit} of the {@code patient} that we are building.
      */
     public PatientBuilder withLastVisit(String visit) {
-        this.lastVisit = new LastVisit(visit);
+        if (visit == null) {
+            this.lastVisit = null;
+        } else {
+            this.lastVisit = new LastVisit(visit);
+        }
         return this;
     }
 
