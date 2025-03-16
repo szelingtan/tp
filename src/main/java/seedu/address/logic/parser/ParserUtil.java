@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.LastVisit;
@@ -124,6 +125,21 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String medName} into a {@code Medicine}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medName} is invalid.
+     */
+    public static Medicine parseMed(String medName) throws ParseException {
+        requireNonNull(medName);
+        String trimmedMedName = medName.trim();
+        if (!Medicine.isValidMedName(trimmedMedName)) {
+            throw new ParseException(Medicine.MESSAGE_CONSTRAINTS);
+        }
+        return new Medicine(trimmedMedName);
     }
 
     /**

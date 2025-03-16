@@ -103,8 +103,8 @@ public class EditCommand extends Command {
         Address updatedAddress = editpatientDescriptor.getAddress().orElse(patientToEdit.getAddress());
         LastVisit updatedLastVisit = editpatientDescriptor.getLastVisit().orElse(patientToEdit.getLastVisit());
         Set<Tag> updatedTags = editpatientDescriptor.getTags().orElse(patientToEdit.getTags());
-        Set<Medicine> updatedMedicines = editpatientDescriptor.getMeds().orElse(patientToEdit.getMedicines());
         // edit command does not allow editing medicines
+        Set<Medicine> updatedMedicines = editpatientDescriptor.getMeds().orElse(patientToEdit.getMedicines());
 
         return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedLastVisit,
                 updatedTags, updatedMedicines);
