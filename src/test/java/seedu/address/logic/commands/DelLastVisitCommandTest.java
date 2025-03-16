@@ -50,17 +50,4 @@ public class DelLastVisitCommandTest {
         // Check that actual model = expected model
         assertEquals(m0, m1);
     }
-
-    @Test
-    public void execute_threePatients_normal() {
-        // // Get a typical patient and make last visit guaranteed non-empty
-        // Patient p0 = TypicalPatients.ALICE;
-        // p0 = new PatientBuilder(p0)
-        //         .withLastVisit("Hameru rabu")
-        //         .build();
-        // // Above patient but without a last visit field
-        // Patient p0_ = TypicalPatients.ALICE;
-        // p0_ = new PatientBuilder(p0)
-        //         .withLastVisit(Del)
-    }
 }
