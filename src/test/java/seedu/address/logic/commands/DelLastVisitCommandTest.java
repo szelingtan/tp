@@ -25,7 +25,7 @@ public class DelLastVisitCommandTest {
                 .withLastVisit("Meduka become Meguca")
                 .build();
         Patient p1 = new PatientBuilder(p0)
-        //         .withLastVisit(DelLastVisitCommand.NONE)
+                // .withLastVisit(DelLastVisitCommand.NONE)
                 .withLastVisit(null)
                 .build();
 
@@ -53,14 +53,14 @@ public class DelLastVisitCommandTest {
 
     @Test
     public void execute_threePatients_normal() {
-//        // Get a typical patient and make last visit guaranteed non-empty
-//        Patient p0 = TypicalPatients.ALICE;
-//        p0 = new PatientBuilder(p0)
-//                .withLastVisit("Hameru rabu")
-//                .build();
-//        // Above patient but without a last visit field
-//        Patient p0_ = TypicalPatients.ALICE;
-//        p0_ = new PatientBuilder(p0)
-//                .withLastVisit(Del)
+        // // Get a typical patient and make last visit guaranteed non-empty
+        // Patient p0 = TypicalPatients.ALICE;
+        // p0 = new PatientBuilder(p0)
+        //         .withLastVisit("Hameru rabu")
+        //         .build();
+        // // Above patient but without a last visit field
+        // Patient p0_ = TypicalPatients.ALICE;
+        // p0_ = new PatientBuilder(p0)
+        //         .withLastVisit(Del)
     }
 }
