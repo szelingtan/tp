@@ -63,7 +63,11 @@ class JsonAdaptedPatient {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        lastVisit = source.getLastVisit().value;
+        if (!(source.getLastVisit() == null)) {
+            lastVisit = source.getLastVisit().value;
+        } else {
+            lastVisit = null;
+        }
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .toList());
@@ -120,11 +124,18 @@ class JsonAdaptedPatient {
         }
         final Address modelAddress = new Address(address);
 
-        if (lastVisit == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LastVisit.class.getSimpleName()));
+//        if (lastVisit == null) {
+//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+//                    LastVisit.class.getSimpleName()));
+//        }
+//        final LastVisit modelLastVisit = new LastVisit(lastVisit);
+
+        final LastVisit modelLastVisit;
+        if (lastVisit != null) {
+            modelLastVisit = new LastVisit(lastVisit);
+        } else {
+            modelLastVisit = null;
         }
-        final LastVisit modelLastVisit = new LastVisit(lastVisit);
 
         final Set<Tag> modelTags = new HashSet<>(patientTags);
 
