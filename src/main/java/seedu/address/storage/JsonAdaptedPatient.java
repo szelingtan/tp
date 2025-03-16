@@ -124,11 +124,11 @@ class JsonAdaptedPatient {
         }
         final Address modelAddress = new Address(address);
 
-//        if (lastVisit == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-//                    LastVisit.class.getSimpleName()));
-//        }
-//        final LastVisit modelLastVisit = new LastVisit(lastVisit);
+        // if (lastVisit == null) {
+        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+        //             LastVisit.class.getSimpleName()));
+        // }
+        // final LastVisit modelLastVisit = new LastVisit(lastVisit);
 
         final LastVisit modelLastVisit;
         if (lastVisit != null) {
