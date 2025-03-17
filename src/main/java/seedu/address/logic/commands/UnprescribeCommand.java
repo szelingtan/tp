@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.List;
@@ -28,10 +27,7 @@ public class UnprescribeCommand extends Command {
             + " patient specified "
             + "by the index number used in the last patient listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_MEDICINE
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MEDICINE;
-
+            + "Example: " + COMMAND_WORD + " 1 ";
 
     private final Index index;
 
@@ -80,7 +76,7 @@ public class UnprescribeCommand extends Command {
             return true;
         }
 
-        // instanceof to check if other is also a UnrescribeCommand
+        // instanceof to check if other is also a UnprescribeCommand
         if (!(other instanceof UnprescribeCommand e)) {
             return false;
         }
