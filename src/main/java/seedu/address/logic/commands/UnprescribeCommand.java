@@ -30,7 +30,7 @@ public class UnprescribeCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_MEDICINE + "[medicine name]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MEDICINE + "Paracetamol";
+            + PREFIX_MEDICINE;
 
 
     private final Index index;
