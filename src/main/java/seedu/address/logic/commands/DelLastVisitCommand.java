@@ -8,7 +8,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.patient.LastVisit;
 import seedu.address.model.patient.Patient;
 
 /**
@@ -70,7 +69,8 @@ public class DelLastVisitCommand extends Command {
                 patientToEdit.getPhone(),
                 patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
-                new LastVisit(NONE),
+                null,
+                // new LastVisit(NONE),
                 patientToEdit.getTags(),
                 patientToEdit.getMedicines()
         );
