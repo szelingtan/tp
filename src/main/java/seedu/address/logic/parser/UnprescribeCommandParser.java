@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new {@code UnprescribeCommand} object
  */
-public class UnprescribeCommandParser {
+public class UnprescribeCommandParser implements Parser<UnprescribeCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the {@code UnprescribeCommand}
      * and returns a {@code UnprescribeCommand} object for execution.

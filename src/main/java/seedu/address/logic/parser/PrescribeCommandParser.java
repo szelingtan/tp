@@ -31,8 +31,8 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
                     PrescribeCommand.MESSAGE_USAGE), ive);
         }
 
-        String medicineName = argMultimap.getValue(PREFIX_MEDICINE).orElse("");
+        Medicine medToAdd = ParserUtil.parseMed(argMultimap.getValue(PREFIX_MEDICINE).get());
 
-        return new PrescribeCommand(index, new Medicine(medicineName));
+        return new PrescribeCommand(index, medToAdd);
     }
 }

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,10 +14,11 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.patient.Address;
+import seedu.address.model.patient.Email;
+import seedu.address.model.patient.Name;
+import seedu.address.model.patient.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_MEDICINE_NAME = "#$%panadol";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_MED_1 = "paracetamol";
+
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -50,10 +54,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_PATIENT, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_PATIENT, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -192,5 +196,28 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseMed_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMed(null));
+    }
+
+    @Test
+    public void parseMed_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMed(INVALID_MEDICINE_NAME));
+    }
+
+    @Test
+    public void parseMed_validValueWithoutWhitespace_returnsMed() throws Exception {
+        Tag expectedTag = new Tag(VALID_TAG_1);
+        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+    }
+
+    @Test
+    public void parseMed_validValueWithWhitespace_returnsTrimmedMed() throws Exception {
+        String medWithWhitespace = WHITESPACE + VALID_MED_1 + WHITESPACE;
+        Medicine expectedMed = new Medicine(VALID_MED_1);
+        assertEquals(expectedMed, ParserUtil.parseMed(medWithWhitespace));
     }
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.List;
 import java.util.Set;
@@ -11,7 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.person.Patient;
+import seedu.address.model.patient.Patient;
 /**
  * Removes all medication from an existing patient in the address book.
  * This command takes an index representing a patient in the displayed list
@@ -21,12 +21,12 @@ import seedu.address.model.person.Patient;
 public class UnprescribeCommand extends Command {
     public static final String COMMAND_WORD = "unprescribe";
 
-    private static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication from Person: %1$s";
-    private static final String MESSAGE_EMPTY_MED_LIST = "Person: %1$s currently has no "
+    public static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication from patient: %1$s";
+    public static final String MESSAGE_EMPTY_MED_LIST = "patient: %1$s currently has no "
             + "prescribed medication";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": removes all medication from the"
-            + " person specified "
-            + "by the index number used in the last person listing. "
+            + " patient specified "
+            + "by the index number used in the last patient listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_MEDICINE + "[medicine name]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -41,10 +41,10 @@ public class UnprescribeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Patient> lastShownList = model.getFilteredPersonList();
+        List<Patient> lastShownList = model.getFilteredPatientList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
@@ -58,8 +58,8 @@ public class UnprescribeCommand extends Command {
                 patientToEdit.getTags(),
                 newMedicines);
 
-        model.setPerson(patientToEdit, editedPatient);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setPatient(patientToEdit, editedPatient);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         return new CommandResult(generateSuccessMessage(editedPatient, isEmpty));
     }
@@ -72,5 +72,19 @@ public class UnprescribeCommand extends Command {
     private String generateSuccessMessage(Patient patientToEdit, boolean isEmpty) {
         String message = isEmpty ? MESSAGE_EMPTY_MED_LIST : MESSAGE_REMOVE_MED_SUCCESS;
         return String.format(message, Messages.format(patientToEdit));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof to check if other is also a UnrescribeCommand
+        if (!(other instanceof UnprescribeCommand e)) {
+            return false;
+        }
+
+        return index.equals(e.index);
     }
 }
