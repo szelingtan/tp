@@ -43,18 +43,19 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Command summary
 
-| Action                | Format                                                                 | Example                                                                                                         |
-|-----------------------|------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`   | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 v/2025_01_25 t/friend t/colleague` |
-| **Clear**             | `clear`                                                                |                                                                                                                 |
-| **Delete**            | `delete INDEX`                                                         | `delete 3`                                                                                                      |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com`                                                                     |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                         | `find James Jake`                                                                                               |
+| Action                | Format                                                                 | Example                                                                                                        |
+|-----------------------|------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`   | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 v/2025_01_25 t/diabetes t/cancer` |
+| **Clear**             | `clear`                                                                |                                                                                                                |
+| **Delete**            | `delete INDEX`                                                         | `delete 3`                                                                                                     |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com`                                                                    |
+| **Tag**               | `edit INDEX t/Tag`                                                     | `edit 2 t/highBloodPressure`                                                                                   |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                         | `find James Jake`                                                                                              |
 | **List**              | `list`                                                                 |
 | **Help**              | `help`                                                                 |
-| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                     |
-| **Last Visit**        | `lastVisit INDEX v/LAST_VISIT`                                         | `lastVisit 1 v/5 March 2025`                                                                                    |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                               |
+| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                    |
+| **Last Visit**        | `lastVisit INDEX v/LAST_VISIT`                                         | `lastVisit 1 v/5 March 2025`                                                                                   |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                              |
 
 
 --------------------------------------------------------------------------------------------------------------------
