@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -23,8 +24,8 @@ import seedu.address.model.patient.Patient;
 public class PrescribeCommand extends Command {
     public static final String COMMAND_WORD = "prescribe";
 
-    private static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to patient: %1$s";
-    private static final String MESSAGE_DELETE_MED_SUCCESS = "Removed medication from patient: %1$s";
+    public static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to patient: %1$s";
+    public static final String MESSAGE_DUPLICATE_MED = "This patient already has medicine: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the patient specified "
             + "by the index number used in the last patient listing. "
@@ -37,7 +38,7 @@ public class PrescribeCommand extends Command {
     private final Medicine medicine;
 
     /**
-     * @param index of the patient in the filtered patient list to edit the remark
+     * @param index of the patient in the filtered patient list to add the medication
      * @param medicine (name of the medicine to be added to the patient)
      */
     public PrescribeCommand(Index index, Medicine medicine) {
@@ -56,14 +57,24 @@ public class PrescribeCommand extends Command {
         }
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
-        Set<Medicine> newMedicines = patientToEdit.getMedicines();
-        newMedicines.add(medicine);
+        Set<Medicine> currentMedicines = patientToEdit.getMedicines();
+
+        for (Medicine existingMedicine : currentMedicines) {
+            if (existingMedicine.equals(medicine)) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MED, existingMedicine));
+            }
+        }
+
+        // Create a new set of medicines
+        Set<Medicine> updatedMedicines = new HashSet<>(currentMedicines);
+        updatedMedicines.add(medicine);
+
         Patient editedPatient = new Patient(
                 patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
                 patientToEdit.getLastVisit(),
                 patientToEdit.getTags(),
-                newMedicines);
+                updatedMedicines);
 
         model.setPatient(patientToEdit, editedPatient);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
@@ -71,16 +82,12 @@ public class PrescribeCommand extends Command {
         return new CommandResult(generateSuccessMessage(editedPatient));
     }
 
-    // not sure if you would like to edit the comment
     /**
-     * Generates a command execution success message based on whether
-     * the remark is added to or removed from
-     * {@code patientToEdit}.
+     * Generates a command execution success message about the medication being successfully
+     * added to {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {
-        String message = !medicine.medName.isEmpty() ? MESSAGE_ADD_MED_SUCCESS : MESSAGE_DELETE_MED_SUCCESS;
-        // should this be a del med message or an error message that the medName does not exist - sl
-        return String.format(message, Messages.format(patientToEdit));
+        return String.format(MESSAGE_ADD_MED_SUCCESS, Messages.format(patientToEdit));
     }
 
     @Override

@@ -108,11 +108,19 @@ public class Patient {
         }
 
         Patient otherPatient = (Patient) other;
+
+        // lastVisit can be null, handle separately
+        if (lastVisit == null) {
+            if (otherPatient.lastVisit != null) {
+                return false;
+            }
+        }
+
         return name.equals(otherPatient.name)
                 && phone.equals(otherPatient.phone)
                 && email.equals(otherPatient.email)
                 && address.equals(otherPatient.address)
-                && lastVisit.equals(otherPatient.lastVisit)
+                // && lastVisit.equals(otherPatient.lastVisit)
                 && tags.equals(otherPatient.tags)
                 && medicines.equals(otherPatient.medicines);
     }
