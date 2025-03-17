@@ -186,6 +186,15 @@ Exits the program.
 
 Format: `exit`
 
+### Deleting the last visit information : `delLastVisit`
+
+Deletes the last visit information of a patient
+
+Format: `delLastVisit INDEX`
+
+* The index refers to the index number shown in the displayed patient list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
