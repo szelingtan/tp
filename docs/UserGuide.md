@@ -147,7 +147,6 @@ Examples:
 *  `edit 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
 *  `edit 2 n/Betsy Crower t/` Remove all the tag(s) of the 2nd patient.
 
-
 ### Adding medication to a patient : `prescribe`
 
 Adds medication to an existing patient in the address book.
