@@ -54,6 +54,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 | **List**              | `list`                                                                 |
 | **Help**              | `help`                                                                 |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                    |
+| **Unprescribe**       | `unprescribe INDEX m/`                                                 | `unprescribe 1 m/`                                                                                             |
 | **Last Visit**        | `lastVisit INDEX v/LAST_VISIT`                                         | `lastVisit 1 v/5 March 2025`                                                                                   |
 | **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                              |
 
@@ -141,9 +142,18 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 * The MEDICINE_NAME field must be provided
 * The medication will be added on to existing medications i.e. adding of medications is cumulative.
 
+### Removing all medication from a patient : `unprescribe`
+
+Remove all medication from an existing patient in the address book.
+
+Format: `unprescribe INDEX m/`
+
+* Removes medication from the patient at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+
 Examples:
-*  `prescribe 1 m/paracetamol` Adds the medication `paracetamol` to the 1st patient.
-*  `prescribe 2 m/colchicine` Adds the medication `colchicine` to the 2nd patient.
+*  `unprescribe 1 m/paracetamol` Removes all medication from the 1st patient.
+*  `unprescribe 2 m/colchicine` Removes all medication from the 2nd patient.
 
 ### Adding last visit record to a patient : `lastVisit`
 
