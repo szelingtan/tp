@@ -59,7 +59,7 @@ public class PatientCard extends UiPart<Region> {
         if (!(patient.getLastVisit() == null)) {
             lastVisit.setText("Last visit:" + patient.getLastVisit().value);
         } else {
-            lastVisit.setText("");
+            lastVisit.setText("Last visit:");
         }
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
