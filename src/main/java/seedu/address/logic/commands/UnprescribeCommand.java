@@ -28,7 +28,7 @@ public class UnprescribeCommand extends Command {
             + " patient specified "
             + "by the index number used in the last patient listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_MEDICINE + "[medicine name]\n"
+            + PREFIX_MEDICINE
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEDICINE;
 
