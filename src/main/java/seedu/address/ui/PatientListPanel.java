@@ -14,7 +14,7 @@ import seedu.address.model.patient.Patient;
  * Panel containing the list of patients.
  */
 public class PatientListPanel extends UiPart<Region> {
-    private static final String FXML = "patientListPanel.fxml";
+    private static final String FXML = "PatientListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PatientListPanel.class);
 
     @FXML
