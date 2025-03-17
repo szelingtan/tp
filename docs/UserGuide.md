@@ -145,7 +145,7 @@ Format: `edit INDEX t/TAG`
 
 Examples:
 *  `edit 1 t/diabetes` Tag the 1st patient to be `diabetes` respectively.
-*  `edit 2 n/Betsy Crower t/` Remove all the tag of the 2nd patient .
+*  `edit 2 n/Betsy Crower t/` Remove all the tag of the 2nd patient.
 
 
 ### Adding medication to a patient : `prescribe`
