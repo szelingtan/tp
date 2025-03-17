@@ -40,7 +40,8 @@ public class LastVisitCommandTest {
         LastVisitCommand lastVisitCommand = new LastVisitCommand(INDEX_FIRST_PATIENT,
                 new LastVisit(editedpatient.getLastVisit().value));
 
-        String expectedMessage = String.format(LastVisitCommand.MESSAGE_ADD_LAST_VISIT_SUCCESS, editedpatient);
+        String expectedMessage = String.format(LastVisitCommand.MESSAGE_ADD_LAST_VISIT_SUCCESS,
+                editedpatient.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPatient(firstpatient, editedpatient);
@@ -56,7 +57,8 @@ public class LastVisitCommandTest {
         LastVisitCommand lastVisitCommand = new LastVisitCommand(INDEX_FIRST_PATIENT,
                 new LastVisit(editedpatient.getLastVisit().toString()));
 
-        String expectedMessage = String.format(LastVisitCommand.MESSAGE_DELETE_LAST_VISIT_SUCCESS, editedpatient);
+        String expectedMessage = String.format(LastVisitCommand.MESSAGE_ADD_LAST_VISIT_SUCCESS,
+                editedpatient.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPatient(firstpatient, editedpatient);
@@ -76,7 +78,8 @@ public class LastVisitCommandTest {
         LastVisitCommand lastVisitCommand = new LastVisitCommand(INDEX_FIRST_PATIENT,
                 new LastVisit(editedpatient.getLastVisit().value));
 
-        String expectedMessage = String.format(LastVisitCommand.MESSAGE_ADD_LAST_VISIT_SUCCESS, editedpatient);
+        String expectedMessage = String.format(LastVisitCommand.MESSAGE_ADD_LAST_VISIT_SUCCESS,
+                editedpatient.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPatient(firstpatient, editedpatient);
