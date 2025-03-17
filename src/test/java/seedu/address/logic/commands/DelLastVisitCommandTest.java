@@ -16,16 +16,17 @@ import seedu.address.testutil.TypicalPatients;
 
 public class DelLastVisitCommandTest {
     @Test
-    public void execute_onepatient_normal() {
+    public void execute_onePatient_normal() {
         // Get a typical patient, make the last visit guaranteed
-        // to be non-empty for testing, then created the expected
+        // to be non-empty for testing, then create the expected
         // version after running `delLastVisit`.
         Patient p0 = TypicalPatients.ALICE;
         p0 = new PatientBuilder(p0)
                 .withLastVisit("Meduka become Meguca")
                 .build();
         Patient p1 = new PatientBuilder(p0)
-                .withLastVisit(DelLastVisitCommand.NONE)
+                // .withLastVisit(DelLastVisitCommand.NONE)
+                .withLastVisit(null)
                 .build();
 
         // Create a model with `p0` only, then run DelLastVisit
