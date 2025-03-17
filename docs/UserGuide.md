@@ -125,12 +125,27 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient’s tags by typing `t/` without
-    specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+
+### Tag a patient : `Tag`
+
+Tag an existing patient in the address book.
+
+Format: `edit INDEX [t/TAG]…​`
+
+* Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
+* You can remove all the patient’s tags by typing `t/` without
+  specifying any tags after it.
+
+Examples:
+*  `edit 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
+*  `edit 2 n/Betsy Crower t/` Remove all the tag(s) of the 2nd patient.
 
 ### Adding medication to a patient : `prescribe`
 
