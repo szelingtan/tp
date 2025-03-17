@@ -135,7 +135,7 @@ Examples:
 
 Tag an existing patient in the address book.
 
-Format: `edit INDEX t/TAG`
+Format: `edit INDEX [t/TAG]…​`
 
 * Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
