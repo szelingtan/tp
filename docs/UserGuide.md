@@ -3,6 +3,7 @@ layout: page
 title: User Guide
 ---
 
+CareConnect is a **desktop app for social workers to manage patient information**.
 AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
 * Table of Contents
@@ -42,17 +43,18 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Command summary
 
-| Action                | Format                                                                  | Example                                                                                                         |
-|-----------------------|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`    | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 v/2025_01_25 t/friend t/colleague` |
-| **Clear**             | `clear`                                                                 |                                                                                                                 |
-| **Delete**            | `delete INDEX`                                                          | `delete 3`                                                                                                      |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`  | `edit 2 n/James Lee e/jameslee@example.com`                                                                     |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                          | `find James Jake`                                                                                               |
-| **List**              | `list`                                                                  |
-| **Help**              | `help`                                                                  |
-| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                       | `prescribe 1 m/paracetamol`                                                                                     |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                    |  `delLastVisit 21`                                                                                              |
+| Action                | Format                                                                 | Example                                                                                                         |
+|-----------------------|------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`   | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 v/2025_01_25 t/friend t/colleague` |
+| **Clear**             | `clear`                                                                |                                                                                                                 |
+| **Delete**            | `delete INDEX`                                                         | `delete 3`                                                                                                      |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com`                                                                     |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                         | `find James Jake`                                                                                               |
+| **List**              | `list`                                                                 |
+| **Help**              | `help`                                                                 |
+| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                     |
+| **Last Visit**        | `lastVisit INDEX v/LAST_VISIT`                                         | `lastVisit 1 v/5 March 2025`                                                                                    |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                               |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -141,6 +143,19 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 Examples:
 *  `prescribe 1 m/paracetamol` Adds the medication `paracetamol` to the 1st patient.
 *  `prescribe 2 m/colchicine` Adds the medication `colchicine` to the 2nd patient.
+
+### Adding last visit record to a patient : `lastVisit`
+
+Adds last visit record to an existing patient in the address book.
+
+Format: `lastVisit INDEX v/LAST_VISIT`
+
+* Adds last visit record to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* The LAST_VISIT field must be provided.
+
+Examples:
+*  `lastVisit 1 v/ 5 March 2025 - Patient is more engaged and active this week.` Adds the record '5 March 2025 - Patient is more engaged and active this week.' to the 1st patient.
+*  `lastVisit 2 v/ 27 February 2025` Adds the record '27 February 2025' to the 2nd patient.
 
 ### Locating patients by name: `find`
 
