@@ -66,7 +66,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'CareConnect.jar'
 }
 
 defaultTasks 'clean', 'test'

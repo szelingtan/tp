@@ -3,8 +3,7 @@ layout: page
 title: User Guide
 ---
 
-CareConnect is a **desktop app for social workers to manage patient information**.
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+CareConnect is a **desktop app for social workers to manage patient information, optimized for use via a Command Line Interface**.
 
 * Table of Contents
 {:toc}
@@ -29,7 +28,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 v/2025-12-25` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -54,6 +53,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 | **List**              | `list`                                                                 |
 | **Help**              | `help`                                                                 |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                    |
+| **Unprescribe**       | `unprescribe INDEX m/`                                                 | `unprescribe 1 m/`                                                                                             |
 | **Last Visit**        | `lastVisit INDEX v/LAST_VISIT`                                         | `lastVisit 1 v/5 March 2025`                                                                                   |
 | **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                              |
 
@@ -98,15 +98,15 @@ Format: `help`
 
 Adds a patient to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 v/2025-01-12`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 v/2024-02-12 t/criminal`
 
 ### Listing all patients : `list`
 
@@ -124,12 +124,27 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient’s tags by typing `t/` without
-    specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+
+### Tag a patient : `Tag`
+
+Tag an existing patient in the address book.
+
+Format: `edit INDEX [t/TAG]…​`
+
+* Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
+* You can remove all the patient’s tags by typing `t/` without
+  specifying any tags after it.
+
+Examples:
+*  `edit 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
+*  `edit 2 n/Betsy Crower t/` Remove all the tag(s) of the 2nd patient.
 
 ### Adding medication to a patient : `prescribe`
 
@@ -141,9 +156,18 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 * The MEDICINE_NAME field must be provided
 * The medication will be added on to existing medications i.e. adding of medications is cumulative.
 
+### Removing all medication from a patient : `unprescribe`
+
+Remove all medication from an existing patient in the address book.
+
+Format: `unprescribe INDEX`
+
+* Removes medication from the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+
 Examples:
-*  `prescribe 1 m/paracetamol` Adds the medication `paracetamol` to the 1st patient.
-*  `prescribe 2 m/colchicine` Adds the medication `colchicine` to the 2nd patient.
+*  `unprescribe 1` Removes all medication from the 1st patient.
+*  `unprescribe 2` Removes all medication from the 2nd patient.
 
 ### Adding last visit record to a patient : `lastVisit`
 
@@ -182,7 +206,7 @@ Deletes the specified patient from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the patient at the specified `INDEX`.
+* Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The index refers to the index number shown in the displayed patient list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -208,7 +232,7 @@ Deletes the last visit information of a patient
 
 Format: `delLastVisit INDEX`
 
-* The index refers to the index number shown in the displayed patient list.
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The index **must be a positive integer** 1, 2, 3, …​
 
 ### Saving the data

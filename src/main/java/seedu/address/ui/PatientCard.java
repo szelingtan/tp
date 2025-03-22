@@ -14,7 +14,7 @@ import seedu.address.model.patient.Patient;
  */
 public class PatientCard extends UiPart<Region> {
 
-    private static final String FXML = "patientListCard.fxml";
+    private static final String FXML = "PatientListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -57,9 +57,9 @@ public class PatientCard extends UiPart<Region> {
         address.setText(patient.getAddress().value);
         email.setText(patient.getEmail().value);
         if (!(patient.getLastVisit() == null)) {
-            lastVisit.setText("Last visit:" + patient.getLastVisit().value);
+            lastVisit.setText("Last visit: " + patient.getLastVisit().value);
         } else {
-            lastVisit.setText("Last visit:");
+            lastVisit.setText("Last visit: ");
         }
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -67,9 +67,7 @@ public class LastVisitCommand extends Command {
      * {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {
-        String message = !lastVisit.value.isEmpty() ? MESSAGE_ADD_LAST_VISIT_SUCCESS
-                : MESSAGE_DELETE_LAST_VISIT_SUCCESS;
-        return String.format(message, patientToEdit);
+        return String.format(MESSAGE_ADD_LAST_VISIT_SUCCESS, patientToEdit.getName());
     }
 
     @Override
