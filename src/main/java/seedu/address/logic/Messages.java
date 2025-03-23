@@ -43,9 +43,9 @@ public class Messages {
                 .append(patient.getEmail())
                 .append("; Address: ")
                 .append(patient.getAddress())
-                .append("; Tags: ")
+                .append("; Last Visit: ")
                 .append(patient.getLastVisit())
-                .append("; Last Visit: ");
+                .append("; Tags: ");
         patient.getTags().forEach(builder::append);
         builder.append("; Medicines: ");
         patient.getMedicines().forEach(builder::append);
