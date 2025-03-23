@@ -27,7 +27,8 @@ public class UnprescribeCommand extends Command {
     public static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication %1$s from patient: %2$s";
     public static final String MESSAGE_REMOVE_ALL_MED_SUCCESS = "Removed all medication from patient: %1$s";
     public static final String MESSAGE_EMPTY_MED_LIST = "Patient: %1$s currently has no prescribed medication";
-    public static final String MESSAGE_MED_NOT_FOUND = "Medication %1$s is not found in patient: %2$s's prescription list";
+    public static final String MESSAGE_MED_NOT_FOUND = "Medication %1$s is not found in patient: "
+            + "%2$s's prescription list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": removes a medication from the patient specified "
             + "by the index number used in the last patient listing. "

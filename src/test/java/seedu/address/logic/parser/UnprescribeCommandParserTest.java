@@ -12,8 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UnprescribeCommand;
 import seedu.address.model.medicine.Medicine;
 
-import java.util.Optional;
-
 /**
  * Tests the UnprescribeCommandParser class
  */
