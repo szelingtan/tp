@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+AddressBook *-right-> "1" UniquepatientList
+AddressBook *-right-> "1" UniqueTagList
+UniqueTagList -[hidden]down- UniquepatientList
+UniqueTagList -[hidden]down- UniquepatientList
+
+UniqueTagList -right-> "*" Tag
+UniquepatientList -right-> patient
+
+patient -up-> "*" Tag
+
+patient *--> Name
+patient *--> Phone
+patient *--> Email
+patient *--> Address
+@enduml
