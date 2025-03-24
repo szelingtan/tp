@@ -41,7 +41,7 @@ public class DelLastVisitCommand extends Command {
      * @param patient The newly modified patient.
      * @return The msg to send upon successful deletion.
      */
-    public String generateSuccessMessage(Patient patient) {
+    private String generateSuccessMessage(Patient patient) {
         return "Last visit info successfully deleted from "
                 + patient.getName();
     }
