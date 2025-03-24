@@ -75,7 +75,7 @@ public class TagCommand extends Command {
     private static Patient addTags(Patient p, ArrayList<Tag> tagsToAdd) {
         assert p != null;
 
-        // This is not modifiable, so everything will have to be  copied over
+        // This is not modifiable, so everything will have to be copied over
         Set<Tag> ogTags = p.getTags();
         Set<Tag> newTags = new HashSet<Tag>();
         newTags.addAll(ogTags);
