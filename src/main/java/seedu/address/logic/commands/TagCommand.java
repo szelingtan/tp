@@ -1,10 +1,16 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.tag.Tag;
 
 /**
  * Adds a bunch of tags to a specified patient.
@@ -21,10 +27,10 @@ public class TagCommand extends Command {
             + "t/Plays rhythm games";
 
     private final Index index;
-    private final ArrayList<String> tagsToAdd;
+    private final ArrayList<Tag> tagsToAdd;
 
 
-    public TagCommand(Index index, ArrayList<String> tagsToAdd) {
+    public TagCommand(Index index, ArrayList<Tag> tagsToAdd) {
         this.index = index;
         this.tagsToAdd = tagsToAdd;
     }
@@ -38,6 +44,33 @@ public class TagCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        // Basing off of `EditCommand.java`
+        requireNonNull(model);
+        List<Patient> lastShownList = model.getFilteredPatientList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(
+                    Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
+
+        Patient patient = lastShownList.get(index.getZeroBased());
+        Patient editedPatient = addTags(patient, this.tagsToAdd);
+
+        model.setPatient(patient, editedPatient);
+        model.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
+        return new CommandResult(
+                "" // TODO
+        );
+    }
+
+    /**
+     * Adds the list of tags to the given patient.
+     *
+     * @param p The patient we're adding tags to.
+     * @param tagsToAdd The list of tags to add.
+     * @return A new patient with the tags added.
+     */
+    private static Patient addTags(Patient p, ArrayList<Tag> tagsToAdd) {
         return null; // TODO
     }
 }
