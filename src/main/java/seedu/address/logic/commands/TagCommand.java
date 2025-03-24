@@ -29,10 +29,10 @@ public class TagCommand extends Command {
             + "t/Plays rhythm games";
 
     private final Index index;
-    private final ArrayList<Tag> tagsToAdd;
+    private final HashSet<Tag> tagsToAdd;
 
 
-    public TagCommand(Index index, ArrayList<Tag> tagsToAdd) {
+    public TagCommand(Index index, HashSet<Tag> tagsToAdd) {
         this.index = index;
         this.tagsToAdd = tagsToAdd;
     }
@@ -79,10 +79,10 @@ public class TagCommand extends Command {
      * Adds the list of tags to the given patient.
      *
      * @param p The patient we're adding tags to.
-     * @param tagsToAdd The list of tags to add.
+     * @param tagsToAdd The set of tags to add.
      * @return A new patient with the tags added.
      */
-    private static Patient addTags(Patient p, ArrayList<Tag> tagsToAdd) {
+    private static Patient addTags(Patient p, HashSet<Tag> tagsToAdd) {
         assert p != null;
 
         // This is not modifiable, so everything will have to be copied over
