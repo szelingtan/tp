@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -71,6 +73,22 @@ public class TagCommand extends Command {
      * @return A new patient with the tags added.
      */
     private static Patient addTags(Patient p, ArrayList<Tag> tagsToAdd) {
-        return null; // TODO
+        assert p != null;
+
+        // This is not modifiable, so everything will have to be  copied over
+        Set<Tag> ogTags = p.getTags();
+        Set<Tag> newTags = new HashSet<Tag>();
+        newTags.addAll(ogTags);
+        newTags.addAll(tagsToAdd);
+
+        return new Patient(
+                p.getName(),
+                p.getPhone(),
+                p.getEmail(),
+                p.getAddress(),
+                p.getLastVisit(),
+                newTags,
+                p.getMedicines()
+        );
     }
 }
