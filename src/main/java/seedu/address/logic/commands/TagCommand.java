@@ -38,6 +38,16 @@ public class TagCommand extends Command {
     }
 
     /**
+     * Generates the msg to send upon successful deletion.
+     *
+     * @param patient The newly modified patient.
+     * @return The msg to send upon successful deletion.
+     */
+    private String generateSuccessMessage(Patient patient) {
+        return "Tags successfully added to " + patient.getName();
+    }
+
+    /**
      * Executes the stored `tag` cmd.
      *
      * @param model {@code Model} which the command should operate on.
@@ -61,7 +71,7 @@ public class TagCommand extends Command {
         model.setPatient(patient, editedPatient);
         model.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
         return new CommandResult(
-                "" // TODO
+                generateSuccessMessage(editedPatient)
         );
     }
 
