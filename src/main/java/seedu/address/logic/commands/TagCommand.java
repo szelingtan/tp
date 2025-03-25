@@ -111,4 +111,16 @@ public class TagCommand extends Command {
                 p.getMedicines()
         );
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof TagCommand)) {
+            return false;
+        }
+        TagCommand o = (TagCommand) other;
+        return index.equals(o.index) && tagsToAdd.equals(o.tagsToAdd);
+    }
 }
