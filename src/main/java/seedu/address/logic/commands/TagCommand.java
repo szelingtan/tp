@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +30,12 @@ public class TagCommand extends Command {
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
 
-
+    /**
+     * Creates a {@code TagCommand}.
+     *
+     * @param index The index of the patient to modify.
+     * @param tagsToAdd The set of tags to add.
+     */
     public TagCommand(Index index, HashSet<Tag> tagsToAdd) {
         this.index = index;
         this.tagsToAdd = tagsToAdd;
