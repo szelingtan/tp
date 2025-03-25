@@ -2,6 +2,8 @@ package seedu.address.model.patient;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+
 /**
  * Represents a patient's address in the address book.
  * Guarantees: immutable; is always valid
@@ -9,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 public class LastVisit {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Last visit can take any value, and it should not be blank";
+            "Last visit must take in a valid date of format YYYY-MM-DD";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -17,21 +19,21 @@ public class LastVisit {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    public final LocalDate lastVisitDate;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code LastVisit}.
      *
-     * @param remark A valid address.
+     * @param lastVisitDate a valid last visit date.
      */
-    public LastVisit(String remark) {
-        requireNonNull(remark);
-        value = remark;
+    public LastVisit(LocalDate lastVisitDate) {
+        requireNonNull(lastVisitDate);
+        this.lastVisitDate = lastVisitDate;
     }
 
     @Override
     public String toString() {
-        return value;
+        return "Last visit: " + lastVisitDate;
     }
 
     @Override
@@ -46,19 +48,24 @@ public class LastVisit {
         }
 
         LastVisit otherLastVisit = (LastVisit) other;
-        return value.equals(otherLastVisit.value);
+        return lastVisitDate.equals(otherLastVisit.lastVisitDate);
     }
 
     /**
-     * Returns if a given string is a valid lastVisit.
+     * Check if date given is a valid last visit date (cannot be more recent than current date).
      */
-    public static boolean isValidLastVisit(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidLastVisit(LocalDate testDate) {
+        if (testDate == null) {
+            return false;
+        }
+        LocalDate currentDate = LocalDate.now();
+        // Most recent last visit date can be today, but not after.
+        return testDate.isBefore(currentDate.plusDays(1));
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return lastVisitDate.hashCode();
     }
 
 }
