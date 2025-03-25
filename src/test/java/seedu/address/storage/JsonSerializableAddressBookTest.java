@@ -21,7 +21,7 @@ public class JsonSerializableAddressBookTest {
     private static final Path DUPLICATE_patient_FILE = TEST_DATA_FOLDER.resolve("duplicatePatientsAddressBook.json");
 
     @Test
-    public void toModelType_typicalpatientsFile_success() throws Exception {
+    public void toModelType_typicalPatientsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_patientS_FILE,
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
@@ -30,14 +30,14 @@ public class JsonSerializableAddressBookTest {
     }
 
     @Test
-    public void toModelType_invalidpatientFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidPatientFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_patient_FILE,
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicatepatients_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicatePatients_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_patient_FILE,
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PATIENT,

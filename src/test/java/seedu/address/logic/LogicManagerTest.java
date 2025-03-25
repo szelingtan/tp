@@ -85,7 +85,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredpatientList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredPatientList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredpatientList().remove(0));
     }
 

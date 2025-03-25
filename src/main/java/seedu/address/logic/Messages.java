@@ -21,7 +21,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! Date must be provided "
             + "in the following format: YYYY-MM-DD. Example: 2025-10-02";
     public static final String MESSAGE_INVALID_LAST_VISIT_DATE = "The date provided is invalid! Please ensure that "
-            + "the last visit date given is not later than the current date.";
+            + "the last visit date given is not in the future.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

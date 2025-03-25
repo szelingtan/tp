@@ -5,19 +5,14 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 
 /**
- * Represents a patient's address in the address book.
+ * Represents a patient's last visit in the address book.
+ * Can be null.
  * Guarantees: immutable; is always valid
  */
 public class LastVisit {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Last visit must take in a valid date of format YYYY-MM-DD";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final LocalDate lastVisitDate;
 
