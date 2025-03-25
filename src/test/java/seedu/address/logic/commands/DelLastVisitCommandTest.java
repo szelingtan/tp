@@ -25,7 +25,6 @@ public class DelLastVisitCommandTest {
                 .withLastVisit("Meduka become Meguca")
                 .build();
         Patient p1 = new PatientBuilder(p0)
-                // .withLastVisit(DelLastVisitCommand.NONE)
                 .withLastVisit(null)
                 .build();
 
