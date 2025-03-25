@@ -20,7 +20,7 @@ public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds the listed tags to the patient identified by the index "
-            + "numebr used in the last patient listing."
+            + "number used in the last patient listing."
             + '\n'
             + "Parameters: INDEX t/tag [t/more_tags]"
             + '\n'
