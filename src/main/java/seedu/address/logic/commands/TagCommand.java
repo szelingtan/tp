@@ -47,8 +47,14 @@ public class TagCommand extends Command {
      * @param patient The newly modified patient.
      * @return The msg to send upon successful deletion.
      */
-    private String generateSuccessMessage(Patient patient) {
-        return "Tags successfully added to " + patient.getName();
+    private static String generateSuccessMessage(Patient patient,
+              HashSet<Tag> tagsToAdd) {
+        HashSet<String> tagStrsToAdd = new HashSet<String>();
+        for (Tag t : tagsToAdd) {
+            tagStrsToAdd.add(t.toString());
+        }
+        return "Tags " + String.join(", ", tagStrsToAdd)
+                + " successfully added to " + patient.getName();
     }
 
     /**
@@ -75,7 +81,7 @@ public class TagCommand extends Command {
         model.setPatient(patient, editedPatient);
         model.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
         return new CommandResult(
-                generateSuccessMessage(editedPatient)
+                generateSuccessMessage(editedPatient, tagsToAdd)
         );
     }
 
