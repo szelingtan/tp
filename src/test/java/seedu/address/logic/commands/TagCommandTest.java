@@ -26,10 +26,10 @@ public class TagCommandTest {
         // Typical patient + copy with added tags
         Patient p0 = TypicalPatients.ALICE;
         p0 = new PatientBuilder(p0)
-                .withTags("a","b","c")
+                .withTags("a", "b", "c")
                 .build();
         Patient p1 = new PatientBuilder(p0)
-                .withTags("a","b","c","d","e")
+                .withTags("a", "b", "c", "d", "e")
                 .build();
 
         // Create a model with `p0` then run tag
