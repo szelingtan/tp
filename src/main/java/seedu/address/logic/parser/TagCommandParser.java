@@ -31,7 +31,7 @@ public class TagCommandParser implements Parser<TagCommand> {
         // Retrieve the index from the user input
         Index ind;
         try {
-            ind = ParserUtil.parseIndex(args);
+            ind = ParserUtil.parseIndex(argMM.getPreamble());
         } catch (ParseException pe) {
             // Copied from DelLastVisitCommandParser.java
             throw new ParseException(
