@@ -25,8 +25,8 @@ public class TagCommand extends Command {
             + '\n'
             + "Parameters: INDEX t/tag [t/more_tags]"
             + '\n'
-            + "Example: " + COMMAND_WORD + "39 t/Likes Madoka Magica "
-            + "t/Plays rhythm games";
+            + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
+            + "t/Seafood Allergy";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
