@@ -185,7 +185,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: #fdfffe;
 }
 
 .context-menu .label {
@@ -202,7 +202,6 @@
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: black;
     -fx-background-color: #ffffff;
-    -fx-background-radius: 15;
     -fx-pref-width: 75;
     -fx-pref-height: 25;
     -fx-opacity: 0.9;
