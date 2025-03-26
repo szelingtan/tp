@@ -90,14 +90,11 @@ public class AddressBookParser {
 
         case PrescribeCommand.COMMAND_WORD:
             return new PrescribeCommandParser().parse(arguments);
+            case DeleteTagCommand.COMMAND_WORD:
+                return new DeleteTagCommandParser().parse(arguments);
 
         case UnprescribeCommand.COMMAND_WORD:
             return new UnprescribeCommandParser().parse(arguments);
-
-            
-
-        case DeleteTagCommand.COMMAND_WORD:
-            return new DeleteTagCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
