@@ -85,13 +85,14 @@ public class AddressBookParser {
         case LastVisitCommand.COMMAND_WORD:
             return new LastVisitCommandParser().parse(arguments);
 
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
         case DelLastVisitCommand.COMMAND_WORD:
             return new DelLastVisitCommandParser().parse(arguments);
 
         case PrescribeCommand.COMMAND_WORD:
             return new PrescribeCommandParser().parse(arguments);
-            case DeleteTagCommand.COMMAND_WORD:
-                return new DeleteTagCommandParser().parse(arguments);
 
         case UnprescribeCommand.COMMAND_WORD:
             return new UnprescribeCommandParser().parse(arguments);
