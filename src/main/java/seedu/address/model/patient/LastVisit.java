@@ -1,6 +1,7 @@
 package seedu.address.model.patient;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
 
@@ -23,6 +24,7 @@ public class LastVisit {
      */
     public LastVisit(LocalDate lastVisitDate) {
         requireNonNull(lastVisitDate);
+        checkArgument(isValidLastVisit(lastVisitDate), MESSAGE_CONSTRAINTS);
         this.lastVisitDate = lastVisitDate;
     }
 
