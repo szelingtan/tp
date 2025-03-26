@@ -14,12 +14,10 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**
- *
  * Represents a command to remove specific tags from a patient in the system.
- *
  */
 
-public class DeleteTagCommand extends Command{
+public class DeleteTagCommand extends Command {
 
     /**
      * The command word to trigger this action.
@@ -29,6 +27,7 @@ public class DeleteTagCommand extends Command{
     /**
      * The usage message for this command.
      */
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the specified tags from the patient identified by the index "
             + "number used in the last patient listing."
