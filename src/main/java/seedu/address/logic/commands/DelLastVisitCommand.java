@@ -23,17 +23,16 @@ public class DelLastVisitCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + '\n'
             + "Example: " + COMMAND_WORD + " 1 ";
-    public static final String NONE = "None";
 
     private final Index index;
 
     /**
      * Creates a {@code DelLastVisitCommand}.
      *
-     * @param ind The index of the patient to modify.
+     * @param index The index of the patient to modify.
      */
-    public DelLastVisitCommand(Index ind) {
-        index = ind;
+    public DelLastVisitCommand(Index index) {
+        this.index = index;
     }
 
     /**
@@ -42,7 +41,7 @@ public class DelLastVisitCommand extends Command {
      * @param patient The newly modified patient.
      * @return The msg to send upon successful deletion.
      */
-    public String generateSuccessMessage(Patient patient) {
+    private String generateSuccessMessage(Patient patient) {
         return "Last visit info successfully deleted from "
                 + patient.getName();
     }
@@ -62,7 +61,7 @@ public class DelLastVisitCommand extends Command {
                     Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
-        // Create new Patient with NA last visit
+        // Create a new Patient with `null` last visit
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
         Patient editedPatient = new Patient(
                 patientToEdit.getName(),
@@ -70,7 +69,6 @@ public class DelLastVisitCommand extends Command {
                 patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
                 null,
-                // new LastVisit(NONE),
                 patientToEdit.getTags(),
                 patientToEdit.getMedicines()
         );
