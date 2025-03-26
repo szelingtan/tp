@@ -53,7 +53,7 @@ public class PrescribeCommandTest {
         expectedModel.setPatient(patientToUpdate, editedPatient);
 
         String expectedMessage = String.format(PrescribeCommand.MESSAGE_ADD_MED_SUCCESS,
-                Messages.format(editedPatient));
+                editedPatient.getName());
 
         assertCommandSuccess(prescribeCommand, model, expectedMessage, expectedModel);
     }
