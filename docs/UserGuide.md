@@ -53,7 +53,7 @@ CareConnect is a **desktop app for social workers to manage patient information,
 | **List**              | `list`                                                                 |
 | **Help**              | `help`                                                                 |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                    |
-| **Unprescribe**       | `unprescribe INDEX m/`                                                 | `unprescribe 1 m/`                                                                                             |
+| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`   | `unprescribe 1 m/anarex`  <br/> `unprescribe 1 m/all`                                                          |
 | **Last Visit**        | `lastVisit INDEX v/LAST_VISIT`                                         | `lastVisit 1 v/5 March 2025`                                                                                   |
 | **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                              |
 
@@ -156,18 +156,24 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 * The MEDICINE_NAME field must be provided
 * The medication will be added on to existing medications i.e. adding of medications is cumulative.
 
+Examples:
+*  `prescribe 1 m/panadol` Adds the panadol medication to the 1st patient.
+*  `prescribe 2 m/panadol` Adds the panadol medication to the 2nd patient.
+
 ### Removing all medication from a patient : `unprescribe`
 
 Remove all medication from an existing patient in the address book.
 
-Format: `unprescribe INDEX`
+Format: `unprescribe INDEX m/MEDICINE_NAME` or `unprescribe INDEX m/all`
 
-* Removes medication from the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Removes medication from the patient at the specified `INDEX`. The index refers to the index 
+  number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* `unprescribe INDEX m/all` removes all medication from the list 
 
 Examples:
-*  `unprescribe 1` Removes all medication from the 1st patient.
-*  `unprescribe 2` Removes all medication from the 2nd patient.
+*  `unprescribe 1 m/all` Removes all medication from the 1st patient.
+*  `unprescribe 2 m/panadol` Removes the panadol medication from the 2nd patient.
 
 ### Adding last visit record to a patient : `lastVisit`
 
