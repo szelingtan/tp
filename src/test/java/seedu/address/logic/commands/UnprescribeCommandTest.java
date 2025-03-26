@@ -65,6 +65,8 @@ public class UnprescribeCommandTest {
         HashSet<Medicine> medicineSet = new HashSet<>();
         medicineSet.add(medicine);
         medicineSet.add(new Medicine("Aspirin"));
+        medicineSet.add(new Medicine("Lyrica"));
+        medicineSet.add(new Medicine("Lactofort"));
         Patient patientWithMedicines = new PatientBuilder(patientToUpdate).withMeds(medicineSet).build();
         model.setPatient(patientToUpdate, patientWithMedicines);
 

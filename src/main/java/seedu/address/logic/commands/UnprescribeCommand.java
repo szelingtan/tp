@@ -17,7 +17,7 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Patient;
 
 /**
- * Removes a medication from an existing patient in the address book.
+ * Removes the specified medication from an existing patient in the address book.
  * This command takes an index representing a patient in the displayed list
  * and removes the specified medicine from that patient's medical record.
  */
@@ -96,17 +96,10 @@ public class UnprescribeCommand extends Command {
     private CommandResult removeSpecificMedication(Model model, Patient patientToEdit) throws CommandException {
         Set<Medicine> currentMedicines = patientToEdit.getMedicines();
         Set<Medicine> updatedMedicines = new HashSet<>();
-        boolean medicineFound = false;
 
-        for (Medicine medicine : currentMedicines) {
-            if (medicine.equals(medicineToRemove)) {
-                medicineFound = true;
-            } else {
-                updatedMedicines.add(medicine);
-            }
-        }
-
-        if (!medicineFound) {
+        if (currentMedicines.contains(medicineToRemove)) {
+            updatedMedicines.add(medicineToRemove);
+        } else {
             throw new CommandException(String.format(MESSAGE_MED_NOT_FOUND,
                     medicineToRemove.getMedicineName(), Messages.format(patientToEdit)));
         }
