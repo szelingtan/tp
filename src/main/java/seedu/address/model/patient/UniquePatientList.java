@@ -14,10 +14,10 @@ import seedu.address.model.patient.exceptions.PatientNotFoundException;
 
 /**
  * A list of patients that enforces uniqueness between its elements and does not allow nulls.
- * A patient is considered unique by comparing using {@code patient#isSamepatient(patient)}
+ * A patient is considered unique by comparing using {@code patient#isSamePatient(patient)}
  * As such, adding and updating of patients uses patient#isSamepatient(patient) for
  * equality so as to ensure that the patient being added or updated is
- * unique in terms of identity in the UniquepatientList.
+ * unique in terms of identity in the UniquePatientList.
  * However, the removal of a patient uses patient#equals(Object) so
  * as to ensure that the patient with exactly the same fields will be removed.
  *
