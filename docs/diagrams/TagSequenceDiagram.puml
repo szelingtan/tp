@@ -1,11 +1,66 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
+'Referencing Sze Ling's UnprescribeSequenceDiagram-Logic.puml
+!include style.puml
+skinparam ArrowFontStyle plain
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LM LOGIC_COLOR
+participant ":AddressBookParser" as ABP LOGIC_COLOR
+participant ":TagCommandParser" as TCP LOGIC_COLOR
+participant "t:TagCommand" as TC LOGIC_COLOR
+end box
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+box Model MODEL_COLOR_T1
+participant ":Model" as M MODEL_COLOR
+end box
+
+-> LM : execute("tag 1 t/ASD")
+activate LM
+LM -> ABP : parseCommand("tag 1 t/ASD")
+activate ABP
+create TCP
+ABP -> TCP
+activate TCP
+TCP --> ABP
+deactivate TCP
+ABP -> TCP : parse("1 t/ASD")
+activate TCP
+create TC
+TCP -> TC : new TagCommand(1,{ASD})
+activate TC
+TC --> TCP
+deactivate TC
+TCP --> ABP : t
+deactivate TCP
+ABP --> LM : t
+deactivate ABP
+LM -> TC : execute()
+activate TC
+
+TC -> M : getFilteredPatientList()
+activate M
+M --> TC : lastShownList
+deactivate M
+TC -> M : setPatient(patient, editedPatient)
+activate M
+M --> TC
+deactivate M
+TC -> M : updateFilteredPatientList()
+activate M
+M --> TC
+deactivate M
+TC --> LM : new CommandResult()
+deactivate TC
+LM -[hidden]-> TC : filler text to move the X down
+destroy TC
+
+[<--LM
+deactivate LM
+
+
+
+
+
 @enduml
