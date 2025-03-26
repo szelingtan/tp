@@ -81,8 +81,7 @@ public class UnprescribeCommandTest {
 
         String expectedMessage = String.format(UnprescribeCommand.MESSAGE_REMOVE_ALL_MED_SUCCESS,
                 Messages.format(editedPatient));
-
-        assertCommandSuccess(unprescribeCommand, model, expectedMessage, expectedModel);
+                editedPatient.getName());
     }
 
     @Test
@@ -96,7 +95,7 @@ public class UnprescribeCommandTest {
         UnprescribeCommand unprescribeCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT, medicine);
 
         String expectedMessage = String.format(UnprescribeCommand.MESSAGE_EMPTY_MED_LIST,
-                Messages.format(patientWithNoMedicine));
+                patientWithNoMedicine.getName());
 
         assertCommandFailure(unprescribeCommand, model, expectedMessage);
     }

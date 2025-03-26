@@ -87,7 +87,7 @@ public class PrescribeCommand extends Command {
      * added to {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {
-        return String.format(MESSAGE_ADD_MED_SUCCESS, Messages.format(patientToEdit));
+        return String.format(MESSAGE_ADD_MED_SUCCESS, patientToEdit.getName());
     }
 
     @Override
