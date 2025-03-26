@@ -144,11 +144,6 @@ public class UnprescribeCommand extends Command {
         return String.format(MESSAGE_REMOVE_ALL_MED_SUCCESS, Messages.format(patientToEdit));
     }
 
-    private String generateSuccessMessage(Patient patientToEdit, boolean isEmpty) {
-        String message = isEmpty ? MESSAGE_EMPTY_MED_LIST : MESSAGE_REMOVE_MED_SUCCESS;
-        return String.format(message, patientToEdit.getName());
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {

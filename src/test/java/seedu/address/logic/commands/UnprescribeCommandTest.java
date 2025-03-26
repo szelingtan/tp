@@ -80,7 +80,6 @@ public class UnprescribeCommandTest {
         expectedModel.setPatient(patientWithMedicines, editedPatient);
 
         String expectedMessage = String.format(UnprescribeCommand.MESSAGE_REMOVE_ALL_MED_SUCCESS,
-                Messages.format(editedPatient));
                 editedPatient.getName());
     }
 
