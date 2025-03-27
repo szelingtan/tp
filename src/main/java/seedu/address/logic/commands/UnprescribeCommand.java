@@ -66,7 +66,7 @@ public class UnprescribeCommand extends Command {
 
         // Check if medicine list is already empty
         if (currentMedicines.isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_EMPTY_MED_LIST, Messages.format(patientToEdit)));
+            throw new CommandException(String.format(MESSAGE_EMPTY_MED_LIST, patientToEdit.getName()));
         }
 
         // Special case for "all" to remove all medications
@@ -98,10 +98,14 @@ public class UnprescribeCommand extends Command {
         Set<Medicine> updatedMedicines = new HashSet<>();
 
         if (currentMedicines.contains(medicineToRemove)) {
-            updatedMedicines.add(medicineToRemove);
+            for (Medicine medicine : currentMedicines) {
+                if (!medicine.equals(medicineToRemove)) {
+                    updatedMedicines.add(medicine);
+                }
+            }
         } else {
             throw new CommandException(String.format(MESSAGE_MED_NOT_FOUND,
-                    medicineToRemove.getMedicineName(), Messages.format(patientToEdit)));
+                    medicineToRemove.getMedicineName(), patientToEdit.getName()));
         }
 
         Patient editedPatient = createEditedPatient(patientToEdit, updatedMedicines);
@@ -133,7 +137,7 @@ public class UnprescribeCommand extends Command {
      */
     private String generateSuccessMessage(Patient patientToEdit) {
         return String.format(MESSAGE_REMOVE_MED_SUCCESS, medicineToRemove.getMedicineName(),
-                Messages.format(patientToEdit));
+                patientToEdit.getName());
     }
 
     /**
@@ -141,7 +145,7 @@ public class UnprescribeCommand extends Command {
      * {@code patientToEdit}.
      */
     private String generateSuccessMessageForAll(Patient patientToEdit) {
-        return String.format(MESSAGE_REMOVE_ALL_MED_SUCCESS, Messages.format(patientToEdit));
+        return String.format(MESSAGE_REMOVE_ALL_MED_SUCCESS, patientToEdit.getName());
     }
 
     @Override
