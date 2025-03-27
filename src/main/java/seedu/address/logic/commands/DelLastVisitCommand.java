@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 
 /**
- * Deletes the last visit info of a patient by setting it to "NA".
+ * Deletes the last visit info of a patient by setting it to null.
  */
 public class DelLastVisitCommand extends Command {
     public static final String COMMAND_WORD = "delLastVisit";
@@ -23,16 +23,17 @@ public class DelLastVisitCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + '\n'
             + "Example: " + COMMAND_WORD + " 1 ";
+    public static final String NONE = "None";
 
     private final Index index;
 
     /**
      * Creates a {@code DelLastVisitCommand}.
      *
-     * @param index The index of the patient to modify.
+     * @param ind The index of the patient to modify.
      */
-    public DelLastVisitCommand(Index index) {
-        this.index = index;
+    public DelLastVisitCommand(Index ind) {
+        index = ind;
     }
 
     /**
@@ -41,8 +42,8 @@ public class DelLastVisitCommand extends Command {
      * @param patient The newly modified patient.
      * @return The msg to send upon successful deletion.
      */
-    private String generateSuccessMessage(Patient patient) {
-        return "Last visit info successfully deleted from "
+    public String generateSuccessMessage(Patient patient) {
+        return "Last visit date successfully deleted from "
                 + patient.getName();
     }
 

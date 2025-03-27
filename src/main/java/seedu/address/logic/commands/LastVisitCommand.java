@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import seedu.address.model.patient.LastVisit;
 import seedu.address.model.patient.Patient;
 
 /**
- * Changes the remark of an existing patient in the address book.
+ * Changes the Last Visit of an existing patient in the address book.
  */
 public class LastVisitCommand extends Command {
 
@@ -24,18 +24,16 @@ public class LastVisitCommand extends Command {
             + "by the index number used in the last patient listing. "
             + "Existing last visit will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_VISIT + "[LAST VISIT]\n"
+            + PREFIX_DATE + "[LAST VISIT DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_VISIT + "Last visited on 5 March 2025. Followed medication schedule well.";
+            + PREFIX_DATE + "2025-05-01";
 
-    public static final String MESSAGE_ADD_LAST_VISIT_SUCCESS = "Added last visit to patient: %1$s";
-    public static final String MESSAGE_DELETE_LAST_VISIT_SUCCESS = "Removed last visit from patient: %1$s";
-
+    public static final String MESSAGE_ADD_LAST_VISIT_SUCCESS = "Set last visit of patient %1$s to %2$s";
     private final Index index;
     private final LastVisit lastVisit;
 
     /**
-     * @param index of the patient in the filtered patient list to edit the remark
+     * @param index of the patient in the filtered patient list to edit the Last Visit
      * @param lastVisit of the patient to be updated to
      */
     public LastVisitCommand(Index index, LastVisit lastVisit) {
@@ -63,11 +61,12 @@ public class LastVisitCommand extends Command {
     }
 
     /**
-     * Generates a command execution success message based on whether the remark is added to or removed from
+     * Generates a command execution success message after setting the last visit date.
      * {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {
-        return String.format(MESSAGE_ADD_LAST_VISIT_SUCCESS, patientToEdit.getName());
+        return String.format(MESSAGE_ADD_LAST_VISIT_SUCCESS,
+                patientToEdit.getName(), lastVisit.lastVisitDate.toString());
     }
 
     @Override
