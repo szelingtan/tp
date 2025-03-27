@@ -14,7 +14,7 @@ import seedu.address.model.patient.LastVisit;
 import seedu.address.model.patient.Patient;
 
 /**
- * Changes the remark of an existing patient in the address book.
+ * Changes the Last Visit of an existing patient in the address book.
  */
 public class LastVisitCommand extends Command {
 
@@ -33,7 +33,7 @@ public class LastVisitCommand extends Command {
     private final LastVisit lastVisit;
 
     /**
-     * @param index of the patient in the filtered patient list to edit the remark
+     * @param index of the patient in the filtered patient list to edit the Last Visit
      * @param lastVisit of the patient to be updated to
      */
     public LastVisitCommand(Index index, LastVisit lastVisit) {
