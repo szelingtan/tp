@@ -1,7 +1,10 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -83,18 +86,25 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String lastVisit} into an {@code lastVisit}.
+     * Parses a {@code String lastVisitDate} into a {@code LastVisit}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code lastVisit} is invalid.
+     * @throws ParseException if the given {@code lastVisitDate} is invalid.
      */
-    public static LastVisit parseLastVisit(String lastVisit) throws ParseException {
-        requireNonNull(lastVisit);
-        String trimmedLastVisit = lastVisit.trim();
-        if (!LastVisit.isValidLastVisit(trimmedLastVisit)) {
+    public static LastVisit parseLastVisit(String lastVisitDateString) throws ParseException {
+        requireNonNull(lastVisitDateString);
+        String trimmedLastVisitDate = lastVisitDateString.trim();
+        LocalDate lastVisitDate;
+        try {
+            lastVisitDate = LocalDate.parse(trimmedLastVisitDate);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+
+        if (!LastVisit.isValidLastVisit(lastVisitDate)) {
             throw new ParseException(LastVisit.MESSAGE_CONSTRAINTS);
         }
-        return new LastVisit(trimmedLastVisit);
+        return new LastVisit(lastVisitDate);
     }
 
     /**

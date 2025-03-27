@@ -22,7 +22,7 @@ public class DelLastVisitCommandTest {
         // version after running `delLastVisit`.
         Patient p0 = TypicalPatients.ALICE;
         p0 = new PatientBuilder(p0)
-                .withLastVisit("Meduka become Meguca")
+                .withLastVisit("2025-01-01")
                 .build();
         Patient p1 = new PatientBuilder(p0)
                 .withLastVisit(null)

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Email;
@@ -34,7 +35,7 @@ class JsonAdaptedPatient {
     private final List<JsonAdaptedMed> meds = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedpatient} with the given patient details.
+     * Constructs a {@code JsonAdaptedPatient} with the given patient details.
      */
     @JsonCreator
     public JsonAdaptedPatient(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
@@ -64,7 +65,7 @@ class JsonAdaptedPatient {
         email = source.getEmail().value;
         address = source.getAddress().value;
         if (!(source.getLastVisit() == null)) {
-            lastVisit = source.getLastVisit().value;
+            lastVisit = source.getLastVisit().lastVisitDate.toString();
         } else {
             lastVisit = null;
         }
@@ -123,16 +124,9 @@ class JsonAdaptedPatient {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-
-        // if (lastVisit == null) {
-        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-        //             LastVisit.class.getSimpleName()));
-        // }
-        // final LastVisit modelLastVisit = new LastVisit(lastVisit);
-
         final LastVisit modelLastVisit;
         if (lastVisit != null) {
-            modelLastVisit = new LastVisit(lastVisit);
+            modelLastVisit = ParserUtil.parseLastVisit(lastVisit);
         } else {
             modelLastVisit = null;
         }
