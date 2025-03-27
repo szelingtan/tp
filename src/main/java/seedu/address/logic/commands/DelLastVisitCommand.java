@@ -62,7 +62,7 @@ public class DelLastVisitCommand extends Command {
                     Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
-        // Create new Patient with NA last visit
+        // Create a new Patient with `null` last visit
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
         Patient editedPatient = new Patient(
                 patientToEdit.getName(),
@@ -70,7 +70,6 @@ public class DelLastVisitCommand extends Command {
                 patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
                 null,
-                // new LastVisit(NONE),
                 patientToEdit.getTags(),
                 patientToEdit.getMedicines()
         );
