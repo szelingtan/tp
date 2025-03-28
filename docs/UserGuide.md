@@ -235,7 +235,7 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 * The medication will be added on to existing medications i.e. adding of medications is cumulative.
 
 Examples:
-*  `prescribe 1 m/Inulin` Adds `Insulin` to the 1st patient's prescription.
+*  `prescribe 1 m/Insulin` Adds `Insulin` to the 1st patient's prescription.
 
 ### Removing medication from a patient : `unprescribe`
 
