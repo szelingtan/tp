@@ -46,7 +46,6 @@ Created for social workers, CareConnect allows you to not only **track patient c
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
     The `.jar` file can be found under the Assets section. ![Assets](images/jar.png)
 
-
 3. Copy the file to the folder you want to use as the _home folder_ for your CareConnect.
 
 4. Open a command terminal, enter the folder containing the jar file using the `cd` command, and use the `java -jar CareConnect.jar` command to run the application.<br>
@@ -91,7 +90,6 @@ Created for social workers, CareConnect allows you to not only **track patient c
 
 
 --------------------------------------------------------------------------------------------------------------------
-
 
 ## Features
 
