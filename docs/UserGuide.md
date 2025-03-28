@@ -57,8 +57,8 @@ CareConnect is a **desktop app for social workers to manage patient information,
 | **Help**              | `help`                                                                 |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                    |
 | **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`   | `unprescribe 1 m/anarex`  <br/> `unprescribe 1 m/all`                                                          |
-| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE i/LAST_VISIT_INFO`                  | `lastVisit 1 d/2025-03-15 i/Patient has been on track with at-home physiotherapy.`                             |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                              |
+| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE i/LAST_VISIT_INFO`                  | `lastVisit 1 d/2025-03-15`                                                                                     |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 2`                                                                                               |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -132,11 +132,11 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
-### Tag a patient : `Tag`
+### Tag a patient : `tag`
 
 Tag an existing patient in the patient contact book.
 
-Format: `edit INDEX [t/TAG]…​`
+Format: `tag INDEX [t/TAG]…​`
 
 * Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -146,8 +146,25 @@ Format: `edit INDEX [t/TAG]…​`
   specifying any tags after it.
 
 Examples:
-*  `edit 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
-*  `edit 2 n/Betsy Crower t/` Remove all the tag(s) of the 2nd patient.
+*  `tag 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
+*  `tag 2 t/dementia t/highBloodPressure` Add the tags `dementia` and `highBloodPressure` to the 2nd patient.
+
+### Untag a patient : `tag`
+
+Tag an existing patient in the patient contact book.
+
+Format: `untag INDEX [t/TAG]…​`
+
+* Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
+* You can remove all the patient’s tags by typing `t/` without
+  specifying any tags after it.
+
+Examples:
+*  `untag 1 t/diabetes` Removes the tag `diabetes` from the 1st patient.
+*  `untag 2 t/dementia t/highBloodPressure` Remove the tags `dementia` and `highBloodPressure` from the 2nd patient.
 
 ### Adding medication to a patient : `prescribe`
 
@@ -160,12 +177,11 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 * The medication will be added on to existing medications i.e. adding of medications is cumulative.
 
 Examples:
-*  `prescribe 1 m/panadol` Adds the panadol medication to the 1st patient.
-*  `prescribe 2 m/panadol` Adds the panadol medication to the 2nd patient.
+*  `prescribe 1 m/Inulin` Adds `Insulin` to the 1st patient's prescription.
 
 ### Removing all medication from a patient : `unprescribe`
 
-Remove all medication from an existing patient in the patient contact book.
+Removes specific or all medication from an existing patient in the patient contact book.
 
 Format: `unprescribe INDEX m/MEDICINE_NAME` or `unprescribe INDEX m/all`
 
@@ -176,20 +192,19 @@ Format: `unprescribe INDEX m/MEDICINE_NAME` or `unprescribe INDEX m/all`
 
 Examples:
 *  `unprescribe 1 m/all` Removes all medication from the 1st patient.
-*  `unprescribe 2 m/panadol` Removes the panadol medication from the 2nd patient.
+*  `unprescribe 2 m/Insulin` Removes `Insulin` from the 2nd patient's prescription.
 
 ### Adding last visit record to a patient : `lastVisit`
 
 Adds last visit record to an existing patient in the patient contact book.
 
-Format: `lastVisit INDEX v/LAST_VISIT`
+Format: `lastVisit INDEX d/LAST_VISIT_DATE`
 
 * Adds last visit record to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* The LAST_VISIT field must be provided.
+* The LAST_VISIT_ field must be provided.
 
 Examples:
-*  `lastVisit 1 v/ 5 March 2025 - Patient is more engaged and active this week.` Adds the record '5 March 2025 - Patient is more engaged and active this week.' to the 1st patient.
-*  `lastVisit 2 v/ 27 February 2025` Adds the record '27 February 2025' to the 2nd patient.
+*  `lastVisit 1 d/2025-03-15` Adds the record '5 March 2025 - Patient is more engaged and active this week.' to the 1st patient.
 
 ### Locating patients by name: `find`
 
