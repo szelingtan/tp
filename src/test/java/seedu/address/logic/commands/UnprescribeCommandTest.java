@@ -29,12 +29,12 @@ import seedu.address.testutil.PatientBuilder;
 public class UnprescribeCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Medicine medicine = new Medicine("Paracetamol");
 
     @Test
-    public void execute_patientWithMedicines_success() {
+    public void execute_removingSpecificMedicine_success() {
         // First, add a medicine to the patient
         Patient patientToUpdate = model.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
-        Medicine medicine = new Medicine("Paracetamol");
 
         // Create a set with the medicine and update the patient
         HashSet<Medicine> medicineSet = new HashSet<>();
@@ -43,7 +43,7 @@ public class UnprescribeCommandTest {
         model.setPatient(patientToUpdate, patientWithMedicine);
 
         // Now test unprescribing
-        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT);
+        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT, medicine);
 
         // Create a patient with empty medicine set for expected result
         Patient editedPatient = new PatientBuilder(patientWithMedicine).withMeds(new HashSet<>()).build();
@@ -51,51 +51,100 @@ public class UnprescribeCommandTest {
         expectedModel.setPatient(patientWithMedicine, editedPatient);
 
         String expectedMessage = String.format(UnprescribeCommand.MESSAGE_REMOVE_MED_SUCCESS,
-                editedPatient.getName());
+                medicine.getMedicineName(), editedPatient.getName());
 
         assertCommandSuccess(unprescribeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_patientWithNoMedicines_showsEmptyMessage() {
+    public void execute_removingAllMedicines_success() {
+        // First, add multiple medicines to the patient
+        Patient patientToUpdate = model.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
+
+        // Create a set with multiple medicines and update the patient
+        HashSet<Medicine> medicineSet = new HashSet<>();
+        medicineSet.add(medicine);
+        medicineSet.add(new Medicine("Aspirin"));
+        medicineSet.add(new Medicine("Lyrica"));
+        medicineSet.add(new Medicine("Lactofort"));
+        Patient patientWithMedicines = new PatientBuilder(patientToUpdate).withMeds(medicineSet).build();
+        model.setPatient(patientToUpdate, patientWithMedicines);
+
+        // Now test unprescribing all medicines
+        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT,
+                new Medicine("all"));
+
+        // Create a patient with empty medicine set for expected result
+        Patient editedPatient = new PatientBuilder(patientWithMedicines).withMeds(new HashSet<>()).build();
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPatient(patientWithMedicines, editedPatient);
+
+        String expectedMessage = String.format(UnprescribeCommand.MESSAGE_REMOVE_ALL_MED_SUCCESS,
+                editedPatient.getName());
+    }
+
+    @Test
+    public void execute_emptyMedicineList_throwsCommandException() {
         Patient patientToUpdate = model.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
 
         // Ensure patient has no medicines
         Patient patientWithNoMedicine = new PatientBuilder(patientToUpdate).withMeds(new HashSet<>()).build();
         model.setPatient(patientToUpdate, patientWithNoMedicine);
 
-        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT);
-
-        // The expected model should be the same since we are not changing anything
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT, medicine);
 
         String expectedMessage = String.format(UnprescribeCommand.MESSAGE_EMPTY_MED_LIST,
                 patientWithNoMedicine.getName());
 
-        assertCommandSuccess(unprescribeCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(unprescribeCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_medicineNotFound_throwsCommandException() {
+        // First, add a different medicine to the patient
+        Patient patientToUpdate = model.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
+
+        // Add Aspirin but try to remove Paracetamol
+        HashSet<Medicine> medicineSet = new HashSet<>();
+        medicineSet.add(new Medicine("Aspirin"));
+        Patient patientWithDifferentMedicine = new PatientBuilder(patientToUpdate).withMeds(medicineSet).build();
+        model.setPatient(patientToUpdate, patientWithDifferentMedicine);
+
+        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT, medicine);
+
+        String expectedMessage = String.format(UnprescribeCommand.MESSAGE_MED_NOT_FOUND,
+                medicine.getMedicineName(), patientWithDifferentMedicine.getName());
+
+        assertCommandFailure(unprescribeCommand, model, expectedMessage);
     }
 
     @Test
     public void execute_invalidPatientIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPatientList().size() + 1);
-        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(outOfBoundIndex);
+        UnprescribeCommand unprescribeCommand = new UnprescribeCommand(outOfBoundIndex, medicine);
 
         assertCommandFailure(unprescribeCommand, model, Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final UnprescribeCommand standardCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT);
+        final UnprescribeCommand standardCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT,
+                medicine);
 
         // Same values -> returns true
-        UnprescribeCommand commandWithSameValues = new UnprescribeCommand(INDEX_FIRST_PATIENT);
+        UnprescribeCommand commandWithSameValues = new UnprescribeCommand(INDEX_FIRST_PATIENT,
+                medicine);
         assertEquals(standardCommand, commandWithSameValues);
 
         // Same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
 
         // Different index -> returns false
-        assertNotEquals(standardCommand, new UnprescribeCommand(INDEX_SECOND_PATIENT));
+        assertNotEquals(standardCommand, new UnprescribeCommand(INDEX_SECOND_PATIENT, medicine));
+
+        // Different medicine -> returns false
+        assertNotEquals(standardCommand, new UnprescribeCommand(INDEX_FIRST_PATIENT,
+                new Medicine("Aspirin")));
 
         // Different command -> returns false
         assertNotEquals(standardCommand, new ClearCommand());

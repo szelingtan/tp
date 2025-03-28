@@ -59,4 +59,11 @@ public class Medicine {
         return '[' + medName + ']';
     }
 
+    /**
+     * Get medication name.
+     */
+    public String getMedicineName() {
+        return medName;
+    }
+
 }
