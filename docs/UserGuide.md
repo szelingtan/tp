@@ -82,7 +82,7 @@ Created for social workers, CareConnect allows you to not only **track patient c
 | **List**              | `list`                                                                    |
 | **Help**              | `help`                                                                    |
 | **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                           |
-| **Delete Tag**        | `untag INDEX t/Tag`                                                       | `untag 2 t/highBloodPressure`                                                                         |
+| **Untag**             | `untag INDEX t/Tag`                                                       | `untag 2 t/highBloodPressure`                                                                         |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                               |
 | **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                |
 | **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                            |
