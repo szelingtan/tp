@@ -11,20 +11,24 @@ CareConnect is a **desktop app for social workers to manage patient information,
 * [Quick start](#quick-start)
 * [Command summary](#command-summary)
 * [Features](#features)
-    * [Viewing help: `help`](#viewing-help--help)
-    * [Adding a patient: `add`](#adding-a-patient-add)
-    * [Listing all patients: `list`](#listing-all-patients--list)
-    * [Editing a patient: `edit`](#editing-a-patient--edit)
+  * [Patient Management](#patient-management)
+      * [Adding a patient: `add`](#adding-a-patient-add)
+      * [Listing all patients: `list`](#listing-all-patients--list)
+      * [Editing a patient: `edit`](#editing-a-patient--edit)
+      * [Deleting a patient: `delete`](#deleting-a-patient--delete)
+      * [Clearing all entries: `clear`](#clearing-all-entries--clear)
+      * [Locating patients by name: `find`](#locating-patients-by-name-find)
+  * [Patient Data Management](#patient-data-management)
     * [Tag a patient: `tag`](#tag-a-patient--tag)
     * [Untag a patient: `untag`](#untag-a-patient--tag)
     * [Adding medication to a patient: `prescribe`](#adding-medication-to-a-patient--prescribe)
     * [Removing medication from a patient: `unprescribe`](#removing-medication-from-a-patient--unprescribe)
     * [Adding last visit record to a patient: `lastVisit`](#adding-last-visit-record-to-a-patient--lastvisit)
     * [Deleting the last visit information: `delLastVisit`](#deleting-the-last-visit-information--dellastvisit)
-    * [Locating patients by name: `find`](#locating-patients-by-name-find)
-    * [Deleting a patient: `delete`](#deleting-a-patient--delete)
-    * [Clearing all entries: `clear`](#clearing-all-entries--clear)
+  * [App Navigation](#app-navigation)
+    * [Viewing help: `help`](#viewing-help--help)
     * [Exiting the program: `exit`](#exiting-the-program--exit)
+  * [Data File Management](#data-file-management)
     * [Saving the data](#saving-the-data)
     * [Editing the data file](#editing-the-data-file)
 * [FAQ](#faq)
@@ -73,11 +77,11 @@ CareConnect is a **desktop app for social workers to manage patient information,
 | **Clear**             | `clear`                                                                   |                                                                                                       |
 | **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                            |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
-| **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                           |
-| **Delete Tag**        | `untag INDEX t/Tag`                                                       | `untag 2 t/highBloodPressure`                                                                         |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                            | `find James Jake`                                                                                     |
 | **List**              | `list`                                                                    |
 | **Help**              | `help`                                                                    |
+| **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                           |
+| **Delete Tag**        | `untag INDEX t/Tag`                                                       | `untag 2 t/highBloodPressure`                                                                         |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                               |
 | **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                |
 | **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                            |
@@ -110,14 +114,6 @@ CareConnect is a **desktop app for social workers to manage patient information,
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
-
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
 
 ## Patient Management
 ### Adding a patient: `add`
@@ -155,6 +151,24 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
+### Deleting a patient : `delete`
+
+Deletes the specified patient from the patient contact book.
+
+Format: `delete INDEX`
+
+* Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* The index refers to the index number shown in the displayed patient list.
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd patient in the patient contact book.
+* `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
+
+### Clearing all entries : `clear`
+
+Clears all entries from the patient contact book.
+
+Format: `clear`
 
 ## Patient Data Management
 ### Tag a patient : `tag`
@@ -258,24 +272,15 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a patient : `delete`
+## App Navigation
 
-Deletes the specified patient from the patient contact book.
+### Viewing help : `help`
 
-Format: `delete INDEX`
+Shows a message explaining how to access the help page.
 
-* Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* The index refers to the index number shown in the displayed patient list.
+![help message](images/helpMessage.png)
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd patient in the patient contact book.
-* `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
-
-### Clearing all entries : `clear`
-
-Clears all entries from the patient contact book.
-
-Format: `clear`
+Format: `help`
 
 ### Exiting the program : `exit`
 
@@ -283,6 +288,7 @@ Exits the program.
 
 Format: `exit`
 
+## Data File Management
 ### Saving the data
 
 CareConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
