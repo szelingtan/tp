@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-# User Guide
+# CareConnect User Guide
 
 CareConnect is a **desktop app for social workers to manage patient information, optimized for use via a Command Line Interface**.
 
@@ -36,22 +36,24 @@ CareConnect is a **desktop app for social workers to manage patient information,
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   A guide on how to install the required software can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
-2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
+    The `.jar` file can be found under the Assets section. ![Assets](images/jar.png)
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+3. Copy the file to the folder you want to use as the _home folder_ for your CareConnect.
+
+4. Open a command terminal, enter the folder containing the jar file using the `cd` command, and use the `java -jar CareConnect.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all patient contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 v/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
