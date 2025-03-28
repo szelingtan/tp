@@ -259,9 +259,11 @@ Format: `lastVisit INDEX d/LAST_VISIT_DATE`
 
 * Adds last visit record to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The LAST_VISIT_DATE field must be provided.
+* Format for LAST_VISIT_DATE: `YYYY-MM-DD`
+* LAST_VISIT_DATE must be a valid calendar date on or before the current system date. Future dates are not accepted.
 
 Examples:
-*  `lastVisit 1 d/2025-03-15` Adds the record '5 March 2025 - Patient is more engaged and active this week.' to the 1st patient.
+*  `lastVisit 1 d/2025-03-15` Adds the last visited date `2025-03-15` to the 1st patient.
 
 ### Deleting the last visit information : `delLastVisit`
 
