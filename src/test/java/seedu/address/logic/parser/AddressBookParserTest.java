@@ -61,7 +61,7 @@ public class AddressBookParserTest {
         Patient patient = new PatientBuilder().build();
         EditpatientDescriptor descriptor = new EditPatientDescriptorBuilder(patient).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PATIENT.getOneBased() + " " + PatientUtil.getEditpatientDescriptorDetails(descriptor));
+                + INDEX_FIRST_PATIENT.getOneBased() + " " + PatientUtil.getEditPatientDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PATIENT, descriptor), command);
     }
 
