@@ -44,21 +44,21 @@ CareConnect is a **desktop app for social workers to manage patient information,
 
 ## Command summary
 
-| Action                | Format                                                                 | Example                                                                                                        |
-|-----------------------|------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`   | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 v/2025_01_25 t/diabetes t/cancer` |
-| **Clear**             | `clear`                                                                |                                                                                                                |
-| **Delete**            | `delete INDEX`                                                         | `delete 3`                                                                                                     |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com`                                                                    |
-| **Tag**               | `tag INDEX t/Tag`                                                      | `tag 2 t/highBloodPressure`                                                                                    |
-| **Delete Tag**        | `untag INDEX t/Tag`                                                    | `untag 2 t/highBloodPressure`                                                                                  |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                         | `find James Jake`                                                                                              |
+| Action                | Format                                                                 | Example                                                                                               |
+|-----------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`   | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes` |
+| **Clear**             | `clear`                                                                |                                                                                                       |
+| **Delete**            | `delete INDEX`                                                         | `delete 3`                                                                                            |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
+| **Tag**               | `tag INDEX t/Tag`                                                      | `tag 2 t/highBloodPressure`                                                                           |
+| **Delete Tag**        | `untag INDEX t/Tag`                                                    | `untag 2 t/highBloodPressure`                                                                         |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                         | `find James Jake`                                                                                     |
 | **List**              | `list`                                                                 |
 | **Help**              | `help`                                                                 |
-| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                    |
-| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`   | `unprescribe 1 m/anarex`  <br/> `unprescribe 1 m/all`                                                          |
-| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE i/LAST_VISIT_INFO`                  | `lastVisit 1 d/2025-03-15`                                                                                     |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 2`                                                                                               |
+| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/Insulin`                                                                               |
+| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`   | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                |
+| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                    | `lastVisit 1 d/2025-03-15`                                                                            |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 2`                                                                                      |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -108,8 +108,8 @@ A patient can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 v/2025-01-12`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 v/2024-02-12 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12`
+* `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes`
 
 ### Listing all patients : `list`
 
@@ -179,7 +179,7 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 Examples:
 *  `prescribe 1 m/Inulin` Adds `Insulin` to the 1st patient's prescription.
 
-### Removing all medication from a patient : `unprescribe`
+### Removing medication from a patient : `unprescribe`
 
 Removes specific or all medication from an existing patient in the patient contact book.
 
@@ -201,7 +201,7 @@ Adds last visit record to an existing patient in the patient contact book.
 Format: `lastVisit INDEX d/LAST_VISIT_DATE`
 
 * Adds last visit record to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* The LAST_VISIT_ field must be provided.
+* The LAST_VISIT_DATE field must be provided.
 
 Examples:
 *  `lastVisit 1 d/2025-03-15` Adds the record '5 March 2025 - Patient is more engaged and active this week.' to the 1st patient.
