@@ -14,9 +14,9 @@ Created for social workers, CareConnect allows you to not only **track patient c
 * [Features](#features)
   * [Patient Management](#patient-management)
       * [Adding a patient: `add`](#adding-a-patient-add)
-      * [Listing all patients: `list`](#listing-all-patients--list)
       * [Editing a patient: `edit`](#editing-a-patient--edit)
       * [Deleting a patient: `delete`](#deleting-a-patient--delete)
+      * [Listing all patients: `list`](#listing-all-patients--list)
       * [Clearing all entries: `clear`](#clearing-all-entries--clear)
       * [Locating patients by name: `find`](#locating-patients-by-name-find)
   * [Patient Data Management](#patient-data-management)
@@ -75,18 +75,19 @@ Created for social workers, CareConnect allows you to not only **track patient c
 | Action                | Format                                                                    | Example                                                                                               |
 |-----------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
 | **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes` |
-| **Clear**             | `clear`                                                                   |                                                                                                       |
-| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                            |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                            | `find James Jake`                                                                                     |
+| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                            |
 | **List**              | `list`                                                                    |
-| **Help**              | `help`                                                                    |
+| **Clear**             | `clear`                                                                   |                                                                                                       |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                            | `find James Jake`                                                                                     |
 | **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                           |
 | **Untag**             | `untag INDEX t/Tag`                                                       | `untag 2 t/highBloodPressure`                                                                         |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                               |
 | **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                |
 | **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                            |
 | **Delete Last Visit** | `delLastVisit INDEX`                                                      | `delLastVisit 2`                                                                                      |
+| **Help**              | `help`                                                                    |                                                                                                       |
+| **Exit**              | `exit`                                                                    |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -131,12 +132,6 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12`
 * `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes`
 
-### Listing all patients : `list`
-
-Shows a list of all patients in the patient contact book.
-
-Format: `list`
-
 ### Editing a patient : `edit`
 
 Edits an existing patient in the patient contact book.
@@ -165,11 +160,36 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in the patient contact book.
 * `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
 
+### Listing all patients : `list`
+
+Shows a list of all patients in the patient contact book.
+
+Format: `list`
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the patient contact book.
 
 Format: `clear`
+
+### Locating patients by name: `find`
+
+Finds patients whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g. `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* patients matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+* `find John` returns `john` and `John Doe`
+* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
 
 ## Patient Data Management
 ### Tag a patient : `tag`
@@ -253,25 +273,6 @@ Format: `delLastVisit INDEX`
 
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The index **must be a positive integer** 1, 2, 3, …​
-
-
-### Locating patients by name: `find`
-
-Finds patients whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* patients matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ## App Navigation
 
