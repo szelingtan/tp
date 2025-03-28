@@ -5,7 +5,8 @@ title: User Guide
 
 # CareConnect User Guide
 
-CareConnect is a **desktop app for social workers to manage patient information, optimized for use via a Command Line Interface**.
+CareConnect is a **desktop app for managing patients, optimised for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)**.
+Created for social workers, CareConnect allows you to not only **track patient contacts** but also their **diagnosis, prescriptions and last visit information** on a single app.
 
 ### Table of Contents
 * [Quick start](#quick-start)
