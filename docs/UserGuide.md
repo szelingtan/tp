@@ -20,8 +20,8 @@ CareConnect is a **desktop app for social workers to manage patient information,
     * [Adding medication to a patient: `prescribe`](#adding-medication-to-a-patient--prescribe)
     * [Removing medication from a patient: `unprescribe`](#removing-medication-from-a-patient--unprescribe)
     * [Adding last visit record to a patient: `lastVisit`](#adding-last-visit-record-to-a-patient--lastvisit)
-    * [Deleting the last visit information](#deleting-the-last-visit-information--dellastvisit)
-    * [Locating patients by name: `delLastVisit`](#locating-patients-by-name-find)
+    * [Deleting the last visit information: `delLastVisit`](#deleting-the-last-visit-information--dellastvisit)
+    * [Locating patients by name: `find`](#locating-patients-by-name-find)
     * [Deleting a patient: `delete`](#deleting-a-patient--delete)
     * [Clearing all entries: `clear`](#clearing-all-entries--clear)
     * [Exiting the program: `exit`](#exiting-the-program--exit)
@@ -67,21 +67,21 @@ CareConnect is a **desktop app for social workers to manage patient information,
 
 ## Command summary
 
-| Action                | Format                                                                 | Example                                                                                               |
-|-----------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`   | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes` |
-| **Clear**             | `clear`                                                                |                                                                                                       |
-| **Delete**            | `delete INDEX`                                                         | `delete 3`                                                                                            |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
-| **Tag**               | `tag INDEX t/Tag`                                                      | `tag 2 t/highBloodPressure`                                                                           |
-| **Delete Tag**        | `untag INDEX t/Tag`                                                    | `untag 2 t/highBloodPressure`                                                                         |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                         | `find James Jake`                                                                                     |
-| **List**              | `list`                                                                 |
-| **Help**              | `help`                                                                 |
-| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/Insulin`                                                                               |
-| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`   | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                |
-| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                    | `lastVisit 1 d/2025-03-15`                                                                            |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 2`                                                                                      |
+| Action                | Format                                                                    | Example                                                                                               |
+|-----------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes` |
+| **Clear**             | `clear`                                                                   |                                                                                                       |
+| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                            |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
+| **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                           |
+| **Delete Tag**        | `untag INDEX t/Tag`                                                       | `untag 2 t/highBloodPressure`                                                                         |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                            | `find James Jake`                                                                                     |
+| **List**              | `list`                                                                    |
+| **Help**              | `help`                                                                    |
+| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                               |
+| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                |
+| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                            |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                      | `delLastVisit 2`                                                                                      |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -119,12 +119,13 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-
+--------------------------------------------------------------------------------------------------------------------
+## Patient Management
 ### Adding a patient: `add`
 
 Adds a patient to the patient contact book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient can have any number of tags (including 0)
@@ -155,6 +156,8 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
+--------------------------------------------------------------------------------------------------------------------
+## Patient Data Management
 ### Tag a patient : `tag`
 
 Tag an existing patient in the patient contact book.
@@ -174,11 +177,11 @@ Examples:
 
 ### Untag a patient : `tag`
 
-Tag an existing patient in the patient contact book.
+Untag an existing patient in the patient contact book.
 
 Format: `untag INDEX [t/TAG]…​`
 
-* Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Untag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
@@ -210,7 +213,6 @@ Format: `unprescribe INDEX m/MEDICINE_NAME` or `unprescribe INDEX m/all`
 
 * Removes medication from the patient at the specified `INDEX`. The index refers to the index 
   number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * `unprescribe INDEX m/all` removes all medication from the list 
 
 Examples:
@@ -265,7 +267,6 @@ Format: `delete INDEX`
 
 * Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The index refers to the index number shown in the displayed patient list.
-* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in the patient contact book.
@@ -285,15 +286,15 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CareConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CareConnect data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, CareConnect will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the CareConnect to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
 
@@ -302,7 +303,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CareConnect home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
