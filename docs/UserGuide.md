@@ -7,8 +7,29 @@ title: User Guide
 
 CareConnect is a **desktop app for social workers to manage patient information, optimized for use via a Command Line Interface**.
 
-* Table of Contents
-{:toc}
+### Table of Contents
+* [Quick start](#quick-start)
+* [Command summary](#command-summary)
+* [Features](#features)
+    * [Viewing help: `help`](#viewing-help--help)
+    * [Adding a patient: `add`](#adding-a-patient-add)
+    * [Listing all patients: `list`](#listing-all-patients--list)
+    * [Editing a patient: `edit`](#editing-a-patient--edit)
+    * [Tag a patient: `tag`](#tag-a-patient--tag)
+    * [Untag a patient: `untag`](#untag-a-patient--tag)
+    * [Adding medication to a patient: `prescribe`](#adding-medication-to-a-patient--prescribe)
+    * [Removing medication from a patient: `unprescribe`](#removing-medication-from-a-patient--unprescribe)
+    * [Adding last visit record to a patient: `lastVisit`](#adding-last-visit-record-to-a-patient--lastvisit)
+    * [Deleting the last visit information](#deleting-the-last-visit-information--dellastvisit)
+    * [Locating patients by name: `delLastVisit`](#locating-patients-by-name-find)
+    * [Deleting a patient: `delete`](#deleting-a-patient--delete)
+    * [Clearing all entries: `clear`](#clearing-all-entries--clear)
+    * [Exiting the program: `exit`](#exiting-the-program--exit)
+    * [Saving the data](#saving-the-data)
+    * [Editing the data file](#editing-the-data-file)
+* [FAQ](#faq)
+* [Known issues](#known-issues)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -206,6 +227,16 @@ Format: `lastVisit INDEX d/LAST_VISIT_DATE`
 Examples:
 *  `lastVisit 1 d/2025-03-15` Adds the record '5 March 2025 - Patient is more engaged and active this week.' to the 1st patient.
 
+### Deleting the last visit information : `delLastVisit`
+
+Deletes the last visit information of a patient
+
+Format: `delLastVisit INDEX`
+
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …​
+
+
 ### Locating patients by name: `find`
 
 Finds patients whose names contain any of the given keywords.
@@ -249,15 +280,6 @@ Format: `clear`
 Exits the program.
 
 Format: `exit`
-
-### Deleting the last visit information : `delLastVisit`
-
-Deletes the last visit information of a patient
-
-Format: `delLastVisit INDEX`
-
-* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* The index **must be a positive integer** 1, 2, 3, …​
 
 ### Saving the data
 
