@@ -3,6 +3,8 @@ layout: page
 title: User Guide
 ---
 
+# User Guide
+
 CareConnect is a **desktop app for social workers to manage patient information, optimized for use via a Command Line Interface**.
 
 * Table of Contents
@@ -28,7 +30,7 @@ CareConnect is a **desktop app for social workers to manage patient information,
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 v/2025-12-25` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 v/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -48,13 +50,14 @@ CareConnect is a **desktop app for social workers to manage patient information,
 | **Clear**             | `clear`                                                                |                                                                                                                |
 | **Delete**            | `delete INDEX`                                                         | `delete 3`                                                                                                     |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com`                                                                    |
-| **Tag**               | `edit INDEX t/Tag`                                                     | `edit 2 t/highBloodPressure`                                                                                   |
+| **Tag**               | `tag INDEX t/Tag`                                                      | `tag 2 t/highBloodPressure`                                                                                    |
+| **Delete Tag**        | `untag INDEX t/Tag`                                                    | `untag 2 t/highBloodPressure`                                                                                  |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                         | `find James Jake`                                                                                              |
 | **List**              | `list`                                                                 |
 | **Help**              | `help`                                                                 |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                      | `prescribe 1 m/paracetamol`                                                                                    |
 | **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`   | `unprescribe 1 m/anarex`  <br/> `unprescribe 1 m/all`                                                          |
-| **Last Visit**        | `lastVisit INDEX v/LAST_VISIT`                                         | `lastVisit 1 v/5 March 2025`                                                                                   |
+| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE i/LAST_VISIT_INFO`                  | `lastVisit 1 d/2025-03-15 i/Patient has been on track with at-home physiotherapy.`                             |
 | **Delete Last Visit** | `delLastVisit INDEX`                                                   | `delLastVisit 21`                                                                                              |
 
 
@@ -65,7 +68,7 @@ CareConnect is a **desktop app for social workers to manage patient information,
 
 <div markdown="block" class="alert alert-info">
 
-**information_source: Notes about the command format:**<br>
+**:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -96,7 +99,7 @@ Format: `help`
 
 ### Adding a patient: `add`
 
-Adds a patient to the address book.
+Adds a patient to the patient contact book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS v/LAST_VISIT [t/TAG]…​`
 
@@ -110,13 +113,13 @@ Examples:
 
 ### Listing all patients : `list`
 
-Shows a list of all patients in the address book.
+Shows a list of all patients in the patient contact book.
 
 Format: `list`
 
 ### Editing a patient : `edit`
 
-Edits an existing patient in the address book.
+Edits an existing patient in the patient contact book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -131,7 +134,7 @@ Examples:
 
 ### Tag a patient : `Tag`
 
-Tag an existing patient in the address book.
+Tag an existing patient in the patient contact book.
 
 Format: `edit INDEX [t/TAG]…​`
 
@@ -148,7 +151,7 @@ Examples:
 
 ### Adding medication to a patient : `prescribe`
 
-Adds medication to an existing patient in the address book.
+Adds medication to an existing patient in the patient contact book.
 
 Format: `prescribe INDEX m/MEDICINE_NAME`
 
@@ -162,7 +165,7 @@ Examples:
 
 ### Removing all medication from a patient : `unprescribe`
 
-Remove all medication from an existing patient in the address book.
+Remove all medication from an existing patient in the patient contact book.
 
 Format: `unprescribe INDEX m/MEDICINE_NAME` or `unprescribe INDEX m/all`
 
@@ -177,7 +180,7 @@ Examples:
 
 ### Adding last visit record to a patient : `lastVisit`
 
-Adds last visit record to an existing patient in the address book.
+Adds last visit record to an existing patient in the patient contact book.
 
 Format: `lastVisit INDEX v/LAST_VISIT`
 
@@ -208,7 +211,7 @@ Examples:
 
 ### Deleting a patient : `delete`
 
-Deletes the specified patient from the address book.
+Deletes the specified patient from the patient contact book.
 
 Format: `delete INDEX`
 
@@ -217,12 +220,12 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd patient in the address book.
+* `list` followed by `delete 2` deletes the 2nd patient in the patient contact book.
 * `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the patient contact book.
 
 Format: `clear`
 
@@ -254,9 +257,6 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
