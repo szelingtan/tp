@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class PatientBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_LAST_VISIT = "Last visit on 5 March 2025.";
+    public static final String DEFAULT_LAST_VISITDATE = "2020-01-01";
 
     private Name name;
     private Phone phone;
@@ -40,7 +41,7 @@ public class PatientBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        lastVisit = new LastVisit(DEFAULT_LAST_VISIT);
+        lastVisit = new LastVisit(LocalDate.parse(DEFAULT_LAST_VISITDATE));
         tags = new HashSet<>();
         medicines = new HashSet<>();
     }
@@ -118,11 +119,11 @@ public class PatientBuilder {
     /**
      * Sets the {@code Last Visit} of the {@code patient} that we are building.
      */
-    public PatientBuilder withLastVisit(String visit) {
-        if (visit == null) {
+    public PatientBuilder withLastVisit(String lastVisitDate) {
+        if (lastVisitDate == null) {
             this.lastVisit = null;
         } else {
-            this.lastVisit = new LastVisit(visit);
+            this.lastVisit = new LastVisit(LocalDate.parse(lastVisitDate));
         }
         return this;
     }

@@ -23,16 +23,16 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LASTVISITDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VISIT_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPatients.AMY;
@@ -51,7 +51,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PatientBuilder;
 
 public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private final AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -96,14 +96,14 @@ public class AddCommandParserTest {
 
         // multiple last visits
         assertParseFailure(parser, LAST_VISIT_AMY + validExpectedpatientString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_VISIT));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE));
 
         // multiple fields repeated
         assertParseFailure(parser,
                 validExpectedpatientString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY + ADDRESS_DESC_AMY
                         + validExpectedpatientString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME,
-                        PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_VISIT));
+                        PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_DATE));
 
         // invalid value followed by valid value
 
@@ -125,7 +125,7 @@ public class AddCommandParserTest {
 
         // invalid last visit
         assertParseFailure(parser, INVALID_VISIT_DESC + validExpectedpatientString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_VISIT));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE));
 
         // valid value followed by invalid value
 
@@ -147,7 +147,7 @@ public class AddCommandParserTest {
 
         // invalid last visit
         assertParseFailure(parser, validExpectedpatientString + INVALID_VISIT_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_VISIT));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE));
     }
 
     @Test
@@ -190,7 +190,7 @@ public class AddCommandParserTest {
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB
-                        + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + VALID_VISIT_BOB,
+                        + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + VALID_LASTVISITDATE_BOB,
                 expectedMessage);
     }
 

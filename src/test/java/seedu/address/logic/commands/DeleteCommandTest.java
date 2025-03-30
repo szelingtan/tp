@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showpatientAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showPatientAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
@@ -25,7 +25,7 @@ import seedu.address.model.patient.Patient;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -51,7 +51,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showpatientAtIndex(model, INDEX_FIRST_PATIENT);
+        showPatientAtIndex(model, INDEX_FIRST_PATIENT);
 
         Patient patientToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PATIENT);
@@ -61,14 +61,14 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
-        showNopatient(expectedModel);
+        showNoPatient(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showpatientAtIndex(model, INDEX_FIRST_PATIENT);
+        showPatientAtIndex(model, INDEX_FIRST_PATIENT);
 
         Index outOfBoundIndex = INDEX_SECOND_PATIENT;
         // ensures that outOfBoundIndex is still in bounds of address book list
@@ -112,7 +112,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNopatient(Model model) {
+    private void showNoPatient(Model model) {
         model.updateFilteredPatientList(p -> false);
 
         assertTrue(model.getFilteredPatientList().isEmpty());

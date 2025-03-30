@@ -28,6 +28,8 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_MEDICINE_NAME = "#$%panadol";
+    private static final String INVALID_FORMAT_DATE = "10-10-2020";
+    private static final String INVALID_VALUE_DATE = "2055-01-01";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -219,5 +221,20 @@ public class ParserUtilTest {
         String medWithWhitespace = WHITESPACE + VALID_MED_1 + WHITESPACE;
         Medicine expectedMed = new Medicine(VALID_MED_1);
         assertEquals(expectedMed, ParserUtil.parseMed(medWithWhitespace));
+    }
+
+    @Test
+    public void parseLastVisit_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseLastVisit(null));
+    }
+
+    @Test
+    public void parseLastVisit_invalidDateFormat_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseLastVisit(INVALID_FORMAT_DATE));
+    }
+
+    @Test
+    public void parseLastVisit_invalidDateValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseLastVisit(INVALID_VALUE_DATE));
     }
 }
