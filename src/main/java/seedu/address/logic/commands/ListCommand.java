@@ -21,4 +21,12 @@ public class ListCommand extends Command {
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        return other instanceof ListCommand; // Since ListCommand has no fields to compare
+    }
 }
