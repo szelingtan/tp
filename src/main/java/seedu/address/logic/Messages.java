@@ -20,8 +20,8 @@ public class Messages {
     public static final String MESSAGE_PATIENTS_LISTED_OVERVIEW = "%1$d patients listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! Date must be provided "
-            + "in the following format: YYYY-MM-DD. Example: 2025-10-02";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format or date! Date must be provided "
+            + "in the following format: YYYY-MM-DD. Example: 2025-02-02";
     public static final String MESSAGE_FUTURE_LAST_VISIT_DATE = "Invalid future date format! Last"
             + "visit date should not be in the future";
 
