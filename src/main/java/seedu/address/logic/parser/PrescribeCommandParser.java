@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -25,6 +25,21 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
     public PrescribeCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE);
+
+        // Check for medicine parameter
+        if (!argMultimap.getValue(PREFIX_MEDICINE).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    PrescribeCommand.MESSAGE_USAGE));
+        }
+
+        // Parse and validate Index
+        String preamble = argMultimap.getPreamble().trim();
+
+        // Check specifically for negative numbers and zero (index issue)
+        int indexValue = Integer.parseInt(preamble);
+        if (indexValue <= 0) {
+            throw new ParseException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
 
         Index index;
         try {
