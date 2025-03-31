@@ -97,9 +97,9 @@ public class AddressBookParserTest {
             fail("The expected ParseException was not thrown");
         } catch (ParseException pe) {
             // Expected behavior - test passes
-            String expectedMessage = "Command format `list 3` is invalid.\n" +
-                    "The list command does not accept additional parameters.\n" +
-                    "list: Lists all patients in the address book.";
+            String expectedMessage = "Command format `list 3` is invalid.\n"
+                    + "The list command does not accept additional parameters.\n"
+                    + "list: Lists all patients in the address book.";
             assertEquals(expectedMessage, pe.getMessage());
         }
     }
