@@ -33,9 +33,9 @@ public class ListCommandParserTest {
 
         // Test with different extra arguments
         String otherArgs = "something else";
-        String otherExpectedMessage = "Command format `list " + otherArgs + "` is invalid.\n" +
-                "The list command does not accept additional parameters.\n" +
-                "list: Lists all patients in the address book.";
+        String otherExpectedMessage = "Command format `list " + otherArgs + "` is invalid.\n"
+                + "The list command does not accept additional parameters.\n"
+                + "list: Lists all patients in the address book.";
         assertParseFailure(parser, otherArgs, otherExpectedMessage);
     }
 
