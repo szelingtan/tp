@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_FUTURE_LAST_VISIT_DATE;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_LAST_VISIT_DATE;
@@ -71,7 +72,7 @@ public class LastVisitCommandParserTest {
         String userInput = INDEX_FIRST_PATIENT.getOneBased()
                 + " " + PREFIX_DATE + invalidFutureDate;
 
-        assertParseFailure(parser, userInput, MESSAGE_INVALID_LAST_VISIT_DATE);
+        assertParseFailure(parser, userInput, MESSAGE_FUTURE_LAST_VISIT_DATE);
     }
 
     @Test

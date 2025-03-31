@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_FUTURE_LAST_VISIT_DATE;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_LAST_VISIT_DATE;
@@ -53,7 +54,7 @@ public class LastVisitCommandParser implements Parser<LastVisitCommand> {
 
         // Check if the date is valid
         if (!LastVisit.isValidLastVisit(date)) {
-            throw new ParseException(MESSAGE_INVALID_LAST_VISIT_DATE);
+            throw new ParseException(MESSAGE_FUTURE_LAST_VISIT_DATE);
         }
 
         return new LastVisitCommand(index, new LastVisit(date));
