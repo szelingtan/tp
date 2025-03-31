@@ -15,13 +15,13 @@ import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 
 /**
- * Adds a patient to the address book.
+ * Adds a patient to the patient list.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the CareConnect patient list. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -39,7 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the patient list.";
 
     private final Patient toAdd;
 

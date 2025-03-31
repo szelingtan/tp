@@ -11,7 +11,7 @@ import seedu.address.model.patient.UniquePatientList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamepatient comparison)
+ * Duplicates are not allowed (by .isSamePatient comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 

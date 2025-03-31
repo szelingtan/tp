@@ -14,7 +14,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds a bunch of tags to a specified patient.
+ * Adds any number of tags to a specified patient.
  */
 public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
