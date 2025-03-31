@@ -2,10 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.UnprescribeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Medicine;
@@ -23,21 +23,35 @@ public class UnprescribeCommandParser implements Parser<UnprescribeCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE);
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    UnprescribeCommand.MESSAGE_USAGE), ive);
-        }
-
+        // Check for medicine parameter
         if (!argMultimap.getValue(PREFIX_MEDICINE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UnprescribeCommand.MESSAGE_USAGE));
         }
 
-        Medicine medToRemove = ParserUtil.parseMed(argMultimap.getValue(PREFIX_MEDICINE).get());
+        // Parse and validate the index
+        String preamble = argMultimap.getPreamble().trim();
 
-        return new UnprescribeCommand(index, medToRemove);
+        // Check if string is empty or contains non-digit characters (format issue)
+        if (preamble.isEmpty() || !preamble.matches("-?\\d+")) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnprescribeCommand.MESSAGE_USAGE));
+        }
+
+        // Check specifically for negative numbers and zero (index issue)
+        int indexValue = Integer.parseInt(preamble);
+        if (indexValue <= 0) {
+            throw new ParseException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
+
+        // If we get here, the index format is valid
+        try {
+            Index index = ParserUtil.parseIndex(preamble);
+            Medicine medToRemove = ParserUtil.parseMed(argMultimap.getValue(PREFIX_MEDICINE).get());
+            return new UnprescribeCommand(index, medToRemove);
+        } catch (ParseException pe) {
+            // For any other parsing issues (like too large numbers)
+            throw new ParseException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
     }
 }

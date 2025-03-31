@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -39,10 +40,8 @@ public class UnprescribeCommandParserTest {
         // No medicine name provided
         Index targetIndex = INDEX_FIRST_PATIENT;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_MEDICINE;
-        String expectedMessage = Medicine.MESSAGE_CONSTRAINTS;
 
-        assertParseFailure(parser, userInput,
-                expectedMessage);
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -56,37 +55,39 @@ public class UnprescribeCommandParserTest {
     }
 
     @Test
-    public void parse_invalidIndex_throwsParseException() {
-        // Negative index
-        String userInput = "-5 " + PREFIX_MEDICINE + "Panadol";
+    public void parse_invalidFormatArgs_throwsParseException() {
+        // Non-numeric index
+        String userInput = "abc " + PREFIX_MEDICINE + "Panadol";
         assertParseFailure(parser, userInput,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnprescribeCommand.MESSAGE_USAGE));
+
+        // No parameters
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnprescribeCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidIndexArgs_throwsParseException() {
+        // Negative index
+        String userInput = "-5 " + PREFIX_MEDICINE + "Panadol";
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
 
         // Zero index
         userInput = "0 " + PREFIX_MEDICINE + "Panadol";
-        assertParseFailure(parser, userInput,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnprescribeCommand.MESSAGE_USAGE));
-
-        // Non-numeric index
-        userInput = "abc " + PREFIX_MEDICINE + "Panadol";
-        assertParseFailure(parser, userInput,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnprescribeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void parse_missingCompulsoryField_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnprescribeCommand.MESSAGE_USAGE);
 
-        // no parameters
+        // No parameters
         assertParseFailure(parser, "", expectedMessage);
 
-        // non-integer index
-        assertParseFailure(parser, "abc", expectedMessage);
+        // Empty index
+        assertParseFailure(parser, " " + PREFIX_MEDICINE + "Panadol", expectedMessage);
 
-        // negative index
-        assertParseFailure(parser, "-1", expectedMessage);
-
-        // zero index (index should be 1-based)
-        assertParseFailure(parser, "0", expectedMessage);
+        // Missing medicine parameter
+        assertParseFailure(parser, "1", expectedMessage);
     }
 }
