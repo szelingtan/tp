@@ -40,6 +40,7 @@ public class Messages {
      */
     public static String format(Patient patient) {
         final StringBuilder builder = new StringBuilder();
+        String lastVisitStr = patient.getLastVisit() == null ? "" : "" + patient.getLastVisit();
         builder.append(patient.getName())
                 .append("; Phone: ")
                 .append(patient.getPhone())
@@ -48,7 +49,7 @@ public class Messages {
                 .append("; Address: ")
                 .append(patient.getAddress())
                 .append("; Last Visit: ")
-                .append(patient.getLastVisit())
+                .append(lastVisitStr)
                 .append("; Tags: ");
         patient.getTags().forEach(builder::append);
         builder.append("; Medicines: ");

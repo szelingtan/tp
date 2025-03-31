@@ -44,12 +44,17 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_DATE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        LastVisit lastVisit = ParserUtil.parseLastVisit(argMultimap.getValue(PREFIX_DATE).get());
+        LastVisit lastVisit;
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            lastVisit = ParserUtil.parseLastVisit(argMultimap.getValue(PREFIX_DATE).get());
+        } else {
+            lastVisit = null;
+        }
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<Medicine> medicines = new HashSet<>(); // Add command does not support adding medicines straight away
 
