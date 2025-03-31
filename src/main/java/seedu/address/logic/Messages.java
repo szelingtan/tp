@@ -24,6 +24,8 @@ public class Messages {
             + "in the following format: YYYY-MM-DD. Example: 2025-02-02";
     public static final String MESSAGE_FUTURE_LAST_VISIT_DATE = "Invalid future date format! Last"
             + "visit date should not be in the future";
+    public static final String MESSAGE_INVALID_NUMBER_OF_DATES = "Invalid! Only one date should be added as last "
+            + "visit. Format: lastVisit d/YYYY-MM-DD";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
