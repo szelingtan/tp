@@ -68,7 +68,7 @@ public class DelLastVisitCommand extends Command {
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
 
         if (patientToEdit.getLastVisit() == null) {
-            throw new CommandException(String.format(MESSAGE_NO_LAST_VISIT,  patientToEdit.getName()));
+            throw new CommandException(String.format(MESSAGE_NO_LAST_VISIT, patientToEdit.getName()));
         }
 
         Patient editedPatient = new Patient(
