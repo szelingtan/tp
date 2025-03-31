@@ -24,18 +24,18 @@ public class HelpCommandParserTest {
 
     @Test
     public void parse_nonEmptyArgs_throwsParseException() {
-        String expectedMessage = "Command format `help extra args` is invalid.\n" +
-                "The help command does not accept additional parameters.\n" +
-                HelpCommand.MESSAGE_USAGE;
+        String expectedMessage = "Command format `help extra args` is invalid.\n"
+                + "The help command does not accept additional parameters.\n"
+                + HelpCommand.MESSAGE_USAGE;
 
         // Test with extra arguments
         assertParseFailure(parser, "extra args", expectedMessage);
 
         // Test with different extra arguments
         String otherArgs = "something else";
-        String otherExpectedMessage = "Command format `help " + otherArgs + "` is invalid.\n" +
-                "The help command does not accept additional parameters.\n" +
-                HelpCommand.MESSAGE_USAGE;
+        String otherExpectedMessage = "Command format `help " + otherArgs + "` is invalid.\n"
+                + "The help command does not accept additional parameters.\n"
+                + HelpCommand.MESSAGE_USAGE;
         assertParseFailure(parser, otherArgs, otherExpectedMessage);
     }
 

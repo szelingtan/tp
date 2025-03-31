@@ -91,9 +91,9 @@ public class AddressBookParserTest {
             fail("The expected ParseException was not thrown");
         } catch (ParseException pe) {
             // Expected behavior - test passes
-            String expectedMessage = "Command format `help 3` is invalid.\n" +
-                    "The help command does not accept additional parameters.\n" +
-                    HelpCommand.MESSAGE_USAGE;
+            String expectedMessage = "Command format `help 3` is invalid.\n"
+                    + "The help command does not accept additional parameters.\n"
+                    + HelpCommand.MESSAGE_USAGE;
             assertEquals(expectedMessage, pe.getMessage());
         }
     }
