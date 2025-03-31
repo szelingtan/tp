@@ -39,7 +39,7 @@ public class UnprescribeCommandParserTest {
         // No medicine name provided
         Index targetIndex = INDEX_FIRST_PATIENT;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_MEDICINE;
-        String expectedMessage = "Medicine names should be alphanumeric";
+        String expectedMessage = Medicine.MESSAGE_CONSTRAINTS;
 
         assertParseFailure(parser, userInput,
                 expectedMessage);

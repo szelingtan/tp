@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.PrescribeCommand;
@@ -31,8 +34,9 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
                     PrescribeCommand.MESSAGE_USAGE), ive);
         }
 
-        Medicine medToAdd = ParserUtil.parseMed(argMultimap.getValue(PREFIX_MEDICINE).get());
+        Set<Medicine> medSet = ParserUtil.parseMeds(argMultimap.getAllValues(PREFIX_MEDICINE));
 
-        return new PrescribeCommand(index, medToAdd);
+        return new PrescribeCommand(index, medSet);
     }
+
 }
