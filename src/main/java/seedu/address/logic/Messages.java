@@ -22,8 +22,6 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! Date must be provided "
             + "in the following format: YYYY-MM-DD. Example: 2025-10-02";
-    public static final String MESSAGE_INVALID_LAST_VISIT_DATE = "The date provided is invalid! Please ensure that "
-            + "the last visit date given is not in the future.";
     public static final String MESSAGE_FUTURE_LAST_VISIT_DATE = "Invalid future date format! Last"
             + "visit date should not be in the future";
 
