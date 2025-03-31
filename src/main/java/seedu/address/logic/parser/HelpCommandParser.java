@@ -17,9 +17,9 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         String trimmedArgs = args.trim();
         if (!trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    "Command format `help " + trimmedArgs + "` is invalid.\n" +
-                            "The help command does not accept additional parameters.\n" +
-                            HelpCommand.MESSAGE_USAGE);
+                    "Command format `help " + trimmedArgs + "` is invalid.\n"
+                            + "The help command does not accept additional parameters.\n"
+                            + HelpCommand.MESSAGE_USAGE);
         }
         return new HelpCommand();
     }
