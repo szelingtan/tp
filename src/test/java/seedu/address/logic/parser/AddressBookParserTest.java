@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
@@ -82,14 +83,38 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_help() throws Exception {
+        // Test basic help command
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+
+        // Test that help with arguments throws the expected exception
+        try {
+            parser.parseCommand(HelpCommand.COMMAND_WORD + " 3");
+            fail("The expected ParseException was not thrown");
+        } catch (ParseException pe) {
+            // Expected behavior - test passes
+            String expectedMessage = "Command format `help 3` is invalid.\n"
+                    + "The help command does not accept additional parameters.\n"
+                    + HelpCommand.MESSAGE_USAGE;
+            assertEquals(expectedMessage, pe.getMessage());
+        }
     }
 
     @Test
     public void parseCommand_list() throws Exception {
+        // Test basic list command
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+
+        // Test that list with arguments throws the expected exception
+        try {
+            parser.parseCommand(ListCommand.COMMAND_WORD + " 3");
+            fail("The expected ParseException was not thrown");
+        } catch (ParseException pe) {
+            // Expected behavior - test passes
+            String expectedMessage = "Command format `list 3` is invalid.\n"
+                    + "The list command does not accept additional parameters.\n"
+                    + "list: Lists all patients in the address book.";
+            assertEquals(expectedMessage, pe.getMessage());
+        }
     }
 
     @Test
