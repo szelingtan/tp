@@ -1,7 +1,10 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,11 +12,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.LastVisit;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.patient.Address;
+import seedu.address.model.patient.Email;
+import seedu.address.model.patient.LastVisit;
+import seedu.address.model.patient.Name;
+import seedu.address.model.patient.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -82,18 +86,25 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String lastVisit} into an {@code lastVisit}.
+     * Parses a {@code String lastVisitDate} into a {@code LastVisit}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code lastVisit} is invalid.
+     * @throws ParseException if the given {@code lastVisitDate} is invalid.
      */
-    public static LastVisit parseLastVisit(String lastVisit) throws ParseException {
-        requireNonNull(lastVisit);
-        String trimmedLastVisit = lastVisit.trim();
-        if (!LastVisit.isValidLastVisit(trimmedLastVisit)) {
+    public static LastVisit parseLastVisit(String lastVisitDateString) throws ParseException {
+        requireNonNull(lastVisitDateString);
+        String trimmedLastVisitDate = lastVisitDateString.trim();
+        LocalDate lastVisitDate;
+        try {
+            lastVisitDate = LocalDate.parse(trimmedLastVisitDate);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+
+        if (!LastVisit.isValidLastVisit(lastVisitDate)) {
             throw new ParseException(LastVisit.MESSAGE_CONSTRAINTS);
         }
-        return new LastVisit(trimmedLastVisit);
+        return new LastVisit(lastVisitDate);
     }
 
     /**
@@ -124,6 +135,21 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String medName} into a {@code Medicine}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medName} is invalid.
+     */
+    public static Medicine parseMed(String medName) throws ParseException {
+        requireNonNull(medName);
+        String trimmedMedName = medName.trim();
+        if (!Medicine.isValidMedName(trimmedMedName)) {
+            throw new ParseException(Medicine.MESSAGE_CONSTRAINTS);
+        }
+        return new Medicine(trimmedMedName);
     }
 
     /**

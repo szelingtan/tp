@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.List;
 
@@ -8,17 +8,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.LastVisit;
-import seedu.address.model.person.Patient;
+import seedu.address.model.patient.Patient;
 
 /**
- * Deletes the last visit info of a patient by setting it to "NA".
+ * Deletes the last visit info of a patient by setting it to null.
  */
 public class DelLastVisitCommand extends Command {
     public static final String COMMAND_WORD = "delLastVisit";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the last visit of the person identified "
-            + "by the index number used in the last person listing "
+            + ": Deletes the last visit of the patient identified "
+            + "by the index number used in the last patient listing "
             + "by setting it to NA. "
             + '\n'
             + "Parameters: INDEX (must be a positive integer) "
@@ -44,7 +43,7 @@ public class DelLastVisitCommand extends Command {
      * @return The msg to send upon successful deletion.
      */
     public String generateSuccessMessage(Patient patient) {
-        return "Last visit info successfully deleted from "
+        return "Last visit date successfully deleted from "
                 + patient.getName();
     }
 
@@ -57,27 +56,27 @@ public class DelLastVisitCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Patient> lastShownList = model.getFilteredPersonList();
+        List<Patient> lastShownList = model.getFilteredPatientList();
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
-                    Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                    Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
-        // Create new Patient with NA last visit
+        // Create a new Patient with `null` last visit
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
         Patient editedPatient = new Patient(
                 patientToEdit.getName(),
                 patientToEdit.getPhone(),
                 patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
-                new LastVisit(NONE),
+                null,
                 patientToEdit.getTags(),
                 patientToEdit.getMedicines()
         );
 
         // Update the patient in the model
-        model.setPerson(patientToEdit, editedPatient);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setPatient(patientToEdit, editedPatient);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         return new CommandResult(generateSuccessMessage(editedPatient));
     }

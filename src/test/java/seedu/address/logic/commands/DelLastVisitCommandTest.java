@@ -10,27 +10,27 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Patient;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.patient.Patient;
+import seedu.address.testutil.PatientBuilder;
+import seedu.address.testutil.TypicalPatients;
 
 public class DelLastVisitCommandTest {
     @Test
-    public void execute_onePerson_normal() {
-        // Get a typical person, make the last visit guaranteed
-        // to be non-empty for testing, then created the expected
+    public void execute_onePatient_normal() {
+        // Get a typical patient, make the last visit guaranteed
+        // to be non-empty for testing, then create the expected
         // version after running `delLastVisit`.
-        Patient p0 = TypicalPersons.ALICE;
-        p0 = new PersonBuilder(p0)
-                .withLastVisit("Meduka become Meguca")
+        Patient p0 = TypicalPatients.ALICE;
+        p0 = new PatientBuilder(p0)
+                .withLastVisit("2025-01-01")
                 .build();
-        Patient p1 = new PersonBuilder(p0)
-                .withLastVisit(DelLastVisitCommand.NONE)
+        Patient p1 = new PatientBuilder(p0)
+                .withLastVisit(null)
                 .build();
 
         // Create a model with `p0` only, then run DelLastVisit
         AddressBook ab0 = new AddressBook();
-        ab0.addPerson(p0);
+        ab0.addPatient(p0);
         Model m0 = new ModelManager(ab0, new UserPrefs());
 
         try {
@@ -43,7 +43,7 @@ public class DelLastVisitCommandTest {
 
         // Create a model with `p1` only
         AddressBook ab1 = new AddressBook();
-        ab1.addPerson(p1);
+        ab1.addPatient(p1);
         Model m1 = new ModelManager(ab1, new UserPrefs());
 
         // Check that actual model = expected model

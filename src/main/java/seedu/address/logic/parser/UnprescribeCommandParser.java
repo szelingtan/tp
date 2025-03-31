@@ -8,11 +8,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.UnprescribeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * Parses input arguments and creates a new {@code UnprescribeCommand} object
  */
-public class UnprescribeCommandParser {
+public class UnprescribeCommandParser implements Parser<UnprescribeCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the {@code UnprescribeCommand}
      * and returns a {@code UnprescribeCommand} object for execution.
@@ -30,6 +31,13 @@ public class UnprescribeCommandParser {
                     UnprescribeCommand.MESSAGE_USAGE), ive);
         }
 
-        return new UnprescribeCommand(index);
+        if (!argMultimap.getValue(PREFIX_MEDICINE).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnprescribeCommand.MESSAGE_USAGE));
+        }
+
+        Medicine medToRemove = ParserUtil.parseMed(argMultimap.getValue(PREFIX_MEDICINE).get());
+
+        return new UnprescribeCommand(index, medToRemove);
     }
 }

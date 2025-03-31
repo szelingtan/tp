@@ -2,13 +2,17 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_LAST_VISIT_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.LastVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.LastVisit;
+import seedu.address.model.patient.LastVisit;
 
 /**
  * Parses input arguments and creates a new {@code RemarkCommand} object
@@ -21,18 +25,37 @@ public class LastVisitCommandParser implements Parser<LastVisitCommand> {
      */
     public LastVisitCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_VISIT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
+        } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    LastVisitCommand.MESSAGE_USAGE), ive);
+                    LastVisitCommand.MESSAGE_USAGE), pe);
         }
 
-        String remark = argMultimap.getValue(PREFIX_VISIT).orElse("");
+        if (!argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LastVisitCommand.MESSAGE_USAGE));
+        }
 
-        return new LastVisitCommand(index, new LastVisit(remark));
+        String dateString = argMultimap.getValue(PREFIX_DATE).get();
+
+        LocalDate date;
+
+        // Try to parse the input string into a LocalDate
+        try {
+            date = LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+
+        // Check if the date is valid
+        if (!LastVisit.isValidLastVisit(date)) {
+            throw new ParseException(MESSAGE_INVALID_LAST_VISIT_DATE);
+        }
+
+        return new LastVisitCommand(index, new LastVisit(date));
     }
 }

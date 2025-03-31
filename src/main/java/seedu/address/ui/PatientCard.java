@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Patient;
+import seedu.address.model.patient.Patient;
 
 /**
- * A UI component that displays information of a {@code Person}.
+ * A UI component that displays information of a {@code patient}.
  */
 public class PatientCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PatientListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -56,7 +56,11 @@ public class PatientCard extends UiPart<Region> {
         phone.setText(patient.getPhone().value);
         address.setText(patient.getAddress().value);
         email.setText(patient.getEmail().value);
-        lastVisit.setText("Last visit:" + patient.getLastVisit().value);
+        if (!(patient.getLastVisit() == null)) {
+            lastVisit.setText(patient.getLastVisit().toString());
+        } else {
+            lastVisit.setText("Last visit: ");
+        }
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

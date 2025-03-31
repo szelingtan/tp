@@ -66,7 +66,12 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'CareConnect.jar'
 }
 
 defaultTasks 'clean', 'test'
+
+// https://se-education.org/guides/tutorials/gradle.html#enabling-assertions
+run {
+    enableAssertions = true
+}
