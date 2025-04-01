@@ -52,6 +52,15 @@ public class TagCommandParser implements Parser<TagCommand> {
             tagsToAdd.add(new Tag(s));
         }
 
+        if (tagsToAdd.size() == 0) {
+            throw new ParseException(
+                    String.format(
+                            MESSAGE_INVALID_COMMAND_FORMAT,
+                            TagCommand.NO_TAG_INCLUDED_ERROR
+                    )
+            );
+        }
+
         return new TagCommand(ind, tagsToAdd);
     }
 }
