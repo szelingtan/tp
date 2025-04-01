@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,9 +27,18 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        boolean isStrict = false;
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        if (trimmedArgs.startsWith("/strict")) {
+            isStrict = true;
+            trimmedArgs = trimmedArgs.replaceFirst("/strict", "").trim();
+
+            if (trimmedArgs.isEmpty()) {
+                throw new ParseException("Strict mode requires a full name to match.");
+            }
+        }
+
+        List<String> nameKeywords = Arrays.asList(trimmedArgs.split("\\s+"));
+        return new FindCommand(new NameContainsKeywordsPredicate(nameKeywords, isStrict));
     }
-
 }

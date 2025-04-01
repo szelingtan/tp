@@ -71,21 +71,21 @@ Created for social workers, CareConnect allows you to not only **track patient c
 
 ## Command summary
 
-| Action                | Format                                                                    | Example                                                                                               |
-|-----------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes` |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
-| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                            |
+| Action                | Format                                                                    | Example                                                                                                          |
+|-----------------------|---------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes`            |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                                      |
+| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                                       |
 | **List**              | `list`                                                                    |
-| **Clear**             | `clear`                                                                   |                                                                                                       |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`                                            | `find James Jake`                                                                                     |
-| **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                           |
-| **Untag**             | `untag INDEX t/Tag`                                                       | `untag 2 t/highBloodPressure`                                                                         |
-| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                               |
-| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                |
-| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                            |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                      | `delLastVisit 2`                                                                                      |
-| **Help**              | `help`                                                                    |                                                                                                       |
+| **Clear**             | `clear`                                                                   |                                                                                                                  |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`  <br/> `find /strict KEYWORD `             | `find James Jake`     <br/> `find /strict James Jake`                                                            |
+| **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                                      |
+| **Untag**             | `untag INDEX t/Tag`  <br/> `untag INDEX t/all`                            | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                             |
+| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                                          |
+| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                           |
+| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                                       |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                      | `delLastVisit 2`                                                                                                 |
+| **Help**              | `help`                                                                    |                                                                                                                  |
 | **Exit**              | `exit`                                                                    |
 
 
@@ -173,18 +173,20 @@ Format: `clear`
 
 Finds patients whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* patients matching at least one keyword will be returned (i.e. `OR` search).
+* `find` patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
+* `find /strict` Returns only exact match or displays "0 patients listed"
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `find John` returns `John` and `John Doe`
+* `find alex david` returns `Alex Yeoh`, `David Li`
+* `find /strict John` returns only `John`
+* `find /strict Doe John` returns `0 patients listed`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 
@@ -210,7 +212,7 @@ Examples:
 
 Untag an existing patient in the patient contact book.
 
-Format: `untag INDEX [t/TAG]…​`
+Format: `untag INDEX [t/TAG]…​` or `untag INDEX t/all`
 
 * Untag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
