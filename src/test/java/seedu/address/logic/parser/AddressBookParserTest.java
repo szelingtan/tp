@@ -10,6 +10,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,10 +120,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_prescribe() throws Exception {
         final Medicine medicine = new Medicine("Aspirin");
+        HashSet<Medicine> medSet = new HashSet<>();
+        medSet.add(medicine);
         PrescribeCommand prescribeCommandTest = (PrescribeCommand) parser.parseCommand(
                 PrescribeCommand.COMMAND_WORD + " " + INDEX_FIRST_PATIENT.getOneBased()
                         + " " + PREFIX_MEDICINE + medicine.medName);
-        assertEquals(new PrescribeCommand(INDEX_FIRST_PATIENT, medicine), prescribeCommandTest);
+        assertEquals(new PrescribeCommand(INDEX_FIRST_PATIENT, medSet), prescribeCommandTest);
     }
 
     @Test

@@ -6,7 +6,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -24,10 +23,11 @@ import seedu.address.model.patient.Patient;
 public class PrescribeCommand extends Command {
     public static final String COMMAND_WORD = "prescribe";
 
-    public static final String MESSAGE_ADD_MED_SUCCESS = "Added medication to patient: %1$s";
+    public static final String MESSAGE_ADD_MED_SUCCESS = "Added medication(s) %1$s to patient: %2$s";
     public static final String MESSAGE_DUPLICATE_MED = "This patient already has medicine: %1$s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a new medication to the patient specified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": adds a new medication to the patient specified "
             + "by the index number used in the last patient listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_MEDICINE + "[medicine name]\n"
@@ -35,17 +35,17 @@ public class PrescribeCommand extends Command {
             + PREFIX_MEDICINE + "Paracetamol";
 
     private final Index index;
-    private final Medicine medicine;
+    private final Set<Medicine> medicinesToAdd;
 
     /**
      * @param index of the patient in the filtered patient list to add the medication
-     * @param medicine (name of the medicine to be added to the patient)
+     * @param medicinesToAdd (A set of medicines to be added to the patient)
      */
-    public PrescribeCommand(Index index, Medicine medicine) {
-        requireAllNonNull(index, medicine);
+    public PrescribeCommand(Index index, Set<Medicine> medicinesToAdd) {
+        requireAllNonNull(index, medicinesToAdd);
 
         this.index = index;
-        this.medicine = medicine;
+        this.medicinesToAdd = medicinesToAdd;
     }
 
     @Override
@@ -59,15 +59,16 @@ public class PrescribeCommand extends Command {
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
         Set<Medicine> currentMedicines = patientToEdit.getMedicines();
 
-        for (Medicine existingMedicine : currentMedicines) {
-            if (existingMedicine.equals(medicine)) {
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_MED, existingMedicine));
+        // Ensure no duplicates
+        for (Medicine medicine : medicinesToAdd) {
+            if (currentMedicines.contains(medicine)) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MED, medicine.medName));
             }
         }
 
         // Create a new set of medicines
         Set<Medicine> updatedMedicines = new HashSet<>(currentMedicines);
-        updatedMedicines.add(medicine);
+        updatedMedicines.addAll(medicinesToAdd);
 
         Patient editedPatient = new Patient(
                 patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
@@ -87,7 +88,14 @@ public class PrescribeCommand extends Command {
      * added to {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {
-        return String.format(MESSAGE_ADD_MED_SUCCESS, patientToEdit.getName());
+        StringBuilder medicinesToAddStringBuilder = new StringBuilder();
+        for (Medicine medicine : medicinesToAdd) {
+            medicinesToAddStringBuilder.append(medicine.toString()).append(" ");
+        }
+        String medicinesToAddString = medicinesToAddStringBuilder.toString().trim();
+        return String.format(MESSAGE_ADD_MED_SUCCESS,
+                medicinesToAddString,
+                patientToEdit.getName());
     }
 
     @Override
@@ -101,6 +109,6 @@ public class PrescribeCommand extends Command {
             return false;
         }
 
-        return index.equals(e.index) && Objects.equals(medicine, e.medicine);
+        return index.equals(e.index) && medicinesToAdd.equals(e.medicinesToAdd);
     }
 }
