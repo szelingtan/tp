@@ -26,6 +26,8 @@ public class TagCommand extends Command {
             + '\n'
             + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
             + "t/Seafood Allergy";
+    public static final String PLS_USE_AT_LEAST_ONE_TAG =
+            "Please use at least one tag via `t/`";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
