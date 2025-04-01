@@ -79,8 +79,8 @@ Created for social workers, CareConnect allows you to not only **track patient c
 | **List**              | `list`                                                                    |
 | **Clear**             | `clear`                                                                   |                                                                                                                  |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`  <br/> `find /strict KEYWORD `             | `find James Jake`     <br/> `find /strict James Jake`                                                            |
-| **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                                      |
-| **Untag**             | `untag INDEX t/Tag`  <br/> `untag INDEX t/all`                            | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                             |
+| **Tag**               | `tag INDEX t/TAG [t/MORE_TAGS]...`                                        | `tag 2 t/highBloodPressure`                                                                                      |
+| **Untag**             | `untag INDEX t/TAG [t/MORE_TAGS]...`  <br/> `untag INDEX t/all`           | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                             |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                                          |
 | **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                           |
 | **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                                       |
