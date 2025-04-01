@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  * Represents a command to remove specific tags from a patient in the system.
  */
 
-public class DeleteTagCommand extends Command {
+public class UntagCommand extends Command {
 
     /**
      * The command word to trigger this action.
@@ -54,7 +54,7 @@ public class DeleteTagCommand extends Command {
      * @param index The index of the patient to modify.
      * @param tagsToDelete The set of tags to remove.
      */
-    public DeleteTagCommand(Index index, HashSet<Tag> tagsToDelete, boolean removeAllTags) {
+    public UntagCommand(Index index, HashSet<Tag> tagsToDelete, boolean removeAllTags) {
         if (tagsToDelete.isEmpty() && !removeAllTags) {
             throw new IllegalArgumentException("At least one tag must be provided, or use 't/all' to remove all tags.");
         }
@@ -165,10 +165,10 @@ public class DeleteTagCommand extends Command {
         if (other == null) {
             return false;
         }
-        if (!(other instanceof DeleteTagCommand)) {
+        if (!(other instanceof UntagCommand)) {
             return false;
         }
-        DeleteTagCommand o = (DeleteTagCommand) other;
+        UntagCommand o = (UntagCommand) other;
         return index.equals(o.index) && tagsToDelete.equals(o.tagsToDelete) && removeAllTags == o.removeAllTags;
     }
 }

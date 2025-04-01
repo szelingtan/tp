@@ -7,14 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.HashSet;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteTagCommand;
+import seedu.address.logic.commands.UntagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new DeleteTagCommand.
  */
-public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
+public class UntagCommandParser implements Parser<UntagCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
      * {@code DeleteTagCommand} and returns a {@code DeleteTagCommand} object for
@@ -23,7 +23,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
      * @throws ParseException if the user input does not conform to the
      *     expected format.
      */
-    public DeleteTagCommand parse(String args) throws ParseException {
+    public UntagCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMM = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
@@ -35,7 +35,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
             throw new ParseException(
                     String.format(
                             MESSAGE_INVALID_COMMAND_FORMAT,
-                            DeleteTagCommand.MESSAGE_USAGE
+                            UntagCommand.MESSAGE_USAGE
                     ),
                     pe
             );
@@ -46,7 +46,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
         HashSet<Tag> tagsToDelete = new HashSet<>();
         boolean removeAllTags = false;
 
-        if (tagStrsToDelete.contains(DeleteTagCommand.ALL_TAGS_KEYWORD)) {
+        if (tagStrsToDelete.contains(UntagCommand.ALL_TAGS_KEYWORD)) {
             removeAllTags = true;
             tagsToDelete.clear(); // Ensure no specific tags are processed if 't/all' is used
         } else {
@@ -66,6 +66,6 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
             throw new ParseException("At least one tag must be provided, or use 't/all' to remove all tags.");
         }
 
-        return new DeleteTagCommand(index, tagsToDelete, removeAllTags);
+        return new UntagCommand(index, tagsToDelete, removeAllTags);
     }
 }
