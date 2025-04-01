@@ -16,70 +16,91 @@ public class NameContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {
-        List<String> firstPredicateKeywordList = Collections.singletonList("first");
-        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
+        List<String> keywordList1 = Collections.singletonList("first");
+        List<String> keywordList2 = Arrays.asList("first", "second");
 
-        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
-        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList);
+        NameContainsKeywordsPredicate predicate1 = new NameContainsKeywordsPredicate(keywordList1, false);
+        NameContainsKeywordsPredicate predicate2 = new NameContainsKeywordsPredicate(keywordList2, false);
+        NameContainsKeywordsPredicate predicate1Strict = new NameContainsKeywordsPredicate(keywordList1, true);
 
         // same object -> returns true
-        assertTrue(firstPredicate.equals(firstPredicate));
+        assertTrue(predicate1.equals(predicate1));
 
         // same values -> returns true
-        NameContainsKeywordsPredicate firstPredicateCopy = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
-        assertTrue(firstPredicate.equals(firstPredicateCopy));
+        NameContainsKeywordsPredicate predicate1Copy = new NameContainsKeywordsPredicate(keywordList1, false);
+        assertTrue(predicate1.equals(predicate1Copy));
 
         // different types -> returns false
-        assertFalse(firstPredicate.equals(1));
+        assertFalse(predicate1.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(predicate1.equals(null));
 
-        // different patient -> returns false
-        assertFalse(firstPredicate.equals(secondPredicate));
+        // different keywords -> returns false
+        assertFalse(predicate1.equals(predicate2));
+
+        // same keywords, different isStrict -> returns false
+        assertFalse(predicate1.equals(predicate1Strict));
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
-        // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PatientBuilder().withName("Alice Bob").build()));
+    public void testNameContainsKeywordsPrefix() {
+        // One keyword, prefix match
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alex"));
+        assertTrue(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
 
-        // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PatientBuilder().withName("Alice Bob").build()));
+        // Multiple keywords, one matches
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Al", "Tan"));
+        assertTrue(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
 
-        // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PatientBuilder().withName("Alice Carol").build()));
-
-        // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PatientBuilder().withName("Alice Bob").build()));
+        // Mixed-case prefix match
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLeX"));
+        assertTrue(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
+    public void testNameDoesNotContainKeywords() {
+        // No keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PatientBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
 
-        // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PatientBuilder().withName("Alice Bob").build()));
+        // Non-matching prefix
+        predicate = new NameContainsKeywordsPredicate(List.of("Zan"));
+        assertFalse(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
+    }
 
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PatientBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+    @Test
+    public void test_nameMatchesStrict_returnsTrue() {
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(List.of("Alexa", "Tan"), true);
+        assertTrue(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
+
+        // Case-insensitive exact match
+        predicate = new NameContainsKeywordsPredicate(List.of("aLeXa", "tAn"), true);
+        assertTrue(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
+    }
+
+    @Test
+    public void test_nameDoesNotMatchStrict_returnsFalse() {
+        // Order mismatch
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(List.of("Tan", "Alexa"), true);
+        assertFalse(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
+
+        // Partial match
+        predicate = new NameContainsKeywordsPredicate(List.of("Alex"), true);
+        assertFalse(predicate.test(new PatientBuilder().withName("Alexa Tan").build()));
     }
 
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords, false);
 
-        String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
+        String expected = "NameContainsKeywordsPredicate{keywords=[keyword1, keyword2], isStrict=false}";
         assertEquals(expected, predicate.toString());
+
+        // Also test toString with strict = true
+        NameContainsKeywordsPredicate strictPredicate = new NameContainsKeywordsPredicate(keywords, true);
+        String expectedStrict = "NameContainsKeywordsPredicate{keywords=[keyword1, keyword2], isStrict=true}";
+        assertEquals(expectedStrict, strictPredicate.toString());
     }
 }
