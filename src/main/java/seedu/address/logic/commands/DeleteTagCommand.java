@@ -55,28 +55,11 @@ public class DeleteTagCommand extends Command {
      * @param tagsToDelete The set of tags to remove.
      */
     public DeleteTagCommand(Index index, HashSet<Tag> tagsToDelete, boolean removeAllTags) {
-        if (tagsToDelete == null) {
-            throw new IllegalArgumentException("Tags cannot be null. Please provide at least one tag.");
-        }
         if (tagsToDelete.isEmpty() && !removeAllTags) {
             throw new IllegalArgumentException("At least one tag must be provided, or use 't/all' to remove all tags.");
         }
-        HashSet<Tag> filteredTags = new HashSet<>();
-        for (Tag tag : tagsToDelete) {
-            if (tag == null || tag.toString().trim().isEmpty()) {
-                throw new IllegalArgumentException("Empty tag is not accepted. Please provide at least one valid tag.");
-            }
-            if (tag.toString().contains("  ")) {
-                throw new IllegalArgumentException(
-                        "Tags cannot contain consecutive spaces. Ensure tags are properly formatted.");
-            }
-            filteredTags.add(tag);
-        }
-        if (filteredTags.isEmpty() && !removeAllTags) {
-            throw new IllegalArgumentException("Empty tag detected. Please provide at least one valid tag.");
-        }
         this.index = index;
-        this.tagsToDelete = filteredTags;
+        this.tagsToDelete = new HashSet<>(tagsToDelete);
         this.removeAllTags = removeAllTags;
     }
 
