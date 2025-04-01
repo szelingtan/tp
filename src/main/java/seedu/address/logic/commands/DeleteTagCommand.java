@@ -32,7 +32,7 @@ public class DeleteTagCommand extends Command {
             + ": Removes the specified tags from the patient identified by the index "
             + "number used in the last patient listing. Use 't/all' to remove all tags."
             + '\n'
-            + "Parameters: INDEX t/tag [t/more_tags] | INDEX t/all"
+            + "Parameters: INDEX t/tag [t/more_tags]... | INDEX t/all"
             + '\n'
             + "Example: " + COMMAND_WORD + " 39 t/High Blood Pressure t/Seafood Allergy"
             + "\nExample: " + COMMAND_WORD + " 2 t/all";
