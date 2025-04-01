@@ -17,7 +17,7 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Patient;
 
 /**
- * Removes the specified medication from an existing patient in the address book.
+ * Removes the specified medication from an existing patient in the patient list.
  * This command takes an index representing a patient in the displayed list
  * and removes the specified medicine from that patient's medical record.
  */

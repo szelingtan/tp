@@ -14,7 +14,7 @@ import seedu.address.model.patient.LastVisit;
 import seedu.address.model.patient.Patient;
 
 /**
- * Changes the Last Visit of an existing patient in the address book.
+ * Changes the Last Visit of an existing patient in the patient list.
  */
 public class LastVisitCommand extends Command {
 

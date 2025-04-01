@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 import seedu.address.model.Model;
 
 /**
- * Lists all patients in the address book to the user.
+ * Lists all patients in the patient list to the user.
  */
 public class ListCommand extends Command {
 
@@ -20,5 +20,13 @@ public class ListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        return other instanceof ListCommand; // Since ListCommand has no fields to compare
     }
 }
