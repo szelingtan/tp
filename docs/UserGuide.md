@@ -79,8 +79,8 @@ Created for social workers, CareConnect allows you to not only **track patient c
 | **List**              | `list`                                                                    |
 | **Clear**             | `clear`                                                                   |                                                                                                                  |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`  <br/> `find /strict KEYWORD `             | `find James Jake`     <br/> `find /strict James Jake`                                                            |
-| **Tag**               | `tag INDEX t/Tag`                                                         | `tag 2 t/highBloodPressure`                                                                                      |
-| **Untag**             | `untag INDEX t/Tag`  <br/> `untag INDEX t/all`                            | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                             |
+| **Tag**               | `tag INDEX t/TAG [t/MORE_TAGS]...`                                        | `tag 2 t/highBloodPressure`                                                                                      |
+| **Untag**             | `untag INDEX t/TAG [t/MORE_TAGS]...`  <br/> `untag INDEX t/all`           | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                             |
 | **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                                          |
 | **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                           |
 | **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                                       |
@@ -195,14 +195,11 @@ Examples:
 
 Tag an existing patient in the patient contact book.
 
-Format: `tag INDEX [t/TAG]…​`
+Format: `tag INDEX t/TAG [t/MORE_TAGS]…​`
 
-* Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient’s tags by typing `t/` without
-  specifying any tags after it.
+* Adds the specified tags to the patient at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one tag must be provided.
 
 Examples:
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
@@ -212,18 +209,16 @@ Examples:
 
 Untag an existing patient in the patient contact book.
 
-Format: `untag INDEX [t/TAG]…​` or `untag INDEX t/all`
+Format: `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
 
-* Untag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient’s tags by typing `t/all` without
-  specifying any tags after it.
+* Removes the specified tags from the patient at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one tag must be provided.
 
 Examples:
 *  `untag 1 t/diabetes` Removes the tag `diabetes` from the 1st patient.
 *  `untag 2 t/dementia t/highBloodPressure` Remove the tags `dementia` and `highBloodPressure` from the 2nd patient.
+*  `untag 3 t/all` Removes all tags from the 3rd patient.
 
 ### Adding medication to a patient : `prescribe`
 
