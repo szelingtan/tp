@@ -66,5 +66,25 @@ public class DeleteTagCommandParserTest {
                 "At least one tag must be provided, or use 't/all' to remove all tags."
         );
     }
+
+    @Test
+    public void parse_emptyTag_error() {
+        // Testing failure when an empty tag is provided
+        assertParseFailure(
+                new DeleteTagCommandParser(),
+                "1 t/",
+                "Empty tag is not accepted. Please provide at least one valid tag."
+        );
+    }
+
+    @Test
+    public void parse_consecutiveSpacesTag_error() {
+        // Testing failure when a tag contains consecutive spaces
+        assertParseFailure(
+                new DeleteTagCommandParser(),
+                "1 t/High  Blood",
+                "Tags cannot contain consecutive spaces. Ensure tags are properly formatted."
+        );
+    }
 }
 
