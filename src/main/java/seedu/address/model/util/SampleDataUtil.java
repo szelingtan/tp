@@ -21,7 +21,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static final LastVisit EMPTY_LAST_VISIT = new LastVisit(LocalDate.parse("2025-03-01"));
+    public static final LastVisit DEFAULT_LAST_VISIT = new LastVisit(LocalDate.parse("2025-03-01"));
 
     public static final Set<Medicine> EMPTY_MEDICINES = Collections.emptySet();
 
