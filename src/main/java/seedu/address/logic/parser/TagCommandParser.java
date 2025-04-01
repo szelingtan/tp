@@ -56,7 +56,7 @@ public class TagCommandParser implements Parser<TagCommand> {
             throw new ParseException(
                     String.format(
                             MESSAGE_INVALID_COMMAND_FORMAT,
-                            TagCommand.PLS_USE_AT_LEAST_ONE_TAG
+                            TagCommand.NO_TAG_INCLUDED_ERROR
                     )
             );
         }
