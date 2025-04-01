@@ -93,14 +93,15 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords, false);
 
-        String expected = "NameContainsKeywordsPredicate{keywords=[keyword1, keyword2], isStrict=false}";
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords, false);
+        String expected = predicate.getClass().getCanonicalName()
+                + "{keywords=[keyword1, keyword2], isStrict=false}";
         assertEquals(expected, predicate.toString());
 
-        // Also test toString with strict = true
         NameContainsKeywordsPredicate strictPredicate = new NameContainsKeywordsPredicate(keywords, true);
-        String expectedStrict = "NameContainsKeywordsPredicate{keywords=[keyword1, keyword2], isStrict=true}";
+        String expectedStrict = strictPredicate.getClass().getCanonicalName()
+                + "{keywords=[keyword1, keyword2], isStrict=true}";
         assertEquals(expectedStrict, strictPredicate.toString());
     }
 }
