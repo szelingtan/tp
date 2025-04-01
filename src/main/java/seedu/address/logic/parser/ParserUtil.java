@@ -153,6 +153,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> medNames} into a {@code Set<Medicine>}.
+     */
+    public static Set<Medicine> parseMeds(Collection<String> medNames) throws ParseException {
+        requireNonNull(medNames);
+        final Set<Medicine> medSet = new HashSet<>();
+        for (String medName : medNames) {
+            medSet.add(parseMed(medName));
+        }
+        return medSet;
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {

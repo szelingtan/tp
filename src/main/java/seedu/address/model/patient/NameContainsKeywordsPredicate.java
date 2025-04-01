@@ -1,25 +1,52 @@
 package seedu.address.model.patient;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code patient}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Patient}'s {@code Name} matches either:
+ * - Any of the keywords (case-insensitive prefix match), OR
+ * - The full name exactly (case-insensitive), depending on strict mode.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Patient> {
     private final List<String> keywords;
+    private final boolean isStrict;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
+        this(keywords, false); // default to non-strict/partial match
+    }
+
+    /**
+     * Constructs a {@code NameContainsKeywordsPredicate} with the specified keywords and matching mode.
+     *
+     * @param keywords A list of keywords to match against the patient's name.
+     * @param isStrict If {@code true}, performs an exact full-name match; if {@code false}, performs
+     *                 a case-insensitive prefix match on each word in the patient's name.
+     */
+    public NameContainsKeywordsPredicate(List<String> keywords, boolean isStrict) {
         this.keywords = keywords;
+        this.isStrict = isStrict;
     }
 
     @Override
     public boolean test(Patient patient) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getName().fullName, keyword));
+        String patientName = patient.getName().fullName.toLowerCase().trim();
+
+        if (isStrict) {
+            // Join all keywords into a full string and compare
+            String searchName = String.join(" ", keywords).toLowerCase().trim();
+            return patientName.equals(searchName);
+        }
+
+        // Prefix match: check if any keyword is a prefix of any word in the name
+        String[] wordsInName = patientName.split("\\s+");
+        return keywords.stream().anyMatch(keyword ->
+                Arrays.stream(wordsInName)
+                        .anyMatch(word -> word.startsWith(keyword.toLowerCase()))
+        );
     }
 
     @Override
@@ -28,17 +55,19 @@ public class NameContainsKeywordsPredicate implements Predicate<Patient> {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof NameContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        NameContainsKeywordsPredicate otherPredicate = (NameContainsKeywordsPredicate) other;
+        return keywords.equals(otherPredicate.keywords) && isStrict == otherPredicate.isStrict;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("keywords", keywords).toString();
+        return new ToStringBuilder(this)
+                .add("keywords", keywords)
+                .add("isStrict", isStrict)
+                .toString();
     }
 }
