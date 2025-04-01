@@ -1,4 +1,5 @@
 package seedu.address.logic.parser;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -43,10 +44,28 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
         // Extract the tags to be deleted
         HashSet<String> tagStrsToDelete = new HashSet<>(argMM.getAllValues(PREFIX_TAG));
         HashSet<Tag> tagsToDelete = new HashSet<>();
-        for (String s : tagStrsToDelete) {
-            tagsToDelete.add(new Tag(s));
+        boolean removeAllTags = false;
+
+        if (tagStrsToDelete.contains(DeleteTagCommand.ALL_TAGS_KEYWORD)) {
+            removeAllTags = true;
+            tagsToDelete.clear(); // Ensure no specific tags are processed if 't/all' is used
+        } else {
+            for (String s : tagStrsToDelete) {
+                if (s.trim().isEmpty()) {
+                    throw new ParseException("Empty tag is not accepted. Please provide at least one valid tag.");
+                }
+                if (s.contains("  ")) {
+                    throw new ParseException(
+                            "Tags cannot contain consecutive spaces. Ensure tags are properly formatted.");
+                }
+                tagsToDelete.add(new Tag(s));
+            }
         }
 
-        return new DeleteTagCommand(index, tagsToDelete);
+        if (tagsToDelete.isEmpty() && !removeAllTags) {
+            throw new ParseException("At least one tag must be provided, or use 't/all' to remove all tags.");
+        }
+
+        return new DeleteTagCommand(index, tagsToDelete, removeAllTags);
     }
 }

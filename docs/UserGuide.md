@@ -57,7 +57,7 @@ Created for social workers, CareConnect allows you to not only **track patient c
 
    * `list` : Lists all patient contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2024-12-25` : Adds a contact named `John Doe` to the patient contact book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -134,12 +134,11 @@ Examples:
 
 Edits an existing patient in the patient contact book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 
 * Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
@@ -207,7 +206,7 @@ Examples:
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
 *  `tag 2 t/dementia t/highBloodPressure` Add the tags `dementia` and `highBloodPressure` to the 2nd patient.
 
-### Untag a patient : `tag`
+### Untag a patient : `untag`
 
 Untag an existing patient in the patient contact book.
 
@@ -217,7 +216,7 @@ Format: `untag INDEX [t/TAG]…​`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient’s tags by typing `t/` without
+* You can remove all the patient’s tags by typing `t/all` without
   specifying any tags after it.
 
 Examples:
