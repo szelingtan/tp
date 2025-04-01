@@ -19,6 +19,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Patient> {
         this(keywords, false); // default to non-strict/partial match
     }
 
+    /**
+     * Constructs a {@code NameContainsKeywordsPredicate} with the specified keywords and matching mode.
+     *
+     * @param keywords A list of keywords to match against the patient's name.
+     * @param isStrict If {@code true}, performs an exact full-name match; if {@code false}, performs
+     *                 a case-insensitive prefix match on each word in the patient's name.
+     */
     public NameContainsKeywordsPredicate(List<String> keywords, boolean isStrict) {
         this.keywords = keywords;
         this.isStrict = isStrict;
