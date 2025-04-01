@@ -12,26 +12,26 @@ Created for social workers, CareConnect allows you to not only **track patient c
 * [Quick start](#quick-start)
 * [Command summary](#command-summary)
 * [Features](#features)
-  * [Patient Management](#patient-management)
-      * [Adding a patient: `add`](#adding-a-patient-add)
-      * [Editing a patient: `edit`](#editing-a-patient--edit)
-      * [Deleting a patient: `delete`](#deleting-a-patient--delete)
-      * [Listing all patients: `list`](#listing-all-patients--list)
-      * [Clearing all entries: `clear`](#clearing-all-entries--clear)
-      * [Locating patients by name: `find`](#locating-patients-by-name-find)
-  * [Patient Data Management](#patient-data-management)
-    * [Tag a patient: `tag`](#tag-a-patient--tag)
-    * [Untag a patient: `untag`](#untag-a-patient--tag)
-    * [Adding medication to a patient: `prescribe`](#adding-medication-to-a-patient--prescribe)
-    * [Removing medication from a patient: `unprescribe`](#removing-medication-from-a-patient--unprescribe)
-    * [Adding last visit record to a patient: `lastVisit`](#adding-last-visit-record-to-a-patient--lastvisit)
-    * [Deleting the last visit information: `delLastVisit`](#deleting-the-last-visit-information--dellastvisit)
-  * [App Navigation](#app-navigation)
-    * [Viewing help: `help`](#viewing-help--help)
-    * [Exiting the program: `exit`](#exiting-the-program--exit)
-  * [Data File Management](#data-file-management)
-    * [Saving the data](#saving-the-data)
-    * [Editing the data file](#editing-the-data-file)
+    * [Patient Management](#patient-management)
+        * [Adding a patient: `add`](#adding-a-patient-add)
+        * [Editing a patient: `edit`](#editing-a-patient--edit)
+        * [Deleting a patient: `delete`](#deleting-a-patient--delete)
+        * [Listing all patients: `list`](#listing-all-patients--list)
+        * [Clearing all entries: `clear`](#clearing-all-entries--clear)
+        * [Locating patients by name: `find`](#locating-patients-by-name-find)
+    * [Patient Data Management](#patient-data-management)
+        * [Tag a patient: `tag`](#tag-a-patient--tag)
+        * [Untag a patient: `untag`](#untag-a-patient--tag)
+        * [Adding medication to a patient: `prescribe`](#adding-medication-to-a-patient--prescribe)
+        * [Removing medication from a patient: `unprescribe`](#removing-medication-from-a-patient--unprescribe)
+        * [Adding last visit record to a patient: `lastVisit`](#adding-last-visit-record-to-a-patient--lastvisit)
+        * [Deleting the last visit information: `delLastVisit`](#deleting-the-last-visit-information--dellastvisit)
+    * [App Navigation](#app-navigation)
+        * [Viewing help: `help`](#viewing-help--help)
+        * [Exiting the program: `exit`](#exiting-the-program--exit)
+    * [Data File Management](#data-file-management)
+        * [Saving the data](#saving-the-data)
+        * [Editing the data file](#editing-the-data-file)
 * [FAQ](#faq)
 * [Known issues](#known-issues)
 
@@ -44,7 +44,7 @@ Created for social workers, CareConnect allows you to not only **track patient c
    A guide on how to install the required software can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
-    The `.jar` file can be found under the Assets section. ![Assets](images/jar.png)
+   The `.jar` file can be found under the Assets section. ![Assets](images/jar.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for your CareConnect.
 
@@ -55,15 +55,15 @@ Created for social workers, CareConnect allows you to not only **track patient c
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all patient contacts.
+    * `list` : Lists all patient contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+    * `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
 6. Refer to the [Features](#features) and [Command Summary](#command-summary) below for details of each command.
 
@@ -233,9 +233,12 @@ Format: `prescribe INDEX m/MEDICINE_NAME`
 * Adds medication to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The MEDICINE_NAME field must be provided
 * The medication will be added on to existing medications i.e. adding of medications is cumulative.
+* You may add multiple medication with `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
 Examples:
-*  `prescribe 1 m/Insulin` Adds `Insulin` to the 1st patient's prescription.
+*  `prescribe 1 m/Insulin` adds `Insulin` to the 1st patient's prescription.
+*  `prescribe 2 m/Insulin m/Acetaminophen_Codeine` adds `Insulin` and `Acetaminophen_Codeine` to
+   the 2nd patient's prescription.
 
 ### Removing medication from a patient : `unprescribe`
 
@@ -243,13 +246,16 @@ Removes specific or all medication from an existing patient in the patient conta
 
 Format: `unprescribe INDEX m/MEDICINE_NAME` or `unprescribe INDEX m/all`
 
-* Removes medication from the patient at the specified `INDEX`. The index refers to the index 
+* Removes medication from the patient at the specified `INDEX`. The index refers to the index
   number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* `unprescribe INDEX m/all` removes all medication from the list 
+* `unprescribe INDEX m/all` removes all medication from the list
+* You may remove multiple medication with `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
 Examples:
 *  `unprescribe 1 m/all` Removes all medication from the 1st patient.
 *  `unprescribe 2 m/Insulin` Removes `Insulin` from the 2nd patient's prescription.
+*  `unprescribe 3 m/Insulin m/Acetaminophen_Codeine` removes `Insulin` and
+   `Acetaminophen_Codeine` from the 3rd patient's prescription.
 
 ### Adding last visit record to a patient : `lastVisit`
 
