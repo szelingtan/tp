@@ -195,14 +195,11 @@ Examples:
 
 Tag an existing patient in the patient contact book.
 
-Format: `tag INDEX [t/TAG]…​`
+Format: `tag INDEX t/TAG [t/MORE_TAGS]…​`
 
-* Tag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient’s tags by typing `t/` without
-  specifying any tags after it.
+* Adds the specified tags to the patient at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one tag must be provided.
 
 Examples:
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
@@ -212,18 +209,16 @@ Examples:
 
 Untag an existing patient in the patient contact book.
 
-Format: `untag INDEX [t/TAG]…​` or `untag INDEX t/all`
+Format: `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
 
-* Untag the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
-* You can remove all the patient’s tags by typing `t/all` without
-  specifying any tags after it.
+* Removes the specified tags from the patient at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one tag must be provided.
 
 Examples:
 *  `untag 1 t/diabetes` Removes the tag `diabetes` from the 1st patient.
 *  `untag 2 t/dementia t/highBloodPressure` Remove the tags `dementia` and `highBloodPressure` from the 2nd patient.
+*  `untag 3 t/all` Removes all tags from the 3rd patient.
 
 ### Adding medication to a patient : `prescribe`
 
