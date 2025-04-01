@@ -23,6 +23,8 @@ public class DelLastVisitCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + '\n'
             + "Example: " + COMMAND_WORD + " 1 ";
+
+    public static final String MESSAGE_NO_LAST_VISIT = "This patient does not currently have a last visit: %1$s";
     public static final String NONE = "None";
 
     private final Index index;
@@ -64,6 +66,11 @@ public class DelLastVisitCommand extends Command {
 
         // Create a new Patient with `null` last visit
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
+
+        if (patientToEdit.getLastVisit() == null) {
+            throw new CommandException(String.format(MESSAGE_NO_LAST_VISIT, patientToEdit.getName()));
+        }
+
         Patient editedPatient = new Patient(
                 patientToEdit.getName(),
                 patientToEdit.getPhone(),
@@ -73,6 +80,7 @@ public class DelLastVisitCommand extends Command {
                 patientToEdit.getTags(),
                 patientToEdit.getMedicines()
         );
+
 
         // Update the patient in the model
         model.setPatient(patientToEdit, editedPatient);
