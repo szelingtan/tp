@@ -1,9 +1,10 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_FUTURE_LAST_VISIT_DATE;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_LAST_VISIT_DATE;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_NUMBER_OF_DATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDate;
@@ -40,6 +41,11 @@ public class LastVisitCommandParser implements Parser<LastVisitCommand> {
                     LastVisitCommand.MESSAGE_USAGE));
         }
 
+        if (argMultimap.getAllValues(PREFIX_DATE).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_NUMBER_OF_DATES,
+                    LastVisitCommand.MESSAGE_USAGE));
+        }
+
         String dateString = argMultimap.getValue(PREFIX_DATE).get();
 
         LocalDate date;
@@ -53,7 +59,7 @@ public class LastVisitCommandParser implements Parser<LastVisitCommand> {
 
         // Check if the date is valid
         if (!LastVisit.isValidLastVisit(date)) {
-            throw new ParseException(MESSAGE_INVALID_LAST_VISIT_DATE);
+            throw new ParseException(MESSAGE_FUTURE_LAST_VISIT_DATE);
         }
 
         return new LastVisitCommand(index, new LastVisit(date));

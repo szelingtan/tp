@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Medicine {
 
-    public static final String MESSAGE_CONSTRAINTS = "Medicine names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Medicine names should only contain letters, numbers, hyphens (-), and underscores (_).";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]+$";
 
     public final String medName;
 
@@ -44,7 +45,9 @@ public class Medicine {
         }
 
         Medicine otherMed = (Medicine) other;
-        return medName.equals(otherMed.medName);
+        // ignore upper or lower case
+        return medName.trim()
+                .equalsIgnoreCase(otherMed.medName.trim());
     }
 
     @Override

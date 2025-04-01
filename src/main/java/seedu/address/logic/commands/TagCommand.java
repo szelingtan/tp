@@ -14,7 +14,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds a bunch of tags to a specified patient.
+ * Adds any number of tags to a specified patient.
  */
 public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
@@ -22,7 +22,7 @@ public class TagCommand extends Command {
             + ": Adds the listed tags to the patient identified by the index "
             + "number used in the last patient listing."
             + '\n'
-            + "Parameters: INDEX t/tag [t/more_tags]"
+            + "Parameters: INDEX t/tag [t/more_tags]..."
             + '\n'
             + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
             + "t/Seafood Allergy";
