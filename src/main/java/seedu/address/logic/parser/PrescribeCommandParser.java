@@ -2,7 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
+
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -23,6 +26,21 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE);
 
+        // Check for medicine parameter
+        if (!argMultimap.getValue(PREFIX_MEDICINE).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    PrescribeCommand.MESSAGE_USAGE));
+        }
+
+        // Parse and validate Index
+        String preamble = argMultimap.getPreamble().trim();
+
+        // Check specifically for negative numbers and zero (index issue)
+        int indexValue = Integer.parseInt(preamble);
+        if (indexValue <= 0) {
+            throw new ParseException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
+
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -31,8 +49,9 @@ public class PrescribeCommandParser implements Parser<PrescribeCommand> {
                     PrescribeCommand.MESSAGE_USAGE), ive);
         }
 
-        Medicine medToAdd = ParserUtil.parseMed(argMultimap.getValue(PREFIX_MEDICINE).get());
+        Set<Medicine> medSet = ParserUtil.parseMeds(argMultimap.getAllValues(PREFIX_MEDICINE));
 
-        return new PrescribeCommand(index, medToAdd);
+        return new PrescribeCommand(index, medSet);
     }
+
 }

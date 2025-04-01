@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 
+import java.util.HashSet;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.PrescribeCommand;
@@ -24,7 +26,9 @@ public class PrescribeCommandParserTest {
     public void parse_indexSpecified_success() {
         // have medicine name
         String userInput = INDEX_FIRST_PATIENT.getOneBased() + " " + PREFIX_MEDICINE + nonEmptyMedName;
-        PrescribeCommand expectedCommand = new PrescribeCommand(INDEX_FIRST_PATIENT, new Medicine(nonEmptyMedName));
+        HashSet<Medicine> medSet = new HashSet<>();
+        medSet.add(new Medicine(nonEmptyMedName));
+        PrescribeCommand expectedCommand = new PrescribeCommand(INDEX_FIRST_PATIENT, medSet);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

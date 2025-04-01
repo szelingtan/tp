@@ -22,7 +22,7 @@ public class TagCommand extends Command {
             + ": Adds the listed tags to the patient identified by the index "
             + "number used in the last patient listing."
             + '\n'
-            + "Parameters: INDEX t/tag [t/more_tags]"
+            + "Parameters: INDEX t/tag [t/more_tags]..."
             + '\n'
             + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
             + "t/Seafood Allergy";
