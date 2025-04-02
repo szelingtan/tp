@@ -134,7 +134,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]â€
   
 * Note that you cannot currently add medicines when creating a patient with the `add` command.
   Please use the `prescribe` command to add medicines to a patient.
-* Note that you cannot add more than one patient with the same name but you can addmultiple 
+* Note that you cannot add more than one patient with the same name but you can add multiple 
   patients with the same phone number, email, address, last visit date and tags.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
