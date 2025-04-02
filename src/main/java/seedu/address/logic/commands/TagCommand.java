@@ -67,12 +67,12 @@ public class TagCommand extends Command {
     }
 
     private static String generateExistingTagErrMsg(
-            HashSet<Tag> dupplicateTags) {
+            HashSet<Tag> dupplicateTags, Patient patient) {
         String tagsStr = "";
         for (Tag t : dupplicateTags) {
             tagsStr += t.toString() + " ";
         }
-        return "Tag(s) " + tagsStr + "already exist for the specified patient";
+        return "Tag(s) " + tagsStr + "already exist for " + patient.getName();
     }
 
     /**
@@ -106,7 +106,7 @@ public class TagCommand extends Command {
         }
         if (duplicateTags.size() != 0) {
             throw new CommandException(
-                    generateExistingTagErrMsg(duplicateTags)
+                    generateExistingTagErrMsg(duplicateTags, patient)
             );
         }
 
