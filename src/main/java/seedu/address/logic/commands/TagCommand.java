@@ -33,6 +33,8 @@ public class TagCommand extends Command {
     public static final String EMPTY_TAG_ERROR = "Tag must be non-empty."
             + '\n'
             + "Example: " + COMMAND_WORD + " 2 t/Diabetes";
+    public static final String REPEATED_TAG_ERROR =
+            "Tag %1$s was inputted multiple times";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
