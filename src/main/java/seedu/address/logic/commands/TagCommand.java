@@ -33,6 +33,8 @@ public class TagCommand extends Command {
     public static final String EMPTY_TAG_ERROR = "Tag must be non-empty."
             + '\n'
             + "Example: " + COMMAND_WORD + " 2 t/Diabetes";
+    public static final String EXISTING_TAG_ERROR =
+            "Tag %1$s already exists for the specified patient";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
@@ -64,6 +66,15 @@ public class TagCommand extends Command {
                 + " successfully added to " + patient.getName();
     }
 
+    private static String generateExistingTagErrMsg(
+            HashSet<Tag> dupplicateTags) {
+        String tagsStr = "";
+        for (Tag t : dupplicateTags) {
+            tagsStr += t.toString() + " ";
+        }
+        return "Tag(s) " + tagsStr + "already exist for the specified patient";
+    }
+
     /**
      * Executes the stored `tag` cmd.
      *
@@ -77,12 +88,28 @@ public class TagCommand extends Command {
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPatientList();
 
+        // Index must be valid
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
                     Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patient = lastShownList.get(index.getZeroBased());
+        Set<Tag> patientTags = patient.getTags();
+
+        // Do not add already existing tags
+        HashSet<Tag> duplicateTags = new HashSet<Tag>();
+        for (Tag t : tagsToAdd) {
+            if (patientTags.contains(t)) {
+                duplicateTags.add(t);
+            }
+        }
+        if (duplicateTags.size() != 0) {
+            throw new CommandException(
+                    generateExistingTagErrMsg(duplicateTags)
+            );
+        }
+
         Patient editedPatient = addTags(patient, this.tagsToAdd);
 
         model.setPatient(patient, editedPatient);
