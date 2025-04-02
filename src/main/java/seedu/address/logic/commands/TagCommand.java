@@ -30,6 +30,9 @@ public class TagCommand extends Command {
             "Please add at least one tag when using the tag command."
             + '\n'
             + "Tags can be specified using the `t/` prefix";
+    public static final String EMPTY_TAG_ERROR = "Tag must be non-empty."
+            + '\n'
+            + "Example: " + COMMAND_WORD + " 2 t/Diabetes";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
