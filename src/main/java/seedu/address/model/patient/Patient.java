@@ -89,7 +89,7 @@ public class Patient {
         }
 
         return otherPatient != null
-                && otherPatient.getName().equals(getName());
+                && otherPatient.getName().toString().equalsIgnoreCase(getName().toString());
     }
 
     /**
