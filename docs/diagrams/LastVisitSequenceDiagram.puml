@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":LastVisitCommandParser" as LastVisitCommandParser LOGIC_COLOR
+participant "v:LastVisitCommand" as LastVisitCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("lastVisit 1 d/2025-04-01")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("lastVisit 1 d/2025-04-01")
+activate AddressBookParser
+
+create LastVisitCommandParser
+AddressBookParser -> LastVisitCommandParser
+activate LastVisitCommandParser
+
+LastVisitCommandParser --> AddressBookParser
+deactivate LastVisitCommandParser
+
+AddressBookParser -> LastVisitCommandParser : parse("1 d/2025-04-01")
+activate LastVisitCommandParser
+
+create LastVisitCommand
+LastVisitCommandParser -> LastVisitCommand : new LastVisitCommand(1, LastVisit(2025-04-01))
+activate LastVisitCommand
+
+LastVisitCommand --> LastVisitCommandParser :
+deactivate LastVisitCommand
+
+LastVisitCommandParser --> AddressBookParser : v
+deactivate LastVisitCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+LastVisitCommandParser -[hidden]-> AddressBookParser
+destroy LastVisitCommandParser
+
+AddressBookParser --> LogicManager : v
+deactivate AddressBookParser
+
+LogicManager -> LastVisitCommand : execute()
+activate LastVisitCommand
+
+LastVisitCommand -> Model : getFilteredPatientList()
+activate Model
+
+Model --> LastVisitCommand : lastShownList
+deactivate Model
+
+LastVisitCommand -> Model : setPatient(patient, editedPatient)
+activate Model
+
+Model --> LastVisitCommand
+deactivate Model
+
+LastVisitCommand -> Model : updateFilteredPatientList()
+activate Model
+
+Model --> LastVisitCommand
+deactivate Model
+
+LastVisitCommand --> LogicManager : new CommandResult()
+LogicManager -[hidden]-> TC : filler text to move the X down
+destroy TC
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
