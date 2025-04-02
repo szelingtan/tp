@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
+import static seedu.address.logic.commands.UnprescribeCommand.REMOVE_ALL_PLACEHOLDER;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -159,6 +160,23 @@ public class ParserUtil {
         requireNonNull(medNames);
         final Set<Medicine> medSet = new HashSet<>();
         for (String medName : medNames) {
+            medSet.add(parseMed(medName));
+        }
+        return medSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> medNames} into a {@code Set<Medicine>}.
+     */
+    public static Set<Medicine> parseMedsUnprescribe(Collection<String> medNames) throws ParseException {
+        requireNonNull(medNames);
+        final Set<Medicine> medSet = new HashSet<>();
+        for (String medName : medNames) {
+            // If a user specifies "all" in any of the prefixes, then add placeholder to signal to remove all meds
+            if (medName.equalsIgnoreCase("all")) {
+                medSet.add(REMOVE_ALL_PLACEHOLDER);
+                break;
+            }
             medSet.add(parseMed(medName));
         }
         return medSet;

@@ -22,15 +22,17 @@ import seedu.address.model.patient.Patient;
  * and removes the specified medicine from that patient's medical record.
  */
 public class UnprescribeCommand extends Command {
+    public static final Medicine REMOVE_ALL_PLACEHOLDER = new Medicine("-");
     public static final String COMMAND_WORD = "unprescribe";
 
-    public static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication %1$s from patient: %2$s";
+    public static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication(s) %1$s from patient: %2$s";
     public static final String MESSAGE_REMOVE_ALL_MED_SUCCESS = "Removed all medication from patient: %1$s";
     public static final String MESSAGE_EMPTY_MED_LIST = "Patient: %1$s currently has no prescribed medication";
     public static final String MESSAGE_MED_NOT_FOUND = "Medication %1$s is not found in patient: "
             + "%2$s's prescription list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": removes a medication from the patient specified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": removes one or more medications "
+            + "from the patient specified "
             + "by the index number used in the last patient listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_MEDICINE + "[medicine name] OR "
@@ -41,16 +43,17 @@ public class UnprescribeCommand extends Command {
             + PREFIX_MEDICINE + "all";
 
     private final Index index;
-    private final Medicine medicineToRemove;
+    private final Set<Medicine> medicinesToRemove;
 
     /**
      * @param index of the patient in the filtered patient list to remove the medication from
-     * @param medicineToRemove the medicine to be removed from the patient
+     * @param medicinesToRemove the set of medicines to be removed from the patient
      */
-    public UnprescribeCommand(Index index, Medicine medicineToRemove) {
-        requireAllNonNull(index, medicineToRemove);
+    public UnprescribeCommand(Index index, Set<Medicine> medicinesToRemove) {
+        requireAllNonNull(index);
+        requireAllNonNull(medicinesToRemove);
         this.index = index;
-        this.medicineToRemove = medicineToRemove;
+        this.medicinesToRemove = medicinesToRemove;
     }
 
     @Override
@@ -70,12 +73,12 @@ public class UnprescribeCommand extends Command {
         }
 
         // Special case for "all" to remove all medications
-        if (medicineToRemove.getMedicineName().equalsIgnoreCase("all")) {
+        if (medicinesToRemove.contains(REMOVE_ALL_PLACEHOLDER)) {
             return removeAllMedication(model, patientToEdit);
         }
 
-        // Remove specific medication
-        return removeSpecificMedication(model, patientToEdit);
+        // Remove specified medications
+        return removeSpecifiedMedications(model, patientToEdit);
     }
 
     /**
@@ -91,21 +94,25 @@ public class UnprescribeCommand extends Command {
     }
 
     /**
-     * Removes a specific medication from the patient
+     * Removes a set of medications from the patient
      */
-    private CommandResult removeSpecificMedication(Model model, Patient patientToEdit) throws CommandException {
+    private CommandResult removeSpecifiedMedications(Model model, Patient patientToEdit) throws CommandException {
         Set<Medicine> currentMedicines = patientToEdit.getMedicines();
         Set<Medicine> updatedMedicines = new HashSet<>();
 
-        if (currentMedicines.contains(medicineToRemove)) {
-            for (Medicine medicine : currentMedicines) {
-                if (!medicine.equals(medicineToRemove)) {
-                    updatedMedicines.add(medicine);
-                }
+        // Ensure that the patient has all medicines to be removed
+        for (Medicine medicineToRemove : medicinesToRemove) {
+            if (!currentMedicines.contains(medicineToRemove)) {
+                throw new CommandException(String.format(MESSAGE_MED_NOT_FOUND,
+                        medicineToRemove.getMedicineName(), patientToEdit.getName()));
             }
-        } else {
-            throw new CommandException(String.format(MESSAGE_MED_NOT_FOUND,
-                    medicineToRemove.getMedicineName(), patientToEdit.getName()));
+        }
+
+        // Create new set of medicines
+        for (Medicine currentMedicine : currentMedicines) {
+            if (!medicinesToRemove.contains(currentMedicine)) {
+                updatedMedicines.add(currentMedicine);
+            }
         }
 
         Patient editedPatient = createEditedPatient(patientToEdit, updatedMedicines);
@@ -136,8 +143,12 @@ public class UnprescribeCommand extends Command {
      * {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {
-        return String.format(MESSAGE_REMOVE_MED_SUCCESS, medicineToRemove.getMedicineName(),
-                patientToEdit.getName());
+        StringBuilder medStringBuilder = new StringBuilder();
+        for (Medicine medicine : medicinesToRemove) {
+            medStringBuilder.append(medicine.toString()).append(" ");
+        }
+        String medsString = medStringBuilder.toString().trim();
+        return String.format(MESSAGE_REMOVE_MED_SUCCESS, medsString, patientToEdit.getName());
     }
 
     /**
@@ -159,6 +170,6 @@ public class UnprescribeCommand extends Command {
             return false;
         }
 
-        return index.equals(e.index) && Objects.equals(medicineToRemove, e.medicineToRemove);
+        return index.equals(e.index) && Objects.equals(medicinesToRemove, e.medicinesToRemove);
     }
 }
