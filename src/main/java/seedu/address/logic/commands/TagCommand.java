@@ -34,7 +34,7 @@ public class TagCommand extends Command {
             + '\n'
             + "Example: " + COMMAND_WORD + " 2 t/Diabetes";
     public static final String REPEATED_TAG_ERROR =
-            "Tag %1$s was inputted multiple times";
+            "Tag [%1$s] was inputted multiple times";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
