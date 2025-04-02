@@ -64,6 +64,7 @@ public class TagCommandParser implements Parser<TagCommand> {
                 argMM.getAllValues(PREFIX_TAG)
         );
 
+        // Do not allow blank tags
         for (String tagStr : tagStrsToAdd) {
             if (tagStr.isBlank()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.EMPTY_TAG_ERROR));

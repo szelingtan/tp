@@ -46,25 +46,21 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_duplicateArg_error() {
-        try {
-            new TagCommandParser().parse(
-                    "tag 1 t/Depression t/Depression t/etc"
-            );
-            fail("This should not pass");
-        } catch (ParseException pe) {
-            // Test passed
-        }
+        assertParseFailure(
+                new TagCommandParser(),
+                "1 t/Depression t/Depression t/etc",
+                String.format(TagCommand.REPEATED_TAG_ERROR,
+                        "Depression")
+        );
     }
 
     @Test
     public void parse_blankTag_error() {
-        try {
-            new TagCommandParser().parse(
-                    "tag 1 t/Dysphoria t/ t/PTSD"
-            );
-            fail("This should not pass");
-        } catch (ParseException pe) {
-            // Test passed
-        }
+        assertParseFailure(
+                new TagCommandParser(),
+                "1 t/Dysphoria t/ t/PTSD",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        TagCommand.EMPTY_TAG_ERROR)
+        );
     }
 }
