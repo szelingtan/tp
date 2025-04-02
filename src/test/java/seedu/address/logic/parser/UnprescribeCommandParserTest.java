@@ -2,10 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
+import static seedu.address.logic.commands.UnprescribeCommand.REMOVE_ALL_PLACEHOLDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
+
+import java.util.HashSet;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +21,7 @@ import seedu.address.model.medicine.Medicine;
  * Tests the UnprescribeCommandParser class
  */
 public class UnprescribeCommandParserTest {
-    private UnprescribeCommandParser parser = new UnprescribeCommandParser();
+    private final UnprescribeCommandParser parser = new UnprescribeCommandParser();
 
     @Test
     public void parse_indexSpecified_success() {
@@ -26,12 +30,12 @@ public class UnprescribeCommandParserTest {
         String medicineName = "Panadol";
         String userInput = targetIndex.getOneBased() + " " + PREFIX_MEDICINE + medicineName;
         UnprescribeCommand expectedCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT,
-                new Medicine(medicineName));
+                new HashSet<>(List.of(new Medicine(medicineName))));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // Valid index with "all" medicine to remove all medication
         userInput = targetIndex.getOneBased() + " " + PREFIX_MEDICINE + "all";
-        expectedCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT, new Medicine("all"));
+        expectedCommand = new UnprescribeCommand(INDEX_FIRST_PATIENT, new HashSet<>(List.of(REMOVE_ALL_PLACEHOLDER)));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

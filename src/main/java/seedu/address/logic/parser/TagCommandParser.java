@@ -47,9 +47,25 @@ public class TagCommandParser implements Parser<TagCommand> {
         HashSet<String> tagStrsToAdd = new HashSet<String>(
                 argMM.getAllValues(PREFIX_TAG)
         );
+
+        for (String tagStr : tagStrsToAdd) {
+            if (tagStr.isBlank()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.EMPTY_TAG_ERROR));
+            }
+        }
+
         HashSet<Tag> tagsToAdd = new HashSet<Tag>();
         for (String s : tagStrsToAdd) {
             tagsToAdd.add(new Tag(s));
+        }
+
+        if (tagsToAdd.size() == 0) {
+            throw new ParseException(
+                    String.format(
+                            MESSAGE_INVALID_COMMAND_FORMAT,
+                            TagCommand.NO_TAG_INCLUDED_ERROR
+                    )
+            );
         }
 
         return new TagCommand(ind, tagsToAdd);
