@@ -47,7 +47,7 @@ public class TagCommandParser implements Parser<TagCommand> {
         // Double check for duplicated inputs
         List<String> listTagStrsToAdd = argMM.getAllValues(PREFIX_TAG);
         for (int i = 0; i < listTagStrsToAdd.size(); i++) {
-            for (int j = i+1; j < listTagStrsToAdd.size(); j++) {
+            for (int j = i + 1; j < listTagStrsToAdd.size(); j++) {
                 if (listTagStrsToAdd.get(i).equals(listTagStrsToAdd.get(j))) {
                     throw new ParseException(
                             String.format(
