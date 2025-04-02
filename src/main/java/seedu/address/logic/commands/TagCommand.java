@@ -26,6 +26,13 @@ public class TagCommand extends Command {
             + '\n'
             + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
             + "t/Seafood Allergy";
+    public static final String NO_TAG_INCLUDED_ERROR =
+            "Please add at least one tag when using the tag command."
+            + '\n'
+            + "Tags can be specified using the `t/` prefix";
+    public static final String EMPTY_TAG_ERROR = "Tag must be non-empty."
+            + '\n'
+            + "Example: " + COMMAND_WORD + " 2 t/Diabetes";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
