@@ -33,8 +33,6 @@ public class TagCommand extends Command {
     public static final String EMPTY_TAG_ERROR = "Tag must be non-empty."
             + '\n'
             + "Example: " + COMMAND_WORD + " 2 t/Diabetes";
-    public static final String EXISTING_TAG_ERROR =
-            "Tag %1$s already exists for the specified patient";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
