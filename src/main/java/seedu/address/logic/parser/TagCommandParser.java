@@ -55,8 +55,14 @@ public class TagCommandParser implements Parser<TagCommand> {
         }
 
         HashSet<Tag> tagsToAdd = new HashSet<Tag>();
+        Tag t = null;
         for (String s : tagStrsToAdd) {
-            tagsToAdd.add(new Tag(s));
+            try {
+                t = new Tag(s);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            }
+            tagsToAdd.add(t);
         }
 
         if (tagsToAdd.size() == 0) {
