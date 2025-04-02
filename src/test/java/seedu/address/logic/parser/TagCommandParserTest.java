@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -11,6 +12,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.TagCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 public class TagCommandParserTest {
@@ -40,5 +42,29 @@ public class TagCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         TagCommand.MESSAGE_USAGE)
         );
+    }
+
+    @Test
+    public void parse_duplicateArg_error() {
+        try {
+            new TagCommandParser().parse(
+                    "tag 1 t/Depression t/Depression t/etc"
+            );
+            fail("This should not pass");
+        } catch (ParseException pe) {
+            // Test passed
+        }
+    }
+
+    @Test
+    public void parse_blankTag_error() {
+        try {
+            new TagCommandParser().parse(
+                    "tag 1 t/Dysphoria t/ t/PTSD"
+            );
+            fail("This should not pass");
+        } catch (ParseException pe) {
+            // Test passed
+        }
     }
 }
