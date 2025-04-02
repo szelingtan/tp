@@ -32,9 +32,7 @@ import seedu.address.testutil.PatientBuilder;
  */
 public class PrescribeCommandTest {
 
-    private static final HashSet<Medicine> VALID_MEDSET = new HashSet<>(List.of(
-            new Medicine("Vicodin")
-    ));
+    private static final HashSet<Medicine> VALID_MEDSET = new HashSet<>(List.of(new Medicine("Vicodin")));
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test

@@ -5,6 +5,8 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UnprescribeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -47,8 +49,8 @@ public class UnprescribeCommandParser implements Parser<UnprescribeCommand> {
         // If we get here, the index format is valid
         try {
             Index index = ParserUtil.parseIndex(preamble);
-            Medicine medToRemove = ParserUtil.parseMed(argMultimap.getValue(PREFIX_MEDICINE).get());
-            return new UnprescribeCommand(index, medToRemove);
+            Set<Medicine> medsToRemove = ParserUtil.parseMedsUnprescribe(argMultimap.getAllValues(PREFIX_MEDICINE));
+            return new UnprescribeCommand(index, medsToRemove);
         } catch (ParseException pe) {
             // For any other parsing issues (like too large numbers)
             throw new ParseException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
