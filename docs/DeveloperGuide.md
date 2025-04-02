@@ -173,7 +173,9 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th patient in the patient book. The 
+`delete` command calls `Model#commitAddressBook()`, causing the modified state of the patient book 
+after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
@@ -212,7 +214,8 @@ The `redo` command does the opposite — it calls `Model#redoAddressBook()`,
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the 
+patient book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
@@ -228,7 +231,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire patient book.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
@@ -278,7 +281,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​       | I want to …​                 | So that I can…​                                         |
 | -------- |---------------|------------------------------|---------------------------------------------------------|
 | `* * *`  | social worker | add contacts of new patients | keep track of the new patients' details                 |
-| `* * *`  | social worker | delete patient contacts      | remove discharged / deceased patients from address book |
+| `* * *`  | social worker | delete patient contacts      | remove discharged / deceased patients from patient book |
 | `* * *`  | social worker | tag a patient                | identify the patient's condition                        |
 | `* * *`  | social worker | add patient medication       | keep track of medication taken by the patient           |
 | `* *`    | social worker | add last visit               | keep track of my last visit to the patient              |
@@ -289,41 +292,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `PatientBook` and the **Actor** is the `user`, 
+unless specified otherwise)
 
 **Use case: Add a patient**
 
 **MSS**
 
 1.  User requests to add a patient
-2.  AddressBook prompts for patient details
+2.  PatientBook prompts for patient details
 3.  User enters patient's name, phone number, email, and address
-4.  AddressBook adds the patient and confirms the addition
+4.  PatientBook adds the patient and confirms the addition
 
     Use case ends.
 
 **Extensions**
 
 * 3a. User enters an invalid phone number.
-  * 3a1. AddressBook shows an error message.
+  * 3a1. PatientBook shows an error message.
     * 3a2. User enters a valid phone number.
 
         Use case resumes at step 3.
 
 * 3b. User enters an invalid email.
-  * 3b1. AddressBook shows an error message.
+  * 3b1. PatientBook shows an error message.
     * 3b2. User enters a valid email.
 
         Use case resumes at step 3.
 
 * 3c. User omits one or more required fields.
-  * 3c1. AddressBook shows an error message.
+  * 3c1. PatientBook shows an error message.
     * 3c2. User enters all required information.
 
         Use case resumes at step 3.
 
 * 3d. User enters details for a patient with same name and phone number as an existing patient.
-  * 3d1. AddressBook alerts the user about the duplicate.
+  * 3d1. PatientBook alerts the user about the duplicate.
     * 3d2. User enters different information or cancels the operation.
 
         Use case resumes at step 3.
@@ -333,9 +337,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list patients
-2.  AddressBook shows a list of patients
+2.  PatientBook shows a list of patients
 3.  User requests to delete a specific patient in the list
-4.  AddressBook deletes the patient and confirms the deletion
+4.  PatientBook deletes the patient and confirms the deletion
 
 Use case ends.
 
@@ -346,12 +350,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-  * 3a1. AddressBook shows an error message.
+  * 3a1. PatientBook shows an error message.
 
     Use case resumes at step 2.
 
 * 3b. User does not specify an index.
-  * 3b1. AddressBook shows an error message.
+  * 3b1. PatientBook shows an error message.
 
     Use case resumes at step 2.
 
@@ -360,9 +364,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  AddressBook shows a list of patients
+2.  PatientBook shows a list of patients
 3.  User requests to tag a specific patient with a category
-4.  AddressBook adds the tag to the patient and confirms the addition
+4.  PatientBook adds the tag to the patient and confirms the addition
 
 Use case ends.
 
@@ -373,12 +377,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. AddressBook shows an error message.
+    * 3a1. PatientBook shows an error message.
 
         Use case resumes at step 2.
 
 * 3b. User does not specify a tag name.
-    * 3b1. AddressBook shows an error message.
+    * 3b1. PatientBook shows an error message.
 
       Use case resumes at step 3.
 
@@ -387,9 +391,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  AddressBook shows a list of patients
+2.  PatientBook shows a list of patients
 3.  User requests to add medication for a specific patient
-4.  AddressBook adds the medication to the patient's record and confirms the addition
+4.  PatientBook adds the medication to the patient's record and confirms the addition
 
 Use case ends.
 
@@ -400,12 +404,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-  * 3a1. AddressBook shows an error message.
+  * 3a1. PatientBook shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. User does not specify medication details.
-  * 3b1. AddressBook shows an error message.
+  * 3b1. PatientBook shows an error message.
 
     Use case resumes at step 3.
 
@@ -414,9 +418,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  AddressBook shows a list of patients
+2.  PatientBook shows a list of patients
 3.  User requests to delete medication for a specific patient
-4.  AddressBook removes the medication from the patient's record and confirms the deletion
+4.  PatientBook removes the medication from the patient's record and confirms the deletion
 
 Use case ends.
 
@@ -427,12 +431,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-  * 3a1. AddressBook shows an error message.
+  * 3a1. PatientBook shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. The patient has no medication records.
-  * AddressBook shows an error message.
+  * PatientBook shows an error message.
 
     Use case ends.
 
@@ -441,9 +445,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  AddressBook shows a list of patients
+2.  PatientBook shows a list of patients
 3.  User requests to add medication for a specific patient
-4.  AddressBook adds the medication to the patient's record and confirms the addition
+4.  PatientBook adds the medication to the patient's record and confirms the addition
 
 Use case ends.
 
@@ -454,12 +458,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. AddressBook shows an error message.
+    * 3a1. PatientBook shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. User does not specify medication details.
-    * 3b1. AddressBook shows an error message.
+    * 3b1. PatientBook shows an error message.
 
       Use case resumes at step 3.
 
@@ -468,9 +472,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  AddressBook shows a list of patients
+2.  PatientBook shows a list of patients
 3.  User requests to delete the last visit record of a specific patient
-4.  AddressBook removes the visit information and confirms the deletion
+4.  PatientBook removes the visit information and confirms the deletion
 
 Use case ends.
 
@@ -481,12 +485,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. AddressBook shows an error message.
+    * 3a1. PatientBook shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. The patient has no visit records.
-    * AddressBook shows an error message.
+    * PatientBook shows an error message.
 
       Use case ends.
 
