@@ -42,8 +42,7 @@ public class LastVisitCommandParser implements Parser<LastVisitCommand> {
         }
 
         if (argMultimap.getAllValues(PREFIX_DATE).size() > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NUMBER_OF_DATES,
-                    LastVisitCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_NUMBER_OF_DATES + "\n" + LastVisitCommand.MESSAGE_USAGE);
         }
 
         String dateString = argMultimap.getValue(PREFIX_DATE).get();

@@ -200,7 +200,7 @@ Finds patients whose names contain any of the given keywords.
 
 **Format:** `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
-
+* find must be accompanied by a keyword 
 * The search is case-insensitive.
   * e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter.
@@ -229,6 +229,8 @@ Tag an existing patient in the patient contact book.
 * Adds the specified tags to the patient at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
+* Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes` 
+  tag to the same patient as they would be considered as duplicate tags.
 
 **Examples:**
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
@@ -260,6 +262,8 @@ Adds medication to an existing patient in the patient contact book.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
+* Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and 
+  `panadol` medication to the same patient as they would be considered as duplicate medication.
 
 **Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.

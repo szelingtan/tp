@@ -25,7 +25,6 @@ public class DelLastVisitCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_NO_LAST_VISIT = "This patient does not currently have a last visit: %1$s";
-    public static final String NONE = "None";
 
     private final Index index;
 

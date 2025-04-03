@@ -50,6 +50,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        // Last Visit field is an optional input
         LastVisit lastVisit;
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             lastVisit = ParserUtil.parseLastVisit(argMultimap.getValue(PREFIX_DATE).get());
