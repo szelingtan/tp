@@ -13,6 +13,7 @@ prescriptions and last visit information** on a single app.
 ### Table of Contents
 * [Quick start](#quick-start)
 * [Command summary](#command-summary)
+* [Input Requirements](#input-requirements)
 * [Features](#features)
     * [Patient Management](#patient-management)
         * [Adding a patient: `add`](#adding-a-patient-add)
@@ -23,7 +24,7 @@ prescriptions and last visit information** on a single app.
         * [Locating patients by name: `find`](#locating-patients-by-name-find)
     * [Patient Data Management](#patient-data-management)
         * [Tag a patient: `tag`](#tag-a-patient--tag)
-        * [Untag a patient: `untag`](#untag-a-patient--tag)
+        * [Untag a patient: `untag`](#untag-a-patient--untag)
         * [Adding medication to a patient: `prescribe`](#adding-medication-to-a-patient--prescribe)
         * [Removing medication from a patient: `unprescribe`](#removing-medication-from-a-patient--unprescribe)
         * [Adding last visit record to a patient: `lastVisit`](#adding-last-visit-record-to-a-patient--lastvisit)
@@ -73,26 +74,39 @@ prescriptions and last visit information** on a single app.
 
 ## Command summary
 
-| Action                | Format                                                                    | Example                                                                                               |
-|-----------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes` |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
-| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                            |
-| **List**              | `list`                                                                    |
-| **Clear**             | `clear`                                                                   |                                                                                                       |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`  <br/> `find /strict KEYWORD `             | `find James Jake`     <br/> `find /strict James Jake`                                                 |
-| **Tag**               | `tag INDEX t/TAG [t/MORE_TAGS]...`                                        | `tag 2 t/highBloodPressure`                                                                           |
-| **Untag**             | `untag INDEX t/TAG [t/MORE_TAGS]...`  <br/> `untag INDEX t/all`           | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                  |
-| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin` <br/> `prescribe 1 m/Insulin m/Panadol`                                       |
-| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/Insulin m/Panadol` <br> `unprescribe 1 m/all`       |
-| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                            |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                      | `delLastVisit 2`                                                                                      |
-| **Help**              | `help`                                                                    |                                                                                                       |
-| **Exit**              | `exit`                                                                    |
+| Action                | Format                                                                                   | Example                                                                                                         |
+|-----------------------|------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG] [m/MEDICINE]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes m/Insulin` |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]…​`                           | `edit 2 n/James Lee e/jameslee@example.com`                                                                     |
+| **Delete**            | `delete INDEX`                                                                           | `delete 3`                                                                                                      |
+| **List**              | `list`                                                                                   |
+| **Clear**             | `clear`                                                                                  |                                                                                                                 |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`  <br/> `find /strict KEYWORD `                            | `find James Jake`     <br/> `find /strict James Jake`                                                           |
+| **Tag**               | `tag INDEX t/TAG [t/MORE_TAGS]...`                                                       | `tag 2 t/highBloodPressure`                                                                                     |
+| **Untag**             | `untag INDEX t/TAG [t/MORE_TAGS]...`  <br/> `untag INDEX t/all`                          | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                            |
+| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                                        | `prescribe 1 m/Insulin` <br/> `prescribe 1 m/Insulin m/Panadol`                                                 |
+| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`                     | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/Insulin m/Panadol` <br> `unprescribe 1 m/all`                 |
+| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                                      | `lastVisit 1 d/2025-03-15`                                                                                      |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                                     | `delLastVisit 2`                                                                                                |
+| **Help**              | `help`                                                                                   |                                                                                                                 |
+| **Exit**              | `exit`                                                                                   |
 
 
 --------------------------------------------------------------------------------------------------------------------
 
+### Input Requirements
+| Input        | Requirements                                                                                                                                                                                                                                                                                 | Example                             |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. </br> Other non-specified formats such as special characters including @ are currently not supported.                    | Tan Ah Kow                          |
+| **PHONE**    | Numbers only, minimum 3 digits.                                                                                                                                                                                                                                                              | 87874848                            |
+| **EMAIL**    | Must follow `<local-part>@<domain>`. <br/> - The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. <br/> - The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
+| **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                                            | Blk 519 Serangoon Avenue 1, #12-345 |
+| **MEDICINE** | Alphanumeric, '-' and '_' allowed. <br/> For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.                                                                                                                                                               | Paracetamol, Insulin                |
+| **TAG**      | Alphanumeric, '-' and '_' allowed. <br/> For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.                                                                                                                                               | Diabetes, Osteoporosis              |
+
+* `INDEX`: Index of patient in the displayed patient list to be edited.
+    * Must be a **positive integer** 1, 2, 3, …​
+--------------------------------------------------------------------------------------------------------------------
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -117,70 +131,54 @@ prescriptions and last visit information** on a single app.
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+
+
 ## Patient Management
 ### Adding a patient: `add`
 
 Adds a patient to the patient contact book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG]…​`
+**Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG] [m/MEDICINE]…​`
 
-* Edits the patient at the specified `INDEX`. 
-  The index refers to the index number shown in the displayed patient list. 
-  The index **must be a positive integer** 1, 2, 3, …​
-* `NAME` must be alphanumeric, can have spaces, and cannot be blank.
-  * Note that you cannot add another patient with the same name as an existing patient in the patient contact book.
-  * Any two names that are equivalent after ignoring case are considered the same name.
-    * e.g. "John Doe" and "JOHN DOE" are considered the same name.
-* `PHONE_NUMBER` must only contain numbers, and should be at least three digits long.
-* `EMAIL` should be of the format `<local-part>@<domain>`.
-  * The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-`.
-  * The `<local-part>` cannot start or end with any special characters.
-  * The `<domain>` should only contain alphanumeric characters and the `.` character.
-* There are no restrictions on the `ADDRESS` field.
-* `LAST_VISIT_DATE` is optional.
-  If specified, `LAST_VISIT_DATE` should follow the format `YYYY-MM-DD`.
-  If you do not specify any date, the patient will be created with no last visit date.
-  You can then edit the last visit date later using the `lastVisit` command.
-  
-* Note that you cannot currently add medicines when creating a patient with the `add` command.
-  Please use the `prescribe` command to add medicines to a patient.
-* Note that you cannot add more than one patient with the same name, but you can add multiple 
-  patients with the same phone number, email, address, last visit date and tags.
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+* Refer to the [Input Requirements](#input-requirements)
+<div markdown="span" class="alert alert-primary">:bulb: Tip:
 A patient can have any number of tags (including 0).
 </div>
 
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12`
+**Examples:**
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12 m/Insulin`
 * `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes`
+
+**Note:**
+* Patients with the same name are not allowed, but you can add multiple
+  patients with the same phone number, email, address, last visit date and tags.
 
 ### Editing a patient : `edit`
 
-Edits an existing patient in the patient contact book.
+Edits an existing patient at the specified index in the patient contact book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 
-* Edits the patient at the specified `INDEX`.
-  The index refers to the index number shown in the displayed patient list.
-  The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+**Examples:**
 
-Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the second patient to be `Betsy Crower` and clears all existing tags.
 
+**Note:**
+
+* At least one of the optional fields must be provided.
+- The `edit` command can only modify name, phone, email, and address.
+- Use `tag`, `untag`, `prescribe`, and `unprescribe` to manage the patient's tags and medicine.
+
+
 ### Deleting a patient : `delete`
 
-Deletes the specified patient from the patient contact book.
+Deletes the patient at the specified index from the patient contact book.
 
-Format: `delete INDEX`
+**Format:** `delete INDEX`
 
-* Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* The index refers to the index number shown in the displayed patient list.
+**Examples:**
 
-Examples:
 * `list` followed by `delete 2` deletes the second patient in the patient contact book.
 * `find Betsy` followed by `delete 1` deletes the first patient in the results of the `find` command.
 
@@ -188,32 +186,36 @@ Examples:
 
 Shows a list of all patients in the patient contact book.
 
-Format: `list`
+**Format:** `list`
 
 ### Clearing all entries : `clear`
 
 Clears all entries from the patient contact book.
 
-Format: `clear`
+**Format:** `clear`
 
 ### Locating patients by name: `find`
 
 Finds patients whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
+**Format:** `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+
+* The search is case-insensitive.
+  * e.g. `hans` will match `Hans`.
+* The order of the keywords does not matter.
+  * e.g. `Hans Bo` will match `Bo Hans`
 * `find` patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * `find /strict` Returns only exact match or displays "0 patients listed"
-Examples:
+
+**Examples:**
+
 * `find John` returns `John` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`
-* `find /strict John` returns only `John`
-* `find /strict Doe John` returns `0 patients listed`<br>
+* `find /strict John` returns only if a patient with the exact name `John` exists
+* `find /strict Doe John` returns `0 patients listed` <br>
+
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 
@@ -222,13 +224,13 @@ Examples:
 
 Tag an existing patient in the patient contact book.
 
-Format: `tag INDEX t/TAG [t/MORE_TAGS]…​`
+**Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`
 
 * Adds the specified tags to the patient at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
 
-Examples:
+**Examples:**
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
 *  `tag 2 t/dementia t/highBloodPressure` Add the tags `dementia` and `highBloodPressure` to the second patient.
 
@@ -236,13 +238,13 @@ Examples:
 
 Untag an existing patient in the patient contact book.
 
-Format: `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
+**Format:** `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
 
 * Removes the specified tags from the patient at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
 
-Examples:
+**Examples:**
 *  `untag 1 t/diabetes` Removes the tag `diabetes` from the first patient.
 *  `untag 2 t/dementia t/highBloodPressure` Remove the tags `dementia` and `highBloodPressure` from the second patient.
 *  `untag 3 t/all` Removes all tags from the third patient.
@@ -251,19 +253,15 @@ Examples:
 
 Adds medication to an existing patient in the patient contact book.
 
-Format: `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
+**Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 
 * Adds the specified medications to the patient at the specified `INDEX`.
-  The index refers to the index number shown in the displayed patient list.
-  The index **must be a positive integer** 1, 2, 3, …​
-* Medication names must be **ALPHANUMERIC**, except for **underlines** (`_`) and **dashes** (`-`). **Spaces are not allowed.**
-  * For example, `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
 * At least one medicine name must be provided.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
-Examples:
+**Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
 *  `prescribe 2 m/Insulin m/Acetaminophen_Codeine` adds `Insulin` and `Acetaminophen_Codeine` to
    the second patient's prescription.
@@ -272,13 +270,10 @@ Examples:
 
 Removes specific or all medication from an existing patient in the patient contact book.
 
-Format: `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
+**Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
-* Removes medication from the patient at the specified `INDEX`. The index refers to the index
-  number shown in the displayed patient list. 
-  The index **must be a positive integer** 1, 2, 3, …​
-* Medication names must be **ALPHANUMERIC**, except for **underlines** (`_`) and **dashes** (`-`). **Spaces are not allowed.**
-  * For example, `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
+* Removes medication from the patient at the specified `INDEX` in the displayed patient list.
+* `unprescribe INDEX m/all` is case-insensitive.
 * `unprescribe INDEX m/all` removes all medications from the patient.
   * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
     (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
@@ -286,7 +281,7 @@ Format: `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `un
 * You may remove multiple medications by including multiple medicine names. 
   * e.g. `unprescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
-Examples:
+**Examples:**
 *  `unprescribe 1 m/all` Removes all medication from the first patient.
 *  `unprescribe 2 m/Insulin` Removes `Insulin` from the second patient.
 *  `unprescribe 3 m/Insulin m/Acetaminophen_Codeine` removes `Insulin` and
@@ -296,26 +291,23 @@ Examples:
 
 Adds a last visit record to an existing patient in the patient contact book.
 
-Format: `lastVisit INDEX d/LAST_VISIT_DATE`
+**Format:** `lastVisit INDEX d/LAST_VISIT_DATE`
 
-* Adds last visit record to the patient at the specified `INDEX`.
-  The index refers to the index number shown in the displayed patient list. 
-  The index **must be a positive integer** 1, 2, 3, …​
+* Adds last visit record to the patient at the specified `INDEX` in the displayed patient list.
 * The LAST_VISIT_DATE field must be provided.
 * Format for LAST_VISIT_DATE: `YYYY-MM-DD`
 * LAST_VISIT_DATE must be a valid calendar date on or before the current system date. Future dates are not accepted.
 
-Examples:
+**Examples:**
 *  `lastVisit 1 d/2025-03-15` Adds the last visited date `2025-03-15` to the first patient.
 
 ### Deleting the last visit information : `delLastVisit`
 
 Deletes the last visit information of a patient
 
-Format: `delLastVisit INDEX`
+**Format:** `delLastVisit INDEX`
 
-* The index refers to the index number shown in the displayed patient list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes last visit record from the patient at the specified `INDEX` in the displayed patient list.
 
 Examples:
 *  `delLastVisit 1` deletes the last visit information of a patient.
@@ -328,13 +320,13 @@ Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+**Format:** `help`
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+**Format:** `exit`
 
 ## Data File Management
 ### Saving the data

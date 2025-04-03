@@ -24,7 +24,7 @@ public class TagCommand extends Command {
             + '\n'
             + "Parameters: INDEX t/tag [t/more_tags]..."
             + '\n'
-            + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
+            + "Example: " + COMMAND_WORD + " 3 t/High Blood Pressure "
             + "t/Seafood Allergy";
     public static final String NO_TAG_INCLUDED_ERROR =
             "Please add at least one tag when using the tag command."
