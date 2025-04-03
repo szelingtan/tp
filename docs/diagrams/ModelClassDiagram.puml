@@ -18,6 +18,8 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Medicine
+Class LastVisit
 Class Tag
 
 Class I #FFFFFF
