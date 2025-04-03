@@ -24,7 +24,7 @@ public class LastVisitCommand extends Command {
             + "by the index number used in the last patient listing. "
             + "Existing last visit will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DATE + "[LAST VISIT DATE]\n"
+            + PREFIX_DATE + "[LAST-VISIT-DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "2025-05-01";
 

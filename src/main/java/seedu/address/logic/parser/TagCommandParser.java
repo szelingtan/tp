@@ -30,32 +30,13 @@ public class TagCommandParser implements Parser<TagCommand> {
         ArgumentMultimap argMM = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
         // Retrieve the index from the user input
-        Index ind;
-        try {
-            ind = ParserUtil.parseIndex(argMM.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(
-                            MESSAGE_INVALID_COMMAND_FORMAT,
-                            TagCommand.MESSAGE_USAGE
-                    ),
-                    pe
-            );
-        }
+        Index ind = getIndex(argMM);
 
         // Double check for duplicated inputs
         List<String> listTagStrsToAdd = argMM.getAllValues(PREFIX_TAG);
-        for (int i = 0; i < listTagStrsToAdd.size(); i++) {
-            for (int j = i + 1; j < listTagStrsToAdd.size(); j++) {
-                if (listTagStrsToAdd.get(i).equals(listTagStrsToAdd.get(j))) {
-                    throw new ParseException(
-                            String.format(
-                                    TagCommand.REPEATED_TAG_ERROR,
-                                    listTagStrsToAdd.get(i)
-                            )
-                    );
-                }
-            }
+        String duplicate = findDuplicateInput(listTagStrsToAdd);
+        if (duplicate != null) {
+            throw new ParseException(String.format(TagCommand.REPEATED_TAG_ERROR, duplicate));
         }
 
         // Extract the tags
@@ -70,6 +51,63 @@ public class TagCommandParser implements Parser<TagCommand> {
             }
         }
 
+        HashSet<Tag> tagsToAdd = parseTags(tagStrsToAdd);
+
+        if (tagsToAdd.size() == 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    TagCommand.NO_TAG_INCLUDED_ERROR));
+        }
+
+        return new TagCommand(ind, tagsToAdd);
+    }
+
+    /**
+     * Retrieves the index from the argument multimap.
+     *
+     * @param argMM The argument multimap.
+     * @return The index from the argument multimap.
+     * @throws ParseException if there is an error parsing the index.
+     */
+    private Index getIndex(ArgumentMultimap argMM) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(argMM.getPreamble());
+        } catch (ParseException pe) {
+            // Copied from DelLastVisitCommandParser.java
+            throw new ParseException(
+                    String.format(
+                            MESSAGE_INVALID_COMMAND_FORMAT,
+                            TagCommand.MESSAGE_USAGE
+                    ),
+                    pe
+            );
+        }
+    }
+
+    /**
+     * Checks if there is any duplicate String in the list.
+     *
+     * @param listTagStrsToAdd List of Strings being added to check.
+     * @return A duplicated String if any and null if none exist.
+     */
+    private String findDuplicateInput(List<String> listTagStrsToAdd) {
+        for (int i = 0; i < listTagStrsToAdd.size(); i++) {
+            for (int j = i + 1; j < listTagStrsToAdd.size(); j++) {
+                if (listTagStrsToAdd.get(i).equals(listTagStrsToAdd.get(j))) {
+                    return listTagStrsToAdd.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Parses the tags to add.
+     *
+     * @param tagStrsToAdd The tags to add as Strings.
+     * @return The tags to add.
+     * @throws ParseException if there is an error parsing any tag.
+     */
+    private HashSet<Tag> parseTags(HashSet<String> tagStrsToAdd) throws ParseException {
         HashSet<Tag> tagsToAdd = new HashSet<Tag>();
         Tag t = null;
         for (String s : tagStrsToAdd) {
@@ -81,16 +119,6 @@ public class TagCommandParser implements Parser<TagCommand> {
             }
             tagsToAdd.add(t);
         }
-
-        if (tagsToAdd.size() == 0) {
-            throw new ParseException(
-                    String.format(
-                            MESSAGE_INVALID_COMMAND_FORMAT,
-                            TagCommand.NO_TAG_INCLUDED_ERROR
-                    )
-            );
-        }
-
-        return new TagCommand(ind, tagsToAdd);
+        return tagsToAdd;
     }
 }
