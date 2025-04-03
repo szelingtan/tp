@@ -93,6 +93,28 @@ prescriptions and last visit information** on a single app.
 
 --------------------------------------------------------------------------------------------------------------------
 
+### Input Requirements
+| Input        | Requirements                                                                                                                                                                                                                                                                 | Example                             |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name.                                                                                                          | Tan Ah Kow                          |
+| **PHONE**    | Numbers only, minimum 3 digits.                                                                                                                                                                                                                                              | 87874848                            |
+| **EMAIL**    | Must follow `<local-part>@<domain>`. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
+| **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                            | Blk 519 Serangoon Avenue 1, #12-345 |
+| **MEDICINE** | Alphanumeric, '-' and '_' allowed.                                                                                                                                                                                                                                           | Paracetamol, Insulin                |
+| **TAG**      | Alphanumeric, '-' and '_' allowed.`                                                                                                                                                                                                                                          | Diabetes, Osteoporosis              |
+
+* `NAME`: Alphanumeric, can contain spaces, cannot be blank.
+    * Duplicate names are not allowed (case-insensitive).
+        * e.g. "John Doe" and "JOHN DOE" are considered the same name.
+* `PHONE_NUMBER`: Numbers only, minimum 3 digits.
+* `EMAIL`: Must follow `<local-part>@<domain>`.
+    * The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-`.
+    * The `<local-part>` cannot start or end with any special characters.
+    * The `<domain>` should only contain alphanumeric characters and the `.` character.
+* `ADDRESS`: No restrictions, cannot be blank.
+* [OPTIONAL] `LAST_VISIT_DATE`: Must be in `YYYY-MM-DD` format and not a future date.
+* [OPTIONAL] `TAG`: Alphanumeric, '-' and '_' allowed. No spaces or other special characters.
+--------------------------------------------------------------------------------------------------------------------
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -116,6 +138,8 @@ prescriptions and last visit information** on a single app.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
+
+
 
 ## Patient Management
 ### Adding a patient: `add`
