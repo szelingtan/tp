@@ -57,7 +57,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             lastVisit = null;
         }
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        // Set<Medicine> medicines = new HashSet<>(); // Add command does not support adding medicines straight away
         Set<Medicine> medList = ParserUtil.parseMeds(
                 argMultimap.getAllValues(PREFIX_MEDICINE)
         );
