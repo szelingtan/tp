@@ -95,6 +95,7 @@ prescriptions and last visit information** on a single app.
 --------------------------------------------------------------------------------------------------------------------
 
 ### Input Requirements
+
 | Input        | Requirements                                                                                                                                                                                                                                                                 | Example                             |
 |--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
 | **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. Other non-specified formats such as special characters including @ are currently not supported.          | Tan Ah Kow                          |
