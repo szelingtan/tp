@@ -273,6 +273,7 @@ Removes specific or all medication from an existing patient in the patient conta
 **Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
 * Removes medication from the patient at the specified `INDEX` in the displayed patient list.
+* `unprescribe INDEX m/all` is case-insensitive.
 * `unprescribe INDEX m/all` removes all medications from the patient.
   * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
     (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
