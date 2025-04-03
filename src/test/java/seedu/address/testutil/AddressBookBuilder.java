@@ -6,11 +6,11 @@ import seedu.address.model.patient.Patient;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withpatient("John", "Doe").build();}
+ *     {@code AddressBook ab = new AddressBookBuilder().withPatient("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private final AddressBook addressBook;
 
     public AddressBookBuilder() {
         addressBook = new AddressBook();

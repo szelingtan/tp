@@ -13,12 +13,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new DeleteTagCommand.
+ * Parses input arguments and creates a new UntagCommand.
  */
 public class UntagCommandParser implements Parser<UntagCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * {@code DeleteTagCommand} and returns a {@code DeleteTagCommand} object for
+     * {@code UntagCommand} and returns a {@code UntagCommand} object for
      * execution.
      *
      * @throws ParseException if the user input does not conform to the

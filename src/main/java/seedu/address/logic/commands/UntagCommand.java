@@ -104,7 +104,8 @@ public class UntagCommand extends Command {
         Patient patient = lastShownList.get(index.getZeroBased());
 
         if (patient.getTags().isEmpty()) {
-            throw new CommandException("No tags found for this patient. Cannot remove tags from an empty tag list.");
+            throw new CommandException("No tags found for this patient. "
+                    + "Cannot remove tags from a patient with no tags.");
         }
 
         if (!removeAllTags) {
@@ -130,12 +131,12 @@ public class UntagCommand extends Command {
 
 
     /**
-         * Removes the specified tags from the given patient.
-         *
-         * @param p The patient from whom the tags should be removed.
-         * @param tagsToDelete The set of tags to remove.
-         * @return A new patient instance with the tags removed.
-         */
+     * Removes the specified tags from the given patient.
+     *
+     * @param p The patient from whom the tags should be removed.
+     * @param tagsToDelete The set of tags to remove.
+     * @return A new patient instance with the tags removed.
+     */
     private static Patient removeTags(Patient p, HashSet<Tag> tagsToDelete, boolean removeAllTags) {
         assert p != null;
         Set<Tag> updatedTags = new HashSet<>();

@@ -90,7 +90,7 @@ public class LastVisitCommandTest {
         showPatientAtIndex(model, INDEX_FIRST_PATIENT);
         Index outOfBoundIndex = INDEX_SECOND_PATIENT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getpatientList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPatientList().size());
 
         LastVisitCommand lastVisitCommand = new LastVisitCommand(outOfBoundIndex,
                 new LastVisit(LocalDate.parse(VALID_LASTVISITDATE_BOB)));

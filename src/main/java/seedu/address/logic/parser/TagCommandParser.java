@@ -34,7 +34,6 @@ public class TagCommandParser implements Parser<TagCommand> {
         try {
             ind = ParserUtil.parseIndex(argMM.getPreamble());
         } catch (ParseException pe) {
-            // Copied from DelLastVisitCommandParser.java
             throw new ParseException(
                     String.format(
                             MESSAGE_INVALID_COMMAND_FORMAT,
