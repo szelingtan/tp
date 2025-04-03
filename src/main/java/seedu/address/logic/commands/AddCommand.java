@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -20,22 +21,28 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the CareConnect patient list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a patient to the CareConnect patient list. "
+            + '\n'
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_DATE + "LAST_VISIT_INFO "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_DATE + "LAST_VISIT_DATE] "
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_MEDICINE + "MEDICINE]... "
+            + '\n'
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_DATE + "2025-03-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "ASD "
+            + PREFIX_TAG + "Dysphoria "
+            + PREFIX_MEDICINE + "Estrogen "
+            + PREFIX_MEDICINE + "Adderall";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the patient list.";
