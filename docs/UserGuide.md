@@ -122,19 +122,29 @@ prescriptions and last visit information** on a single app.
 
 Adds a patient to the patient contact book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG]…​`
 
-* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the patient at the specified `INDEX`. 
+  The index refers to the index number shown in the displayed patient list. 
+  The index **must be a positive integer** 1, 2, 3, …​
 * `NAME` must be alphanumeric, can have spaces, and cannot be blank.
+  * Note that you cannot add another patient with the same name as an existing patient in the patient contact book.
+  * Any two names that are equivalent after ignoring case are considered the same name.
+    * e.g. "John Doe" and "JOHN DOE" are considered the same name.
 * `PHONE_NUMBER` must only contain numbers, and should be at least three digits long.
 * `EMAIL` should be of the format `<local-part>@<domain>`.
   * The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-`.
   * The `<local-part>` cannot start or end with any special characters.
   * The `<domain>` should only contain alphanumeric characters and the `.` character.
+* There are no restrictions on the `ADDRESS` field.
+* `LAST_VISIT_DATE` is optional.
+  If specified, `LAST_VISIT_DATE` should follow the format `YYYY-MM-DD`.
+  If you do not specify any date, the patient will be created with no last visit date.
+  You can then edit the last visit date later using the `lastVisit` command.
   
 * Note that you cannot currently add medicines when creating a patient with the `add` command.
   Please use the `prescribe` command to add medicines to a patient.
-* Note that you cannot add more than one patient with the same name but you can add multiple 
+* Note that you cannot add more than one patient with the same name, but you can add multiple 
   patients with the same phone number, email, address, last visit date and tags.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -151,7 +161,9 @@ Edits an existing patient in the patient contact book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 
-* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the patient at the specified `INDEX`.
+  The index refers to the index number shown in the displayed patient list.
+  The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 

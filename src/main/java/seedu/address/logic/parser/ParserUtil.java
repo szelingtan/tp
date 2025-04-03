@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_FUTURE_LAST_VISIT_DATE;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.commands.UnprescribeCommand.REMOVE_ALL_PLACEHOLDER;
 
@@ -103,7 +104,7 @@ public class ParserUtil {
         }
 
         if (!LastVisit.isValidLastVisit(lastVisitDate)) {
-            throw new ParseException(LastVisit.MESSAGE_CONSTRAINTS);
+            throw new ParseException(MESSAGE_FUTURE_LAST_VISIT_DATE);
         }
         return new LastVisit(lastVisitDate);
     }
