@@ -86,5 +86,24 @@ public class UntagCommandParserTest {
                 "Tags cannot contain consecutive spaces. Ensure tags are properly formatted."
         );
     }
+
+    @Test
+    public void parse_duplicateArg_error() {
+        assertParseFailure(
+                new UntagCommandParser(),
+                "1 t/Estrogen t/Anti-androgen t/Estrogen",
+                String.format(UntagCommand.REPEATED_TAG_ERROR,
+                        "Estrogen")
+        );
+    }
+
+    @Test
+    public void parse_invTag_error() {
+        assertParseFailure(
+                new UntagCommandParser(),
+                "1 t/Anti Andogen",
+                Tag.MESSAGE_CONSTRAINTS
+        );
+    }
 }
 
