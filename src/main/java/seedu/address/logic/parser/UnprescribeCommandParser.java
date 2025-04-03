@@ -34,7 +34,7 @@ public class UnprescribeCommandParser implements Parser<UnprescribeCommand> {
         // Parse and validate the index
         String preamble = argMultimap.getPreamble().trim();
 
-        // Check if string is empty or contains non-digit characters (format issue)
+        // Check if index is empty or contains non-digit characters (format issue)
         if (preamble.isEmpty() || !preamble.matches("-?\\d+")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnprescribeCommand.MESSAGE_USAGE));

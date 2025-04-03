@@ -22,7 +22,7 @@ import seedu.address.model.patient.Patient;
  * and removes the specified medicine from that patient's medical record.
  */
 public class UnprescribeCommand extends Command {
-    public static final Medicine REMOVE_ALL_PLACEHOLDER = new Medicine("-");
+    public static final Medicine REMOVE_ALL_PLACEHOLDER = new Medicine("PLACEHOLDER");
     public static final String COMMAND_WORD = "unprescribe";
 
     public static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication(s) %1$s from patient: %2$s";
