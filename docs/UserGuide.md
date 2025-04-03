@@ -141,7 +141,7 @@ Adds a patient to the patient contact book.
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG] [m/MEDICINE]…​`
 
 * Refer to the [Input Requirements](#input-requirements)
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: Tip:
 A patient can have any number of tags (including 0).
 </div>
 
