@@ -2,7 +2,6 @@ package seedu.address.model.util;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,9 +20,6 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static final LastVisit DEFAULT_LAST_VISIT = new LastVisit(LocalDate.parse("2025-03-01"));
-
-    public static final Set<Medicine> EMPTY_MEDICINES = Collections.emptySet();
 
     public static Patient[] getSamplePatients() {
         return new Patient[] {

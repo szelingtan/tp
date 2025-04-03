@@ -25,7 +25,7 @@ public class PatientTest {
     }
 
     @Test
-    public void isSamepatient() {
+    public void isSamePatient() {
         // same object -> returns true
         assertTrue(ALICE.isSamePatient(ALICE));
 

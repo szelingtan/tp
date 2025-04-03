@@ -20,17 +20,16 @@ public class DelLastVisitCommandParser
      *     format
      */
     public DelLastVisitCommand parse(String args) throws ParseException {
-        // Format copied from DeleteCommandParser.java
         try {
             Index index = ParserUtil.parseIndex(args);
             return new DelLastVisitCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(
-                            MESSAGE_INVALID_COMMAND_FORMAT,
-                            DelLastVisitCommand.MESSAGE_USAGE
-                    ),
-                    pe
+                String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT,
+                        DelLastVisitCommand.MESSAGE_USAGE
+                ),
+                pe
             );
         }
     }

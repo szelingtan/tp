@@ -54,7 +54,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPatients(newData.getpatientList());
+        setPatients(newData.getPatientList());
     }
 
     //// patient-level operations
@@ -78,18 +78,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given patient {@code target} in the list with {@code editedpatient}.
+     * Replaces the given patient {@code target} in the list with {@code editedPatient}.
      * {@code target} must exist in the address book.
-     * The patient identity of {@code editedpatient} must not be the same as another
+     * The patient identity of {@code editedPatient} must not be the same as another
      * existing patient in the address book.
      */
-    /*
-    public void setpatient(Patient target, Patient editedPatient) {
-        requireNonNull(editedPatient);
-
-        patients.setPatient(target, editedPatient);
-    }
-    **/
     public void setPatient(Patient target, Patient editedPatient) {
         requireNonNull(editedPatient);
 
@@ -115,7 +108,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Patient> getpatientList() {
+    public ObservableList<Patient> getPatientList() {
         return patients.asUnmodifiableObservableList();
     }
 
