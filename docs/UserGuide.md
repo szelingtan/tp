@@ -155,7 +155,7 @@ A patient can have any number of tags (including 0).
 
 Edits an existing patient in the patient contact book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 
 * Edits the patient at the specified `INDEX`.
   The index refers to the index number shown in the displayed patient list.
@@ -163,7 +163,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
-Examples:
+**Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the second patient to be `Betsy Crower` and clears all existing tags.
 
@@ -171,12 +171,12 @@ Examples:
 
 Deletes the specified patient from the patient contact book.
 
-Format: `delete INDEX`
+**Format:** `delete INDEX`
 
 * Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * The index refers to the index number shown in the displayed patient list.
 
-Examples:
+**Examples:**
 * `list` followed by `delete 2` deletes the second patient in the patient contact book.
 * `find Betsy` followed by `delete 1` deletes the first patient in the results of the `find` command.
 
@@ -184,19 +184,19 @@ Examples:
 
 Shows a list of all patients in the patient contact book.
 
-Format: `list`
+**Format:** `list`
 
 ### Clearing all entries : `clear`
 
 Clears all entries from the patient contact book.
 
-Format: `clear`
+**Format:** `clear`
 
 ### Locating patients by name: `find`
 
 Finds patients whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
+**Format:** `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -218,13 +218,13 @@ Examples:
 
 Tag an existing patient in the patient contact book.
 
-Format: `tag INDEX t/TAG [t/MORE_TAGS]…​`
+**Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`
 
 * Adds the specified tags to the patient at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
 
-Examples:
+**Examples:**
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
 *  `tag 2 t/dementia t/highBloodPressure` Add the tags `dementia` and `highBloodPressure` to the second patient.
 
@@ -232,13 +232,13 @@ Examples:
 
 Untag an existing patient in the patient contact book.
 
-Format: `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
+**Format:** `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
 
 * Removes the specified tags from the patient at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
 
-Examples:
+**Examples:**
 *  `untag 1 t/diabetes` Removes the tag `diabetes` from the first patient.
 *  `untag 2 t/dementia t/highBloodPressure` Remove the tags `dementia` and `highBloodPressure` from the second patient.
 *  `untag 3 t/all` Removes all tags from the third patient.
@@ -247,7 +247,7 @@ Examples:
 
 Adds medication to an existing patient in the patient contact book.
 
-Format: `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
+**Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 
 * Adds the specified medications to the patient at the specified `INDEX`.
   The index refers to the index number shown in the displayed patient list.
@@ -259,7 +259,7 @@ Format: `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
-Examples:
+**Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
 *  `prescribe 2 m/Insulin m/Acetaminophen_Codeine` adds `Insulin` and `Acetaminophen_Codeine` to
    the second patient's prescription.
@@ -268,7 +268,7 @@ Examples:
 
 Removes specific or all medication from an existing patient in the patient contact book.
 
-Format: `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
+**Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
 * Removes medication from the patient at the specified `INDEX`. The index refers to the index
   number shown in the displayed patient list. 
@@ -282,7 +282,7 @@ Format: `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `un
 * You may remove multiple medications by including multiple medicine names. 
   * e.g. `unprescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
-Examples:
+**Examples:**
 *  `unprescribe 1 m/all` Removes all medication from the first patient.
 *  `unprescribe 2 m/Insulin` Removes `Insulin` from the second patient.
 *  `unprescribe 3 m/Insulin m/Acetaminophen_Codeine` removes `Insulin` and
@@ -292,7 +292,7 @@ Examples:
 
 Adds a last visit record to an existing patient in the patient contact book.
 
-Format: `lastVisit INDEX d/LAST_VISIT_DATE`
+**Format:** `lastVisit INDEX d/LAST_VISIT_DATE`
 
 * Adds last visit record to the patient at the specified `INDEX`.
   The index refers to the index number shown in the displayed patient list. 
@@ -301,14 +301,14 @@ Format: `lastVisit INDEX d/LAST_VISIT_DATE`
 * Format for LAST_VISIT_DATE: `YYYY-MM-DD`
 * LAST_VISIT_DATE must be a valid calendar date on or before the current system date. Future dates are not accepted.
 
-Examples:
+**Examples:**
 *  `lastVisit 1 d/2025-03-15` Adds the last visited date `2025-03-15` to the first patient.
 
 ### Deleting the last visit information : `delLastVisit`
 
 Deletes the last visit information of a patient
 
-Format: `delLastVisit INDEX`
+**Format:** `delLastVisit INDEX`
 
 * The index refers to the index number shown in the displayed patient list.
 * The index **must be a positive integer** 1, 2, 3, …​
@@ -324,13 +324,13 @@ Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+**Format:** `help`
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+**Format:** `exit`
 
 ## Data File Management
 ### Saving the data
