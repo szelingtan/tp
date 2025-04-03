@@ -167,8 +167,8 @@ Edits an existing patient at the specified index in the patient contact book.
 **Note:**
 
 * At least one of the optional fields must be provided.
-* Medicines should be managed using `prescribe` and `unprescribe` commands.
-* Tags should be managed using `tag` and `untag` commands.
+- The `edit` command can only modify name, phone, email, and address.
+- Use `tag`, `untag`, `prescribe`, and `unprescribe` to manage the patient's tags and medicine.
 
 
 ### Deleting a patient : `delete`
@@ -256,8 +256,6 @@ Adds medication to an existing patient in the patient contact book.
 **Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 
 * Adds the specified medications to the patient at the specified `INDEX`.
-* Medication names must be **ALPHANUMERIC**, except for **underlines** (`_`) and **dashes** (`-`). **Spaces are not allowed.**
-  * For example, `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
 * At least one medicine name must be provided.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
@@ -274,11 +272,7 @@ Removes specific or all medication from an existing patient in the patient conta
 
 **Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
-* Removes medication from the patient at the specified `INDEX`. The index refers to the index
-  number shown in the displayed patient list. 
-  The index **must be a positive integer** 1, 2, 3, …​
-* Medication names must be **ALPHANUMERIC**, except for **underlines** (`_`) and **dashes** (`-`). **Spaces are not allowed.**
-  * For example, `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
+* Removes medication from the patient at the specified `INDEX` in the displayed patient list.
 * `unprescribe INDEX m/all` removes all medications from the patient.
   * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
     (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
@@ -298,9 +292,7 @@ Adds a last visit record to an existing patient in the patient contact book.
 
 **Format:** `lastVisit INDEX d/LAST_VISIT_DATE`
 
-* Adds last visit record to the patient at the specified `INDEX`.
-  The index refers to the index number shown in the displayed patient list. 
-  The index **must be a positive integer** 1, 2, 3, …​
+* Adds last visit record to the patient at the specified `INDEX` in the displayed patient list.
 * The LAST_VISIT_DATE field must be provided.
 * Format for LAST_VISIT_DATE: `YYYY-MM-DD`
 * LAST_VISIT_DATE must be a valid calendar date on or before the current system date. Future dates are not accepted.
@@ -314,8 +306,7 @@ Deletes the last visit information of a patient
 
 **Format:** `delLastVisit INDEX`
 
-* The index refers to the index number shown in the displayed patient list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes last visit record from the patient at the specified `INDEX` in the displayed patient list.
 
 Examples:
 *  `delLastVisit 1` deletes the last visit information of a patient.
