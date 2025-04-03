@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -28,20 +29,18 @@ import seedu.address.testutil.PatientBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for PrescribeCommand.
- * CURRENTLY INCOMPLETE.
- * Solution below adapted from https://se-education.org/guides/tutorials/ab3AddPrescribe.html
  */
 public class PrescribeCommandTest {
 
-    private static final String MEDICATION_STUB = "PARACETAMOL";
+    private static final HashSet<Medicine> VALID_MEDSET = new HashSet<>(List.of(new Medicine("Vicodin")));
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validMedicine_success() {
         // Get a patient to update and the medicine to add
         Patient patientToUpdate = model.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
-        Medicine medicineToAdd = new Medicine(VALID_MEDICATION_BOB);
-        PrescribeCommand prescribeCommand = new PrescribeCommand(INDEX_FIRST_PATIENT, medicineToAdd);
+        Medicine medicineToAdd = new Medicine("Vicodin");
+        PrescribeCommand prescribeCommand = new PrescribeCommand(INDEX_FIRST_PATIENT, VALID_MEDSET);
 
         // The expected patient we want to see after adding the medicine
         Set<Medicine> updatedMedicines = new HashSet<>(patientToUpdate.getMedicines());
@@ -53,6 +52,7 @@ public class PrescribeCommandTest {
         expectedModel.setPatient(patientToUpdate, editedPatient);
 
         String expectedMessage = String.format(PrescribeCommand.MESSAGE_ADD_MED_SUCCESS,
+                medicineToAdd.toString(),
                 editedPatient.getName());
 
         assertCommandSuccess(prescribeCommand, model, expectedMessage, expectedModel);
@@ -61,29 +61,34 @@ public class PrescribeCommandTest {
     @Test
     public void execute_invalidPatientIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPatientList().size() + 1);
-        PrescribeCommand prescribeCommand = new PrescribeCommand(outOfBoundIndex, new Medicine(VALID_MEDICATION_AMY));
+        PrescribeCommand prescribeCommand = new PrescribeCommand(outOfBoundIndex, VALID_MEDSET);
 
         assertCommandFailure(prescribeCommand, model, Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_duplicateMedicine_throwsCommandException() {
+        HashSet<Medicine> medSetWithDups = new HashSet<>();
+        Medicine medicineToAdd = new Medicine(VALID_MEDICATION_AMY);
+        medSetWithDups.add(medicineToAdd);
         PrescribeCommand prescribeCommand = new PrescribeCommand(INDEX_FIRST_PATIENT,
-                new Medicine(VALID_MEDICATION_AMY));
+                medSetWithDups);
         String expectedFailureMessage = String.format(PrescribeCommand.MESSAGE_DUPLICATE_MED,
-                new Medicine(VALID_MEDICATION_AMY));
+                medicineToAdd.medName);
 
         assertCommandFailure(prescribeCommand, model, expectedFailureMessage);
     }
 
     @Test
     public void equals() {
+        HashSet<Medicine> validMedicines = new HashSet<>();
+        validMedicines.add(new Medicine(VALID_MEDICATION_AMY));
         final PrescribeCommand standardCommand = new PrescribeCommand(INDEX_FIRST_PATIENT,
-                new Medicine(VALID_MEDICATION_AMY));
+                validMedicines);
 
-        // Same medicine name -> returns true
+        // Same medicines -> returns True
         PrescribeCommand sameMedNameCommand = new PrescribeCommand(INDEX_FIRST_PATIENT,
-                new Medicine(VALID_MEDICATION_AMY));
+                validMedicines);
         assertEquals(standardCommand, sameMedNameCommand);
 
         // Same object -> returns True
@@ -91,11 +96,13 @@ public class PrescribeCommandTest {
 
         // different index -> returns false
         assertNotEquals(standardCommand, new PrescribeCommand(INDEX_SECOND_PATIENT,
-                new Medicine(VALID_MEDICATION_AMY)));
+                validMedicines));
 
         // different medicine name -> returns false
+        HashSet<Medicine> differentMedicines = new HashSet<>();
+        differentMedicines.add(new Medicine(VALID_MEDICATION_BOB));
         assertNotEquals(standardCommand, new PrescribeCommand(INDEX_FIRST_PATIENT,
-                new Medicine(VALID_MEDICATION_BOB)));
+                differentMedicines));
 
         // different command -> returns false
         assertNotEquals(standardCommand, new ClearCommand());

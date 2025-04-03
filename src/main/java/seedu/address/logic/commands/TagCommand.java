@@ -22,10 +22,19 @@ public class TagCommand extends Command {
             + ": Adds the listed tags to the patient identified by the index "
             + "number used in the last patient listing."
             + '\n'
-            + "Parameters: INDEX t/tag [t/more_tags]"
+            + "Parameters: INDEX t/tag [t/more_tags]..."
             + '\n'
             + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
             + "t/Seafood Allergy";
+    public static final String NO_TAG_INCLUDED_ERROR =
+            "Please add at least one tag when using the tag command."
+            + '\n'
+            + "Tags can be specified using the `t/` prefix";
+    public static final String EMPTY_TAG_ERROR = "Tag must be non-empty."
+            + '\n'
+            + "Example: " + COMMAND_WORD + " 2 t/Diabetes";
+    public static final String REPEATED_TAG_ERROR =
+            "Tag [%1$s] was inputted multiple times";
 
     private final Index index;
     private final HashSet<Tag> tagsToAdd;
@@ -57,6 +66,15 @@ public class TagCommand extends Command {
                 + " successfully added to " + patient.getName();
     }
 
+    private static String generateExistingTagErrMsg(
+            HashSet<Tag> dupplicateTags, Patient patient) {
+        String tagsStr = "";
+        for (Tag t : dupplicateTags) {
+            tagsStr += t.toString() + " ";
+        }
+        return "Tag(s) " + tagsStr + "already exist for " + patient.getName();
+    }
+
     /**
      * Executes the stored `tag` cmd.
      *
@@ -70,12 +88,28 @@ public class TagCommand extends Command {
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPatientList();
 
+        // Index must be valid
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
                     Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patient = lastShownList.get(index.getZeroBased());
+        Set<Tag> patientTags = patient.getTags();
+
+        // Do not add already existing tags
+        HashSet<Tag> duplicateTags = new HashSet<Tag>();
+        for (Tag t : tagsToAdd) {
+            if (patientTags.contains(t)) {
+                duplicateTags.add(t);
+            }
+        }
+        if (duplicateTags.size() != 0) {
+            throw new CommandException(
+                    generateExistingTagErrMsg(duplicateTags, patient)
+            );
+        }
+
         Patient editedPatient = addTags(patient, this.tagsToAdd);
 
         model.setPatient(patient, editedPatient);

@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.TypicalPatients;
 
-public class DeleteTagCommandTest {
+public class UntagCommandTest {
     @Test
     public void execute_onePatient_normal() {
         // Typical patient + copy with some tags removed
@@ -37,7 +37,7 @@ public class DeleteTagCommandTest {
         ab0.addPatient(p0);
         Model m0 = new ModelManager(ab0, new UserPrefs());
         try {
-            CommandResult cmdRes = new DeleteTagCommand(
+            CommandResult cmdRes = new UntagCommand(
                     Index.fromZeroBased(0),
                     new HashSet<>(Set.of(
                             new Tag("d"), new Tag("e")
@@ -71,7 +71,7 @@ public class DeleteTagCommandTest {
         ab0.addPatient(p0);
         Model m0 = new ModelManager(ab0, new UserPrefs());
         try {
-            CommandResult cmdRes = new DeleteTagCommand(
+            CommandResult cmdRes = new UntagCommand(
                     Index.fromZeroBased(0),
                     new HashSet<>(),
                     true // removeAllTags set to true
@@ -98,7 +98,7 @@ public class DeleteTagCommandTest {
         ab.addPatient(p0);
         Model model = new ModelManager(ab, new UserPrefs());
 
-        DeleteTagCommand command = new DeleteTagCommand(
+        UntagCommand command = new UntagCommand(
                 Index.fromZeroBased(0),
                 new HashSet<>(Set.of(new Tag("x"))),
                 false // Trying to remove a non-existent tag
@@ -119,7 +119,7 @@ public class DeleteTagCommandTest {
         ab.addPatient(p0);
         Model model = new ModelManager(ab, new UserPrefs());
 
-        DeleteTagCommand command = new DeleteTagCommand(
+        UntagCommand command = new UntagCommand(
                 Index.fromZeroBased(0),
                 new HashSet<>(Set.of(new Tag("a"))),
                 false // Trying to remove from a patient with no tags

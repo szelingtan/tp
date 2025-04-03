@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -52,5 +53,31 @@ public class TagCommandTest {
         ab1.addPatient(p1);
         Model m1 = new ModelManager(ab1, new UserPrefs());
         assertEquals(m0, m1);
+    }
+
+    @Test
+    public void execute_existingTag_error() {
+        // Typical patient
+        Patient p = TypicalPatients.ALICE;
+        p = new PatientBuilder(p)
+                .withTags("a", "b", "c")
+                .build();
+        // Create a model with `p` then run tag
+        AddressBook ab = new AddressBook();
+        ab.addPatient(p);
+        Model m = new ModelManager(ab, new UserPrefs());
+        try {
+            new TagCommand(
+                    Index.fromZeroBased(0),
+                    new HashSet<Tag>(Set.of(
+                            new Tag("a"), new Tag("Estrogen")
+                    ))
+            ).execute(m);
+            fail("fail");
+        } catch (CommandException ce) {
+            // Test passed
+        } catch (Exception e) {
+            fail("fail"); // Wrong exception generated
+        }
     }
 }

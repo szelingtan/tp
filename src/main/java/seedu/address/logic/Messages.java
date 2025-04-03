@@ -20,10 +20,12 @@ public class Messages {
     public static final String MESSAGE_PATIENTS_LISTED_OVERVIEW = "%1$d patients listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! Date must be provided "
-            + "in the following format: YYYY-MM-DD. Example: 2025-10-02";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format or date! Date must be provided "
+            + "in the following format: YYYY-MM-DD. Example: 2025-02-02";
     public static final String MESSAGE_FUTURE_LAST_VISIT_DATE = "Invalid future date format! Last"
             + "visit date should not be in the future";
+    public static final String MESSAGE_INVALID_NUMBER_OF_DATES = "Invalid! Only one date should be added as last "
+            + "visit. Format: lastVisit d/YYYY-MM-DD";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -42,6 +44,7 @@ public class Messages {
      */
     public static String format(Patient patient) {
         final StringBuilder builder = new StringBuilder();
+        String lastVisitStr = patient.getLastVisit() == null ? "" : "" + patient.getLastVisit();
         builder.append(patient.getName())
                 .append("; Phone: ")
                 .append(patient.getPhone())
@@ -50,7 +53,7 @@ public class Messages {
                 .append("; Address: ")
                 .append(patient.getAddress())
                 .append("; Last Visit: ")
-                .append(patient.getLastVisit())
+                .append(lastVisitStr)
                 .append("; Tags: ");
         patient.getTags().forEach(builder::append);
         builder.append("; Medicines: ");

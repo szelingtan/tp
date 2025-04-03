@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  * Represents a command to remove specific tags from a patient in the system.
  */
 
-public class DeleteTagCommand extends Command {
+public class UntagCommand extends Command {
 
     /**
      * The command word to trigger this action.
@@ -32,10 +32,11 @@ public class DeleteTagCommand extends Command {
             + ": Removes the specified tags from the patient identified by the index "
             + "number used in the last patient listing. Use 't/all' to remove all tags."
             + '\n'
-            + "Parameters: INDEX t/tag [t/more_tags] | INDEX t/all"
+            + "Parameters: INDEX t/tag [t/more_tags]... | INDEX t/all"
             + '\n'
             + "Example: " + COMMAND_WORD + " 39 t/High Blood Pressure t/Seafood Allergy"
             + "\nExample: " + COMMAND_WORD + " 2 t/all";
+    public static final String REPEATED_TAG_ERROR = TagCommand.REPEATED_TAG_ERROR;
 
     /**
      * The index of the patient to modify.
@@ -54,7 +55,7 @@ public class DeleteTagCommand extends Command {
      * @param index The index of the patient to modify.
      * @param tagsToDelete The set of tags to remove.
      */
-    public DeleteTagCommand(Index index, HashSet<Tag> tagsToDelete, boolean removeAllTags) {
+    public UntagCommand(Index index, HashSet<Tag> tagsToDelete, boolean removeAllTags) {
         if (tagsToDelete.isEmpty() && !removeAllTags) {
             throw new IllegalArgumentException("At least one tag must be provided, or use 't/all' to remove all tags.");
         }
@@ -165,10 +166,10 @@ public class DeleteTagCommand extends Command {
         if (other == null) {
             return false;
         }
-        if (!(other instanceof DeleteTagCommand)) {
+        if (!(other instanceof UntagCommand)) {
             return false;
         }
-        DeleteTagCommand o = (DeleteTagCommand) other;
+        UntagCommand o = (UntagCommand) other;
         return index.equals(o.index) && tagsToDelete.equals(o.tagsToDelete) && removeAllTags == o.removeAllTags;
     }
 }
