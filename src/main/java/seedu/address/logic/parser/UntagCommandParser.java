@@ -18,10 +18,11 @@ import seedu.address.model.tag.Tag;
 public class UntagCommandParser implements Parser<UntagCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * {@codtion.
-     *      *
-     *      * @throws ParseException if the user input does not conform to thee DeleteTagCommand} and returns a {@code DeleteTagCommand} object for
-     * execu     *     expected format.
+     * {@code DeleteTagCommand} and returns a {@code DeleteTagCommand} object for
+     * execution.
+     *
+     * @throws ParseException if the user input does not conform to the
+     *     expected format.
      */
     public UntagCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -49,7 +50,8 @@ public class UntagCommandParser implements Parser<UntagCommand> {
                 }
 
                 if (tagName.contains("  ")) {
-                    throw new ParseException("Tags cannot contain consecutive spaces. Ensure tags are properly formatted.");
+                    throw new ParseException("Tags cannot contain consecutive spaces. "
+                            + "Ensure tags are properly formatted.");
                 }
 
                 try {
