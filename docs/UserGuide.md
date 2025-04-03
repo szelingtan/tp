@@ -5,8 +5,10 @@ title: User Guide
 
 # CareConnect User Guide
 
-CareConnect is a **desktop app for managing patients, optimised for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)**.
-Created for social workers, CareConnect allows you to not only **track patient contacts** but also their **diagnosis, prescriptions and last visit information** on a single app.
+CareConnect is a **desktop app for managing patients,
+optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface(GUI)**.
+Created for social workers, CareConnect allows you to not only **track patient contacts** but also their **diagnosis,
+prescriptions and last visit information** on a single app.
 
 ### Table of Contents
 * [Quick start](#quick-start)
@@ -59,7 +61,7 @@ Created for social workers, CareConnect allows you to not only **track patient c
 
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
     
-    * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the third contact shown in the current list.
 
     * `clear` : Deletes all contacts.
 
@@ -71,21 +73,21 @@ Created for social workers, CareConnect allows you to not only **track patient c
 
 ## Command summary
 
-| Action                | Format                                                                    | Example                                                                                                          |
-|-----------------------|---------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes`            |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                                      |
-| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                                       |
+| Action                | Format                                                                    | Example                                                                                               |
+|-----------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​` | `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes` |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`    | `edit 2 n/James Lee e/jameslee@example.com`                                                           |
+| **Delete**            | `delete INDEX`                                                            | `delete 3`                                                                                            |
 | **List**              | `list`                                                                    |
-| **Clear**             | `clear`                                                                   |                                                                                                                  |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`  <br/> `find /strict KEYWORD `             | `find James Jake`     <br/> `find /strict James Jake`                                                            |
-| **Tag**               | `tag INDEX t/TAG [t/MORE_TAGS]...`                                        | `tag 2 t/highBloodPressure`                                                                                      |
-| **Untag**             | `untag INDEX t/TAG [t/MORE_TAGS]...`  <br/> `untag INDEX t/all`           | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                             |
-| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin`                                                                                          |
-| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/all`                                                           |
-| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                                       |
-| **Delete Last Visit** | `delLastVisit INDEX`                                                      | `delLastVisit 2`                                                                                                 |
-| **Help**              | `help`                                                                    |                                                                                                                  |
+| **Clear**             | `clear`                                                                   |                                                                                                       |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`  <br/> `find /strict KEYWORD `             | `find James Jake`     <br/> `find /strict James Jake`                                                 |
+| **Tag**               | `tag INDEX t/TAG [t/MORE_TAGS]...`                                        | `tag 2 t/highBloodPressure`                                                                           |
+| **Untag**             | `untag INDEX t/TAG [t/MORE_TAGS]...`  <br/> `untag INDEX t/all`           | `untag 2 t/highBloodPressure`  <br/> `untag 1 t/all`                                                  |
+| **Prescribe**         | `prescribe INDEX m/MEDICINE_NAME`                                         | `prescribe 1 m/Insulin` <br/> `prescribe 1 m/Insulin m/Panadol`                                       |
+| **Unprescribe**       | `unprescribe INDEX m/MEDICINE_NAME`  <br/> `unprescribe INDEX m/all`      | `unprescribe 1 m/Insulin`  <br/> `unprescribe 1 m/Insulin m/Panadol` <br> `unprescribe 1 m/all`       |
+| **Last Visit**        | `lastVisit INDEX d/LAST_VISIT_DATE`                                       | `lastVisit 1 d/2025-03-15`                                                                            |
+| **Delete Last Visit** | `delLastVisit INDEX`                                                      | `delLastVisit 2`                                                                                      |
+| **Help**              | `help`                                                                    |                                                                                                       |
 | **Exit**              | `exit`                                                                    |
 
 
@@ -103,8 +105,8 @@ Created for social workers, CareConnect allows you to not only **track patient c
 * Items in square brackets are optional.<br>
   e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…​` after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. zero times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -122,8 +124,21 @@ Adds a patient to the patient contact book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/LAST_VISIT_DATE [t/TAG]…​`
 
+* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* `NAME` must be alphanumeric, can have spaces, and cannot be blank.
+* `PHONE_NUMBER` must only contain numbers, and should be at least three digits long.
+* `EMAIL` should be of the format `<local-part>@<domain>`.
+  * The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-`.
+  * The `<local-part>` cannot start or end with any special characters.
+  * The `<domain>` should only contain alphanumeric characters and the `.` character.
+  
+* Note that you cannot currently add medicines when creating a patient with the `add` command.
+  Please use the `prescribe` command to add medicines to a patient.
+* Note that you cannot add more than one patient with the same name but you can add multiple 
+  patients with the same phone number, email, address, last visit date and tags.
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A patient can have any number of tags (including 0)
+A patient can have any number of tags (including 0).
 </div>
 
 Examples:
@@ -141,8 +156,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 * Existing values will be updated to the input values.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the second patient to be `Betsy Crower` and clears all existing tags.
 
 ### Deleting a patient : `delete`
 
@@ -154,8 +169,8 @@ Format: `delete INDEX`
 * The index refers to the index number shown in the displayed patient list.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd patient in the patient contact book.
-* `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
+* `list` followed by `delete 2` deletes the second patient in the patient contact book.
+* `find Betsy` followed by `delete 1` deletes the first patient in the results of the `find` command.
 
 ### Listing all patients : `list`
 
@@ -202,8 +217,8 @@ Format: `tag INDEX t/TAG [t/MORE_TAGS]…​`
 * At least one tag must be provided.
 
 Examples:
-*  `tag 1 t/diabetes` Add the tag `diabetes` to the 1st patient.
-*  `tag 2 t/dementia t/highBloodPressure` Add the tags `dementia` and `highBloodPressure` to the 2nd patient.
+*  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
+*  `tag 2 t/dementia t/highBloodPressure` Add the tags `dementia` and `highBloodPressure` to the second patient.
 
 ### Untag a patient : `untag`
 
@@ -216,56 +231,70 @@ Format: `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
 * At least one tag must be provided.
 
 Examples:
-*  `untag 1 t/diabetes` Removes the tag `diabetes` from the 1st patient.
-*  `untag 2 t/dementia t/highBloodPressure` Remove the tags `dementia` and `highBloodPressure` from the 2nd patient.
-*  `untag 3 t/all` Removes all tags from the 3rd patient.
+*  `untag 1 t/diabetes` Removes the tag `diabetes` from the first patient.
+*  `untag 2 t/dementia t/highBloodPressure` Remove the tags `dementia` and `highBloodPressure` from the second patient.
+*  `untag 3 t/all` Removes all tags from the third patient.
 
 ### Adding medication to a patient : `prescribe`
 
 Adds medication to an existing patient in the patient contact book.
 
-Format: `prescribe INDEX m/MEDICINE_NAME`
+Format: `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 
-* Adds medication to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* The MEDICINE_NAME field must be provided
-* The medication will be added on to existing medications i.e. adding of medications is cumulative.
-* You may add multiple medication with `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
+* Adds the specified medications to the patient at the specified `INDEX`.
+  The index refers to the index number shown in the displayed patient list.
+  The index **must be a positive integer** 1, 2, 3, …​
+* Medication names must be **ALPHANUMERIC**, except for **underlines** (`_`) and **dashes** (`-`). **Spaces are not allowed.**
+  * For example, `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
+* At least one medicine name must be provided.
+* The medication will be added on to existing medications, i.e. adding of medications is cumulative.
+* You may add multiple medications by including multiple medicine names.
+  * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
 Examples:
-*  `prescribe 1 m/Insulin` adds `Insulin` to the 1st patient's prescription.
+*  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
 *  `prescribe 2 m/Insulin m/Acetaminophen_Codeine` adds `Insulin` and `Acetaminophen_Codeine` to
-   the 2nd patient's prescription.
+   the second patient's prescription.
 
 ### Removing medication from a patient : `unprescribe`
 
 Removes specific or all medication from an existing patient in the patient contact book.
 
-Format: `unprescribe INDEX m/MEDICINE_NAME` or `unprescribe INDEX m/all`
+Format: `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
 * Removes medication from the patient at the specified `INDEX`. The index refers to the index
-  number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* `unprescribe INDEX m/all` removes all medication from the list
-* You may remove multiple medication with `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
+  number shown in the displayed patient list. 
+  The index **must be a positive integer** 1, 2, 3, …​
+* Medication names must be **ALPHANUMERIC**, except for **underlines** (`_`) and **dashes** (`-`). **Spaces are not allowed.**
+  * For example, `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
+* `unprescribe INDEX m/all` removes all medications from the patient.
+  * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
+    (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
+    and **all medicines will be removed from the specified patient**.
+* You may remove multiple medications by including multiple medicine names. 
+  * e.g. `unprescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
 Examples:
-*  `unprescribe 1 m/all` Removes all medication from the 1st patient.
-*  `unprescribe 2 m/Insulin` Removes `Insulin` from the 2nd patient's prescription.
+*  `unprescribe 1 m/all` Removes all medication from the first patient.
+*  `unprescribe 2 m/Insulin` Removes `Insulin` from the second patient.
 *  `unprescribe 3 m/Insulin m/Acetaminophen_Codeine` removes `Insulin` and
-   `Acetaminophen_Codeine` from the 3rd patient's prescription.
+   `Acetaminophen_Codeine` from the third patient.
 
 ### Adding last visit record to a patient : `lastVisit`
 
-Adds last visit record to an existing patient in the patient contact book.
+Adds a last visit record to an existing patient in the patient contact book.
 
 Format: `lastVisit INDEX d/LAST_VISIT_DATE`
 
-* Adds last visit record to the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Adds last visit record to the patient at the specified `INDEX`.
+  The index refers to the index number shown in the displayed patient list. 
+  The index **must be a positive integer** 1, 2, 3, …​
 * The LAST_VISIT_DATE field must be provided.
 * Format for LAST_VISIT_DATE: `YYYY-MM-DD`
 * LAST_VISIT_DATE must be a valid calendar date on or before the current system date. Future dates are not accepted.
 
 Examples:
-*  `lastVisit 1 d/2025-03-15` Adds the last visited date `2025-03-15` to the 1st patient.
+*  `lastVisit 1 d/2025-03-15` Adds the last visited date `2025-03-15` to the first patient.
 
 ### Deleting the last visit information : `delLastVisit`
 
@@ -273,8 +302,11 @@ Deletes the last visit information of a patient
 
 Format: `delLastVisit INDEX`
 
-* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* The index refers to the index number shown in the displayed patient list.
 * The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+*  `delLastVisit 1` deletes the last visit information of a patient.
 
 ## App Navigation
 
@@ -295,7 +327,8 @@ Format: `exit`
 ## Data File Management
 ### Saving the data
 
-CareConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CareConnect data is saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
 
 ### Editing the data file
 

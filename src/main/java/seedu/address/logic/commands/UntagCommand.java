@@ -36,6 +36,7 @@ public class UntagCommand extends Command {
             + '\n'
             + "Example: " + COMMAND_WORD + " 39 t/High Blood Pressure t/Seafood Allergy"
             + "\nExample: " + COMMAND_WORD + " 2 t/all";
+    public static final String REPEATED_TAG_ERROR = TagCommand.REPEATED_TAG_ERROR;
 
     /**
      * The index of the patient to modify.

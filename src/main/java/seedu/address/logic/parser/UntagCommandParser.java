@@ -5,6 +5,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UntagCommand;
@@ -41,6 +42,21 @@ public class UntagCommandParser implements Parser<UntagCommand> {
             );
         }
 
+        // Double check for duplicated inputs
+        List<String> listTagStrsToDel = argMM.getAllValues(PREFIX_TAG);
+        for (int i = 0; i < listTagStrsToDel.size(); i++) {
+            for (int j = i + 1; j < listTagStrsToDel.size(); j++) {
+                if (listTagStrsToDel.get(i).equals(listTagStrsToDel.get(j))) {
+                    throw new ParseException(
+                            String.format(
+                                    UntagCommand.REPEATED_TAG_ERROR,
+                                    listTagStrsToDel.get(i)
+                            )
+                    );
+                }
+            }
+        }
+
         // Extract the tags to be deleted
         HashSet<String> tagStrsToDelete = new HashSet<>(argMM.getAllValues(PREFIX_TAG));
         HashSet<Tag> tagsToDelete = new HashSet<>();
@@ -57,6 +73,12 @@ public class UntagCommandParser implements Parser<UntagCommand> {
                 if (s.contains("  ")) {
                     throw new ParseException(
                             "Tags cannot contain consecutive spaces. Ensure tags are properly formatted.");
+                }
+                // Provided tag is invalid
+                try {
+                    new Tag(s);
+                } catch (IllegalArgumentException e) {
+                    throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
                 }
                 tagsToDelete.add(new Tag(s));
             }

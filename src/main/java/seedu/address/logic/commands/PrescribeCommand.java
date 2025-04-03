@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -27,7 +28,7 @@ public class PrescribeCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MED = "This patient already has medicine: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": adds a new medication to the patient specified "
+            + ": adds new medication(s) to the patient specified "
             + "by the index number used in the last patient listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_MEDICINE + "[medicine name]\n"
@@ -109,6 +110,6 @@ public class PrescribeCommand extends Command {
             return false;
         }
 
-        return index.equals(e.index) && medicinesToAdd.equals(e.medicinesToAdd);
+        return index.equals(e.index) && Objects.equals(medicinesToAdd, e.medicinesToAdd);
     }
 }
