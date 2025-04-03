@@ -74,6 +74,12 @@ public class UntagCommandParser implements Parser<UntagCommand> {
                     throw new ParseException(
                             "Tags cannot contain consecutive spaces. Ensure tags are properly formatted.");
                 }
+                // Provided tag is invalid
+                try {
+                    new Tag(s);
+                } catch (IllegalArgumentException e) {
+                    throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+                }
                 tagsToDelete.add(new Tag(s));
             }
         }
