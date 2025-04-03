@@ -122,34 +122,34 @@ prescriptions and last visit information** on a single app.
 
 Adds a patient to the patient contact book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG]…​`
-* `NAME` must be alphanumeric, can have spaces, and cannot be blank.
-  * Note that you cannot add another patient with the same name as an existing patient in the patient contact book.
-  * Any two names that are equivalent after ignoring case are considered the same name.
-    * e.g. "John Doe" and "JOHN DOE" are considered the same name.
-* `PHONE_NUMBER` must only contain numbers, and should be at least three digits long.
-* `EMAIL` should be of the format `<local-part>@<domain>`.
+**Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG]…​`
+
+**Input Requirements:**
+* `NAME`: Alphanumeric, can contain spaces, cannot be blank.
+  * Duplicate names are not allowed (case-insensitive).
+      * e.g. "John Doe" and "JOHN DOE" are considered the same name.
+* `PHONE_NUMBER`: Numbers only, minimum 3 digits.
+* `EMAIL`: Must follow `<local-part>@<domain>`.
   * The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-`.
   * The `<local-part>` cannot start or end with any special characters.
   * The `<domain>` should only contain alphanumeric characters and the `.` character.
-* There are no restrictions on the `ADDRESS` field.
-* `LAST_VISIT_DATE` is optional.
-  If specified, `LAST_VISIT_DATE` should follow the format `YYYY-MM-DD`.
-  If you do not specify any date, the patient will be created with no last visit date.
-  You can then edit the last visit date later using the `lastVisit` command.
-  
-* Note that you cannot currently add medicines when creating a patient with the `add` command.
-  Please use the `prescribe` command to add medicines to a patient.
-* Note that you cannot add more than one patient with the same name, but you can add multiple 
-  patients with the same phone number, email, address, last visit date and tags.
+* `ADDRESS`: No restrictions, cannot be blank.
+* [OPTIONAL] `LAST_VISIT_DATE`: Must be in `YYYY-MM-DD` format and not a future date.
+* [OPTIONAL] `TAG`: Alphanumeric, '-' and '_' allowed. No spaces or other special characters.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient can have any number of tags (including 0).
 </div>
 
-Examples:
+**Examples:**
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12`
 * `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes`
+
+**Note:**
+* Medicines cannot be added when creating a patient with the `add` command.
+  Please use the `prescribe` command to add medicines to a patient.
+* Patients with the same name are not allowed, but you can add multiple
+  patients with the same phone number, email, address, last visit date and tags.
 
 ### Editing a patient : `edit`
 
