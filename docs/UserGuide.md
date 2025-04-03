@@ -151,6 +151,9 @@ Adds a patient to the patient contact book.
 * `ADDRESS`: No restrictions, cannot be blank.
 * [OPTIONAL] `LAST_VISIT_DATE`: Must be in `YYYY-MM-DD` format and not a future date.
 * [OPTIONAL] `TAG`: Alphanumeric, '-' and '_' allowed. No spaces or other special characters.
+  * For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.
+* [OPTIONAL] `MEDICINE`: Alphanumeric, '-' and '_' allowed. No spaces or other special characters.
+  * For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient can have any number of tags (including 0).
@@ -213,6 +216,7 @@ Finds patients whose names contain any of the given keywords.
 
 **Format:** `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
+
 * The search is case-insensitive.
   * e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter.
@@ -220,11 +224,14 @@ Finds patients whose names contain any of the given keywords.
 * `find` patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * `find /strict` Returns only exact match or displays "0 patients listed"
-Examples:
+
+**Examples:**
+
 * `find John` returns `John` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`
-* `find /strict John` returns only `John`
-* `find /strict Doe John` returns `0 patients listed`<br>
+* `find /strict John` returns only if a patient with the exact name `John` exists
+* `find /strict Doe John` returns `0 patients listed` <br>
+
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 
@@ -265,8 +272,6 @@ Adds medication to an existing patient in the patient contact book.
 **Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 
 * Adds the specified medications to the patient at the specified `INDEX`.
-  The index refers to the index number shown in the displayed patient list.
-  The index **must be a positive integer** 1, 2, 3, …​
 * Medication names must be **ALPHANUMERIC**, except for **underlines** (`_`) and **dashes** (`-`). **Spaces are not allowed.**
   * For example, `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.
 * At least one medicine name must be provided.
