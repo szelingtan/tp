@@ -104,9 +104,8 @@ prescriptions and last visit information** on a single app.
 | **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                            | Blk 519 Serangoon Avenue 1, #12-345 |
 | **MEDICINE** | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.                                                                                                                                                     | Paracetamol, Insulin                |
 | **TAG**      | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.                                                                                                                                     | Diabetes, Osteoporosis              |
+| **INDEX**    | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                      | 1                                   |
 
-* `INDEX`: Index of patient in the displayed patient list to be edited.
-    * Must be a **positive integer** 1, 2, 3, …​
 --------------------------------------------------------------------------------------------------------------------
 ## Features
 
