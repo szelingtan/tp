@@ -394,7 +394,8 @@ Use case ends.
 
 1. User requests to list patients
 2. PatientBook shows a list of patients
-3. User requests to remove tags from a specific patient using one of the following: untag to remove specific tags, or remove all tags 
+3. User requests to remove tags from a specific patient using one of the following: 
+untag to remove specific tags, or remove all tags
 4. PatientBook removes the tags accordingly and confirms the removal
 
 Use case ends.
