@@ -23,7 +23,7 @@ prescriptions and last visit information** on a single app.
         * [Locating patients by name: `find`](#locating-patients-by-name-find)
     * [Patient Data Management](#patient-data-management)
         * [Tag a patient: `tag`](#tag-a-patient--tag)
-        * [Untag a patient: `untag`](#untag-a-patient--tag)
+        * [Untag a patient: `untag`](#untag-a-patient--untag)
         * [Adding medication to a patient: `prescribe`](#adding-medication-to-a-patient--prescribe)
         * [Removing medication from a patient: `unprescribe`](#removing-medication-from-a-patient--unprescribe)
         * [Adding last visit record to a patient: `lastVisit`](#adding-last-visit-record-to-a-patient--lastvisit)
@@ -123,10 +123,6 @@ prescriptions and last visit information** on a single app.
 Adds a patient to the patient contact book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG]…​`
-
-* Edits the patient at the specified `INDEX`. 
-  The index refers to the index number shown in the displayed patient list. 
-  The index **must be a positive integer** 1, 2, 3, …​
 * `NAME` must be alphanumeric, can have spaces, and cannot be blank.
   * Note that you cannot add another patient with the same name as an existing patient in the patient contact book.
   * Any two names that are equivalent after ignoring case are considered the same name.
