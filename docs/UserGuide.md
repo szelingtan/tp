@@ -103,17 +103,8 @@ prescriptions and last visit information** on a single app.
 | **MEDICINE** | Alphanumeric, '-' and '_' allowed.                                                                                                                                                                                                                                           | Paracetamol, Insulin                |
 | **TAG**      | Alphanumeric, '-' and '_' allowed.`                                                                                                                                                                                                                                          | Diabetes, Osteoporosis              |
 
-* `NAME`: Alphanumeric, can contain spaces, cannot be blank.
-    * Duplicate names are not allowed (case-insensitive).
-        * e.g. "John Doe" and "JOHN DOE" are considered the same name.
-* `PHONE_NUMBER`: Numbers only, minimum 3 digits.
-* `EMAIL`: Must follow `<local-part>@<domain>`.
-    * The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-`.
-    * The `<local-part>` cannot start or end with any special characters.
-    * The `<domain>` should only contain alphanumeric characters and the `.` character.
-* `ADDRESS`: No restrictions, cannot be blank.
-* [OPTIONAL] `LAST_VISIT_DATE`: Must be in `YYYY-MM-DD` format and not a future date.
-* [OPTIONAL] `TAG`: Alphanumeric, '-' and '_' allowed. No spaces or other special characters.
+* `INDEX`: Index of patient in the displayed patient list to be edited.
+    * Must be a **positive integer** 1, 2, 3, …​
 --------------------------------------------------------------------------------------------------------------------
 ## Features
 
@@ -181,11 +172,6 @@ Edits an existing patient at the specified index in the patient contact book.
 
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 
-**Input:**
-
-* `INDEX`: Index of patient in the displayed patient list to be edited.
-  * Must be a **positive integer** 1, 2, 3, …​
-
 **Examples:**
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
@@ -203,10 +189,6 @@ Edits an existing patient at the specified index in the patient contact book.
 Deletes the patient at the specified index from the patient contact book.
 
 **Format:** `delete INDEX`
-
-* `INDEX`: Index of patient in the displayed patient list to be edited.
-    * Must be a **positive integer** 1, 2, 3, …​
-* The index refers to the index number shown in the displayed patient list.
 
 **Examples:**
 
