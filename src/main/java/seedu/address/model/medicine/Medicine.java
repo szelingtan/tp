@@ -52,7 +52,7 @@ public class Medicine {
 
     @Override
     public int hashCode() {
-        return medName.hashCode();
+        return medName.trim().toLowerCase().hashCode();
     }
 
     /**
