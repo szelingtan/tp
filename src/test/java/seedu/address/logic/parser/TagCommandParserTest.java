@@ -41,4 +41,24 @@ public class TagCommandParserTest {
                         TagCommand.MESSAGE_USAGE)
         );
     }
+
+    @Test
+    public void parse_duplicateArg_error() {
+        assertParseFailure(
+                new TagCommandParser(),
+                "1 t/Depression t/Depression t/etc",
+                String.format(TagCommand.REPEATED_TAG_ERROR,
+                        "Depression")
+        );
+    }
+
+    @Test
+    public void parse_blankTag_error() {
+        assertParseFailure(
+                new TagCommandParser(),
+                "1 t/Dysphoria t/ t/PTSD",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        TagCommand.EMPTY_TAG_ERROR)
+        );
+    }
 }
