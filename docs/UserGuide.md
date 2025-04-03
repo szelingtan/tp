@@ -124,7 +124,7 @@ Adds a patient to the patient contact book.
 
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG]…​`
 
-**Input Requirements:**
+**Input:**
 * `NAME`: Alphanumeric, can contain spaces, cannot be blank.
   * Duplicate names are not allowed (case-insensitive).
       * e.g. "John Doe" and "JOHN DOE" are considered the same name.
@@ -153,19 +153,23 @@ A patient can have any number of tags (including 0).
 
 ### Editing a patient : `edit`
 
-Edits an existing patient in the patient contact book.
+Edits an existing patient at the specified index in the patient contact book.
 
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
 
-* Edits the patient at the specified `INDEX`.
-  The index refers to the index number shown in the displayed patient list.
-  The index **must be a positive integer** 1, 2, 3, …​
+**Input:**
+* `INDEX`: Index of patient in the displayed patient list to be edited.
+  * Must be a **positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 
 **Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the second patient to be `Betsy Crower` and clears all existing tags.
+
+**Note:**
+* Medicines should be managed using `prescribe` and `unprescribe` commands.
+* Tags should be managed using `tag` and `untag` commands.
+
 
 ### Deleting a patient : `delete`
 
