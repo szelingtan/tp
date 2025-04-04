@@ -17,9 +17,9 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.patient.Patient;
 
 /**
- * Adds a medication to an existing patient in the address book.
+ * Adds one or more medications to an existing patient in the address book.
  * This command takes an index representing a patient in the displayed list
- * and adds the specified medicine to that patient's medical record.
+ * and adds the specified medicine(s) to that patient's medical record.
  */
 public class PrescribeCommand extends Command {
     public static final String COMMAND_WORD = "prescribe";
@@ -51,14 +51,16 @@ public class PrescribeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Patient> lastShownList = model.getFilteredPatientList();
+        List<Patient> filteredPatientList = model.getFilteredPatientList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= filteredPatientList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
-        Patient patientToEdit = lastShownList.get(index.getZeroBased());
+        Patient patientToEdit = filteredPatientList.get(index.getZeroBased());
         Set<Medicine> currentMedicines = patientToEdit.getMedicines();
+
+        assert currentMedicines != null;
 
         // Ensure no duplicates
         for (Medicine medicine : medicinesToAdd) {
@@ -72,7 +74,9 @@ public class PrescribeCommand extends Command {
         updatedMedicines.addAll(medicinesToAdd);
 
         Patient editedPatient = new Patient(
-                patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
+                patientToEdit.getName(),
+                patientToEdit.getPhone(),
+                patientToEdit.getEmail(),
                 patientToEdit.getAddress(),
                 patientToEdit.getLastVisit(),
                 patientToEdit.getTags(),
@@ -85,7 +89,7 @@ public class PrescribeCommand extends Command {
     }
 
     /**
-     * Generates a command execution success message about the medication being successfully
+     * Generates a command execution success message about the medication(s) being successfully
      * added to {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {

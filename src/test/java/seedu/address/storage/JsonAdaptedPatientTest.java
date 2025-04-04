@@ -37,7 +37,7 @@ public class JsonAdaptedPatientTest {
             .toList();
 
     @Test
-    public void toModelType_validpatientDetails_returnspatient() throws Exception {
+    public void toModelType_validPatientDetails_returnsPatient() throws Exception {
         JsonAdaptedPatient patient = new JsonAdaptedPatient(BENSON);
         assertEquals(BENSON, patient.toModelType());
     }
