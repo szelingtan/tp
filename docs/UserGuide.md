@@ -95,17 +95,17 @@ prescriptions and last visit information** on a single app.
 --------------------------------------------------------------------------------------------------------------------
 
 ### Input Requirements
-| Input        | Requirements                                                                                                                                                                                                                                                                                 | Example                             |
-|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
-| **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. </br> Other non-specified formats such as special characters including @ are currently not supported.                    | Tan Ah Kow                          |
-| **PHONE**    | Numbers only, minimum 3 digits.                                                                                                                                                                                                                                                              | 87874848                            |
-| **EMAIL**    | Must follow `<local-part>@<domain>`. <br/> - The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. <br/> - The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
-| **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                                            | Blk 519 Serangoon Avenue 1, #12-345 |
-| **MEDICINE** | Alphanumeric, '-' and '_' allowed. <br/> For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.                                                                                                                                                               | Paracetamol, Insulin                |
-| **TAG**      | Alphanumeric, '-' and '_' allowed. <br/> For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.                                                                                                                                               | Diabetes, Osteoporosis              |
 
-* `INDEX`: Index of patient in the displayed patient list to be edited.
-    * Must be a **positive integer** 1, 2, 3, …​
+| Input        | Requirements                                                                                                                                                                                                                                                                 | Example                             |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. Other non-specified formats such as special characters including @ are currently not supported.          | Tan Ah Kow                          |
+| **PHONE**    | Numbers only, minimum 3 digits.                                                                                                                                                                                                                                              | 87874848                            |
+| **EMAIL**    | Must follow `<local-part>@<domain>`. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
+| **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                            | Blk 519 Serangoon Avenue 1, #12-345 |
+| **MEDICINE** | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.                                                                                                                                                     | Paracetamol, Insulin                |
+| **TAG**      | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.                                                                                                                                     | Diabetes, Osteoporosis              |
+| **INDEX**    | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                      | 1                                   |
+
 --------------------------------------------------------------------------------------------------------------------
 ## Features
 
@@ -200,7 +200,7 @@ Finds patients whose names contain any of the given keywords.
 
 **Format:** `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
-
+* find must be accompanied by a keyword 
 * The search is case-insensitive.
   * e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter.
@@ -229,6 +229,8 @@ Tag an existing patient in the patient contact book.
 * Adds the specified tags to the patient at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
+* Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes` 
+  tag to the same patient as they would be considered as duplicate tags.
 
 **Examples:**
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
@@ -260,6 +262,8 @@ Adds medication to an existing patient in the patient contact book.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
+* Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and 
+  `panadol` medication to the same patient as they would be considered as duplicate medication.
 
 **Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.

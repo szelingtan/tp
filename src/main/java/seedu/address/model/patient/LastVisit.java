@@ -18,7 +18,7 @@ public class LastVisit {
     public final LocalDate lastVisitDate;
 
     /**
-     * Constructs an {@code LastVisit}.
+     * Constructs a {@code LastVisit}.
      *
      * @param lastVisitDate a valid last visit date.
      */
@@ -49,14 +49,14 @@ public class LastVisit {
     }
 
     /**
-     * Check if date given is a valid last visit date (cannot be more recent than current date).
+     * Check if the date given is a valid last visit date (cannot be more recent than the current date).
      */
     public static boolean isValidLastVisit(LocalDate testDate) {
         if (testDate == null) {
             return false;
         }
         LocalDate currentDate = LocalDate.now();
-        // Most recent last visit date can be today, but not after.
+        // The most recent last visit date can be today, but not after.
         return testDate.isBefore(currentDate.plusDays(1));
     }
 
