@@ -61,7 +61,7 @@ prescriptions and last visit information** on a single app.
     * `list` : Lists all patient contacts.
 
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
-    
+
     * `delete 3` : Deletes the third contact shown in the current list.
 
     * `clear` : Deletes all contacts.
@@ -134,8 +134,8 @@ prescriptions and last visit information** on a single app.
 
 
 ## Patient Management
-A core set of commands for managing your patient records. 
-These functions allow you to add new patients to the system, edit their basic contact information, remove patients, view all patients, and search for specific patients by name. 
+A core set of commands for managing your patient records.
+These functions allow you to add new patients to the system, edit their basic contact information, remove patients, view all patients, and search for specific patients by name.
 
 ### Adding a patient: `add`
 
@@ -203,7 +203,7 @@ Finds patients whose names contain any of the given keywords.
 
 **Format:** `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
-* find must be accompanied by a keyword 
+* find must be accompanied by a keyword
 * The search is case-insensitive.
   * e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter.
@@ -223,9 +223,9 @@ Finds patients whose names contain any of the given keywords.
 
 
 ## Patient Data Management
-Specialized commands for tracking clinical information about your patients. 
-These functions enable you to add and remove diagnostic tags, manage medication prescriptions, 
-and record patient visit history. 
+Specialized commands for tracking clinical information about your patients.
+These functions enable you to add and remove diagnostic tags, manage medication prescriptions,
+and record patient visit history.
 Use these commands to maintain comprehensive patient health records beyond basic contact information.
 
 ### Tag a patient : `tag`
@@ -234,10 +234,10 @@ Tag an existing patient in the patient contact book.
 
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`
 
-* Adds the specified tags to the patient at the specified `INDEX`. 
+* Adds the specified tags to the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
-* Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes` 
+* Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes`
   tag to the same patient as they would be considered as duplicate tags.
 
 **Examples:**
@@ -270,7 +270,7 @@ Adds medication to an existing patient in the patient contact book.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
-* Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and 
+* Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
 
 **Examples:**
@@ -290,7 +290,7 @@ Removes specific or all medication from an existing patient in the patient conta
   * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
     (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
     and **all medicines will be removed from the specified patient**.
-* You may remove multiple medications by including multiple medicine names. 
+* You may remove multiple medications by including multiple medicine names.
   * e.g. `unprescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
 **Examples:**
