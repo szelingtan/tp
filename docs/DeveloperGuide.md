@@ -232,8 +232,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 ### 2.) \[Enhancement\] Input Validation for `find`
 
 Currently, there is no input validation for the `find` command. This means that an input such as 
