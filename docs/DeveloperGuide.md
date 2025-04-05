@@ -665,7 +665,44 @@ testers are expected to do more *exploratory* testing.
 
 ### Tagging and untagging a patient
 
-1. Adding tags
+1. Tagging patients
    1. Prerequisites: Have a list of at least 3 patients, all of which have no tags
-   1. Test case: `tag 1 t/Estrogen t/Anti-androgens` <br>
+   1. Test case: `tag 1 t/Dysphoria t/ASD` <br>
+   Expected: Successfully add *both* Dysphoria and ASD as tags to the 1st patient.
+   1. Test case: `tag 1 t/ASD` <br>
+   Expected: Get an error saying that the 1st patient already has the ASD tag (due to the previous test)
+   1. Test case: `tag 3 t/Anxiety` <br>
+   Expected: Successfully add Anxiety as a tag to the 3rd patient
+
+1. Untagging patients
+   1. Prerequisites: Have a list of at least 2 patients, all of which have the tags "Dysphoria", "ASD", and "Anxiety"
+   1. Test case: `untag 1 t/ASD` <br>
+   Expected: Successfully remove only the ASD tag from the 1st patient
+   1. Tets case: `untag 1 t/ASD` <br>
+   Expected: Get an error saying that the 1st patient does not have the tag ASD (due to the previous test)
+   1. Test case: `untag 2 t/Dysphoria t/Anxiety`
+   Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient`
+   
+
+1. Untagging all on patients
+   1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 tags.
+   1. Test case: `untag 2 t/all`
+   Expected: Successfully remove all tags from the 2nd patient
+
+### Prescribing and unprescribing medicine
+
+1. Prescribing medicine
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no medicine
+   1. Test case: `prescribe 1 m/Estrogen m/Anti-androgens` <br>
    Expected: Successfully prescribe *both* Estrogen and Anti-androgens to the 1st patient.
+   1. Test case: `prescribe 1 m/Estrogen` <br> 
+   Expected: Get an error saying that the 1st patient already has Estrogen prescribed (due to the previous test)
+   1. Test case: `prescribe 3 m/Testosterone` <br>
+   Expected: Successfully prescribe testosterone to the 3rd patient.
+
+1. Unprescribing medicine
+   1. Prerequisites: Have at least 1 patient, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed
+   1. Test case: `unprescribe 1 m/Ibuprofen`
+   Expected: Successfully unprescribe only Ibuprofen from the 1st patient.
+   1. Test case: `unprescribe 1 m/Estrogen m/Ibuprofen`
+   Expected: Get an error saying that the 1st patient does not have Ibuprofen prescribed (due to the previous test)
