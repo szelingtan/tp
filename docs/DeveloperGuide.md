@@ -302,27 +302,27 @@ unless specified otherwise)
 
 * 3a. User enters an invalid phone number.
   * 3a1. PatientBook shows an error message.
-    * 3a2. User enters a valid phone number.
+  * 3a2. User enters a valid phone number.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3b. User enters an invalid email.
   * 3b1. PatientBook shows an error message.
-    * 3b2. User enters a valid email.
+  * 3b2. User enters a valid email.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3c. User omits one or more required fields.
   * 3c1. PatientBook shows an error message.
-    * 3c2. User enters all required information.
+  * 3c2. User enters all required information.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3d. User enters details for a patient with same name and phone number as an existing patient.
   * 3d1. PatientBook alerts the user about the duplicate.
-    * 3d2. User enters different information or cancels the operation.
+  * 3d2. User enters different information or cancels the operation.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 **Use case: Delete a patient**
 
