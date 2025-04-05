@@ -248,12 +248,7 @@ to instead search for the names `strict/` and `Homura` unstrictly rather than se
 
 A future update could parse the input and give an error message to the user when an invalid search name is passed.
 
-<!--
-Commented out for now
-### Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
--->
 
 --------------------------------------------------------------------------------------------------------------------
 
