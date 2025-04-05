@@ -587,7 +587,6 @@ Use case ends.
 
 * **Social Workers**: The target demographic, specifically those who
   do patient visits for the elderly
-* **Name**: The name of a patient in the application.
 * **Contacts**: Information such as phone number, address, and email that
   can be used to reach a patient in the application.
 * **Tag**: A label assigned to a patient in the application.
