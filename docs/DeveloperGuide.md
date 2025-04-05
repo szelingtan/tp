@@ -603,43 +603,31 @@ testers are expected to do more *exploratory* testing.
 ### Launch and shutdown
 
 1. Initial launch
-
    1. Download the jar file and copy into an empty folder.
-
    1. Double-click the jar file <br>
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimal.
 
 1. Saving window preferences
-
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
+   Expected: The most recent window size and location is retained.
 
 ### Deleting a patient
-
 1. Deleting a patient while all patients are being shown
-
    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-
    1. Test case: `delete 1`<br>
-      Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
-
+      Expected: The first patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
    1. Test case: `delete 0`<br>
       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size) <br>
       Expected: Similar to previous.
-
 
 ### Saving data
 
 1. Dealing with missing data files
     1. Find the JSON file with the data in the `data` folder.
     1. Delete it while CareConnect is closed.
-    1. Launch the app and see how it runs.
-   
+    1. Launch the app and see how it runs. <br>
        Expected: Launch the app with the default sample data list.
 
 1. Dealing with corrupted data files
@@ -681,13 +669,12 @@ testers are expected to do more *exploratory* testing.
    Expected: Successfully remove only the ASD tag from the 1st patient.
    1. Test case: `untag 1 t/ASD` <br>
    Expected: Get an error saying that the 1st patient does not have the tag ASD (due to the previous test).
-   1. Test case: `untag 2 t/Dysphoria t/Anxiety`
+   1. Test case: `untag 2 t/Dysphoria t/Anxiety` <br>
    Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient.
-   
 
-1. Untagging all tags from patients
+1. Using the untag all feature
    1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 tags.
-   1. Test case: `untag 2 t/all`
+   1. Test case: `untag 2 t/all` <br>
    Expected: Successfully remove all tags from the 2nd patient.
 
 ### Prescribing and unprescribing medicine
@@ -702,13 +689,13 @@ testers are expected to do more *exploratory* testing.
    Expected: Successfully prescribe Testosterone to the 3rd patient.
 
 1. Unprescribing medicine
-   1. Prerequisites: Have at least 1 patient, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed.
-   1. Test case: `unprescribe 1 m/Ibuprofen`
-   Expected: Successfully unprescribe only Ibuprofen from the 1st patient.
-   1. Test case: `unprescribe 1 m/Estrogen m/Ibuprofen`
-   Expected: Get an error saying that the 1st patient does not have Ibuprofen prescribed (due to the previous test).
+   1. Prerequisites: Have at least 2 patients, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed.
+   1. Test case: `unprescribe 2 m/Ibuprofen` <br>
+   Expected: Successfully unprescribe only Ibuprofen from the 2nd patient.
+   1. Test case: `unprescribe 2 m/Estrogen m/Ibuprofen` <br>
+   Expected: Get an error saying that the 2nd patient does not have Ibuprofen prescribed (due to the previous test).
 
-1. Unprescribing all medicines from patients
+1. Using the unprescribe all feature
    1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 prescribed medicines.
-   1. Test case: `unprescribe 2 m/all`
+   1. Test case: `unprescribe 2 m/all` <br>
    Expected: Successfully unprescribe all medicines from the 2nd patient.
