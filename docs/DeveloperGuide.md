@@ -244,9 +244,18 @@ would be accepted despite it not being possibly part of any name.
 Another possible confusion is if the `/strict` prefix were mistyped as `strict/`, causing an input such as 
 > `find strict/ Homura`
 
-to instead search for the names `strict/` and `Homura` unstrictly rather than searching `Homura` strictly
+to instead search for the names `strict/` and `Homura` not strictly rather than searching `Homura` strictly
 
 A future update could parse the input and give an error message to the user when an invalid search name is passed.
+
+### 3.) \[Enhancement\] Duplicate Detection for `add`
+
+Currently, CareConnect compares strings case insensitively. However, it still takes into account spaces.
+
+This means that names such as "Akemi Homura" and "Akemi &nbsp;&nbsp;&nbsp; Homura" count as different people 
+even though they should likely be the same person.
+
+We could add some sort of detection where we check if the name when split on whitespace and compared not case sensitively, and give a warning to the user if such a match is found.
 
 
 
