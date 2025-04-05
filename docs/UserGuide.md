@@ -60,7 +60,7 @@ prescriptions and last visit information** on a single app.
 
     * `list` : Lists all patient contacts.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12 m/Insulin` : Adds a contact named `John Doe` to the patient contact book.
 
     * `delete 3` : Deletes the third contact shown in the current list.
 
@@ -125,7 +125,7 @@ prescriptions and last visit information** on a single app.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for `exit` command and `clear` command will be ignored.<br>
   e.g. if the command specifies `exit 123`, it will be interpreted as `exit`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
