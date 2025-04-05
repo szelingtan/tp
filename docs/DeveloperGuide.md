@@ -143,11 +143,11 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## **Planned Enhancements**
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some planned enhancements
 
-### \[Proposed\] Undo/redo feature
+### 1.) \[New Feature\] Undo/redo feature
 
 #### Proposed Implementation
 
@@ -234,10 +234,26 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### 2.) \[Enhancement\] Input Validation for `find`
+
+Currently, there is no input validation for the `find` command. This means that an input such as 
+> `find &^%$*&!%$(*&`
+
+would be accepted despite it not being possibly part of any name.
+
+Another possible confusion is if the `/strict` prefix were mistyped as `strict/`, causing an input such as 
+> `find strict/ Homura`
+
+to instead search for the names `strict/` and `Homura` unstrictly rather than searching `Homura` strictly
+
+A future update could parse the input and give an error message to the user when an invalid search name is passed.
+
+<!--
+Commented out for now
+### Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
+-->
 
 --------------------------------------------------------------------------------------------------------------------
 
