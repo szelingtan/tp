@@ -615,7 +615,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a patient
 
@@ -624,7 +623,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
@@ -632,12 +631,41 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
+    1. Find the JSON file with the data in the `data` folder
+    1. Delete it while CareConnect is closed
+    1. Launch the app and see how it runs
+   
+       Expected: Launch the app with the default sample data list
+   
+1. Dealing with corrupted data files
+    1. Prerequisites: The data folder exists with the JSON file storing the data
+    1. Find the JSON file with the data in the `data` folder
+    1. Modify it manually such that it is no longer a valid JSON file (such as unmatching the curly braces)
+    1. Launch the app and see how it runs
+   
+    Expected: Launch the app as normal with a blank list
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+### Editing a patient
 
-1. _{ more test cases …​ }_
+1. Editing a patient's name
+   1. Prerequisites: Have a list of at least 3 patients, none of which are named "Akemi Homura" or "Kaname Madoka"
+   1. Test case: `edit 1 n/Akemi Homura` <br> 
+   Expected: The name of the 1st patient is successfully changed to "Akemi Homura"
+   1. Test case: `edit 3 n/Kaname Madoka` <br>
+   Expected: The name of the 3rd patient is successfully changed to "Kaname Madoka"
+
+1. Editing a patient's address
+   1. Prerequisites: Have a list of at least 2 patients
+   1. Test case: `edit 2 a/Kamihama City` <br>
+   Exoected: The address of the 2nd patient is successfully changed to "Kamihama City"
+
+### Tagging and untagging a patient
+
+1. Adding tags
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no tags
+   1. Test case: `tag 1 t/Estrogen t/Anti-androgens` <br>
+   Expected: Successfully prescribe *both* Estrogen and Anti-androgens to the 1st patient.
