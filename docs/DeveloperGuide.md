@@ -604,9 +604,10 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file <br>
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -635,74 +636,79 @@ testers are expected to do more *exploratory* testing.
 ### Saving data
 
 1. Dealing with missing data files
-    1. Find the JSON file with the data in the `data` folder
-    1. Delete it while CareConnect is closed
-    1. Launch the app and see how it runs
+    1. Find the JSON file with the data in the `data` folder.
+    1. Delete it while CareConnect is closed.
+    1. Launch the app and see how it runs.
    
-       Expected: Launch the app with the default sample data list
-   
+       Expected: Launch the app with the default sample data list.
+
 1. Dealing with corrupted data files
-    1. Prerequisites: The data folder exists with the JSON file storing the data
-    1. Find the JSON file with the data in the `data` folder
-    1. Modify it manually such that it is no longer a valid JSON file (e.g. by mismatching the curly braces)
-    1. Launch the app and see how it runs
+    1. Prerequisites: The data folder exists with the JSON file storing the data.
+    1. Find the JSON file with the data in the `data` folder.
+    1. Modify it manually such that it is no longer a valid JSON file (e.g., by mismatching the curly braces).
+    1. Launch the app and see how it runs.
    
-    Expected: Launch the app as normal with a blank list
+    Expected: Launch the app as normal with a blank list.
 
 ### Editing a patient
 
 1. Editing a patient's name
-   1. Prerequisites: Have a list of at least 3 patients, none of which are named "Akemi Homura" or "Kaname Madoka"
+   1. Prerequisites: Have a list of at least 3 patients, none of which are named "Akemi Homura" or "Kaname Madoka".
    1. Test case: `edit 1 n/Akemi Homura` <br> 
-   Expected: The name of the 1st patient is successfully changed to "Akemi Homura"
+   Expected: The name of the 1st patient is successfully changed to "Akemi Homura".
    1. Test case: `edit 3 n/Kaname Madoka` <br>
-   Expected: The name of the 3rd patient is successfully changed to "Kaname Madoka"
+   Expected: The name of the 3rd patient is successfully changed to "Kaname Madoka".
 
 1. Editing a patient's address
-   1. Prerequisites: Have a list of at least 2 patients
+   1. Prerequisites: Have a list of at least 2 patients.
    1. Test case: `edit 2 a/Kamihama City` <br>
-   Expected: The address of the 2nd patient is successfully changed to "Kamihama City"
+   Expected: The address of the 2nd patient is successfully changed to "Kamihama City".
 
 ### Tagging and untagging a patient
 
 1. Tagging patients
-   1. Prerequisites: Have a list of at least 3 patients, all of which have no tags
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no tags.
    1. Test case: `tag 1 t/Dysphoria t/ASD` <br>
    Expected: Successfully add *both* Dysphoria and ASD as tags to the 1st patient.
    1. Test case: `tag 1 t/ASD` <br>
-   Expected: Get an error saying that the 1st patient already has the ASD tag (due to the previous test)
+   Expected: Get an error saying that the 1st patient already has the ASD tag (due to the previous test).
    1. Test case: `tag 3 t/Anxiety` <br>
-   Expected: Successfully add Anxiety as a tag to the 3rd patient
+   Expected: Successfully add Anxiety as a tag to the 3rd patient.
 
 1. Untagging patients
-   1. Prerequisites: Have a list of at least 2 patients, all of which have the tags "Dysphoria", "ASD", and "Anxiety"
+   1. Prerequisites: Have a list of at least 2 patients, all of which have the tags "Dysphoria", "ASD", and "Anxiety".
    1. Test case: `untag 1 t/ASD` <br>
-   Expected: Successfully remove only the ASD tag from the 1st patient
+   Expected: Successfully remove only the ASD tag from the 1st patient.
    1. Test case: `untag 1 t/ASD` <br>
-   Expected: Get an error saying that the 1st patient does not have the tag ASD (due to the previous test)
+   Expected: Get an error saying that the 1st patient does not have the tag ASD (due to the previous test).
    1. Test case: `untag 2 t/Dysphoria t/Anxiety`
-   Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient
+   Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient.
    
 
 1. Untagging all tags from patients
    1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 tags.
    1. Test case: `untag 2 t/all`
-   Expected: Successfully remove all tags from the 2nd patient
+   Expected: Successfully remove all tags from the 2nd patient.
 
 ### Prescribing and unprescribing medicine
 
 1. Prescribing medicine
-   1. Prerequisites: Have a list of at least 3 patients, all of which have no medicine
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no medicine.
    1. Test case: `prescribe 1 m/Estrogen m/Anti-androgens` <br>
    Expected: Successfully prescribe *both* Estrogen and Anti-androgens to the 1st patient.
    1. Test case: `prescribe 1 m/Estrogen` <br> 
-   Expected: Get an error saying that the 1st patient already has Estrogen prescribed (due to the previous test)
+   Expected: Get an error saying that the 1st patient already has Estrogen prescribed (due to the previous test).
    1. Test case: `prescribe 3 m/Testosterone` <br>
    Expected: Successfully prescribe Testosterone to the 3rd patient.
 
 1. Unprescribing medicine
-   1. Prerequisites: Have at least 1 patient, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed
+   1. Prerequisites: Have at least 1 patient, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed.
    1. Test case: `unprescribe 1 m/Ibuprofen`
    Expected: Successfully unprescribe only Ibuprofen from the 1st patient.
    1. Test case: `unprescribe 1 m/Estrogen m/Ibuprofen`
-   Expected: Get an error saying that the 1st patient does not have Ibuprofen prescribed (due to the previous test)
+   Expected: Get an error saying that the 1st patient does not have Ibuprofen prescribed (due to the previous test).
+
+1. Unprescribing all medicines from patients
+   1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 prescribed medicines.
+   1. Test case: `unprescribe 2 m/all`
+   Expected: Successfully unprescribe all medicines from the 2nd patient.
