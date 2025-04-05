@@ -61,7 +61,7 @@ prescriptions and last visit information** on a single app.
     * `list` : Lists all patient contacts.
 
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
-    
+
     * `delete 3` : Deletes the third contact shown in the current list.
 
     * `clear` : Deletes all contacts.
@@ -125,8 +125,8 @@ prescriptions and last visit information** on a single app.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `exit` and `clear`) will be ignored.<br>
+  e.g. if the command specifies `exit 123`, it will be interpreted as `exit`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
@@ -134,6 +134,9 @@ prescriptions and last visit information** on a single app.
 
 
 ## Patient Management
+A core set of commands for managing your patient records.
+These functions allow you to add new patients to the system, edit their basic contact information, remove patients, view all patients, and search for specific patients by name.
+
 ### Adding a patient: `add`
 
 Adds a patient to the patient contact book.
@@ -200,7 +203,7 @@ Finds patients whose names contain any of the given keywords.
 
 **Format:** `find KEYWORD [MORE_KEYWORDS]` or `find /strict KEYWORD [MORE_KEYWORDS]`
 
-* find must be accompanied by a keyword 
+* find must be accompanied by a keyword
 * The search is case-insensitive.
   * e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter.
@@ -220,16 +223,21 @@ Finds patients whose names contain any of the given keywords.
 
 
 ## Patient Data Management
+Specialized commands for tracking clinical information about your patients.
+These functions enable you to add and remove diagnostic tags, manage medication prescriptions,
+and record patient visit history.
+Use these commands to maintain comprehensive patient health records beyond basic contact information.
+
 ### Tag a patient : `tag`
 
 Tag an existing patient in the patient contact book.
 
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`
 
-* Adds the specified tags to the patient at the specified `INDEX`. 
+* Adds the specified tags to the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
-* Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes` 
+* Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes`
   tag to the same patient as they would be considered as duplicate tags.
 
 **Examples:**
@@ -262,7 +270,7 @@ Adds medication to an existing patient in the patient contact book.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
-* Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and 
+* Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
 
 **Examples:**
@@ -282,7 +290,7 @@ Removes specific or all medication from an existing patient in the patient conta
   * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
     (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
     and **all medicines will be removed from the specified patient**.
-* You may remove multiple medications by including multiple medicine names. 
+* You may remove multiple medications by including multiple medicine names.
   * e.g. `unprescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 
 **Examples:**
@@ -361,3 +369,27 @@ Furthermore, certain edits can cause the CareConnect to behave in unexpected way
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+
+## CareConnect Technical Glossary
+
+### Quick Start Terms
+
+| Term                               | Definition                                                                                                                                             |
+|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Java**                           | A programming language that CareConnect is built on. Version 17 or above is required to run the application.                                           |
+| **JAR file**                       | Java ARchive file. This is the executable file format for CareConnect that contains all the compiled code and resources needed to run the application. |
+| **Home folder**                    | The directory where you choose to store and run the CareConnect application.                                                                           |
+| **Command terminal**               | A text interface for running commands on your computer (also known as command prompt, console, or shell).                                              |
+| **CD command**                     | "Change Directory" command used in the terminal to navigate between folders.                                                                           |
+| **GUI (Graphical User Interface)** | The visual elements of CareConnect that you can see and interact with, including buttons, text fields, and the patient list.                           |
+| **CLI (Command Line Interface)**   | Interface that allows users to interact with CareConnect by typing text commands rather than using graphical elements.                                 |
+
+### Data Management Terms
+
+| Term                 | Definition                                                                                     |
+|----------------------|------------------------------------------------------------------------------------------------|
+| **JSON file**        | JavaScript Object Notation file format used to store CareConnect data.                         |
+| **Data file**        | The file (careconnect.json) where all patient information is saved.                            |
+| **Preferences file** | A file (preferences.json) that stores application settings like window position.               |
+| **Saving the data**  | Process that occurs automatically after any command that changes data in CareConnect.          |
+| **Data backup**      | Recommended copy of the data file before manual editing to prevent data loss.                  |
