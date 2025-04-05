@@ -644,7 +644,7 @@ testers are expected to do more *exploratory* testing.
 1. Dealing with corrupted data files
     1. Prerequisites: The data folder exists with the JSON file storing the data
     1. Find the JSON file with the data in the `data` folder
-    1. Modify it manually such that it is no longer a valid JSON file (such as unmatching the curly braces)
+    1. Modify it manually such that it is no longer a valid JSON file (e.g. by mismatching the curly braces)
     1. Launch the app and see how it runs
    
     Expected: Launch the app as normal with a blank list
@@ -661,7 +661,7 @@ testers are expected to do more *exploratory* testing.
 1. Editing a patient's address
    1. Prerequisites: Have a list of at least 2 patients
    1. Test case: `edit 2 a/Kamihama City` <br>
-   Exoected: The address of the 2nd patient is successfully changed to "Kamihama City"
+   Expected: The address of the 2nd patient is successfully changed to "Kamihama City"
 
 ### Tagging and untagging a patient
 
@@ -678,13 +678,13 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: Have a list of at least 2 patients, all of which have the tags "Dysphoria", "ASD", and "Anxiety"
    1. Test case: `untag 1 t/ASD` <br>
    Expected: Successfully remove only the ASD tag from the 1st patient
-   1. Tets case: `untag 1 t/ASD` <br>
+   1. Test case: `untag 1 t/ASD` <br>
    Expected: Get an error saying that the 1st patient does not have the tag ASD (due to the previous test)
    1. Test case: `untag 2 t/Dysphoria t/Anxiety`
-   Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient`
+   Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient
    
 
-1. Untagging all on patients
+1. Untagging all tags from patients
    1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 tags.
    1. Test case: `untag 2 t/all`
    Expected: Successfully remove all tags from the 2nd patient
@@ -698,7 +698,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `prescribe 1 m/Estrogen` <br> 
    Expected: Get an error saying that the 1st patient already has Estrogen prescribed (due to the previous test)
    1. Test case: `prescribe 3 m/Testosterone` <br>
-   Expected: Successfully prescribe testosterone to the 3rd patient.
+   Expected: Successfully prescribe Testosterone to the 3rd patient.
 
 1. Unprescribing medicine
    1. Prerequisites: Have at least 1 patient, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed
