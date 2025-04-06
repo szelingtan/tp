@@ -239,6 +239,7 @@ Tag an existing patient in the patient contact book.
 * At least one tag must be provided.
 * Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes`
   tag to the same patient as they would be considered as duplicate tags.
+* Avoid using `all` as a tag, because trying to untag it will trigger the deletion of all tags from the selected patient.
 
 **Examples:**
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
@@ -272,6 +273,7 @@ Adds medication to an existing patient in the patient contact book.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 * Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
+* Avoid using `all` as a medicine, because trying to unprescribe it will trigger the deletion of all medicines from the selected patient.
 
 **Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
