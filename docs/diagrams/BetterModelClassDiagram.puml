@@ -8,12 +8,12 @@ AddressBook *-right-> "1" UniquePatientList
 
 UniquePatientList -right-> Patient
 
-Patient --> "*" Tag
 
-Patient *--=> "*" Medicine
 Patient *--> Name
 Patient *--> Phone
 Patient *--> Email
 Patient *--> Address
-Patient *--> LastVisit
+Patient --> LastVisit
+Patient --> "*" Tag
+Patient --> "*" Medicine
 @enduml
