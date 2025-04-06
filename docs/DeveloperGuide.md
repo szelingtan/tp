@@ -143,11 +143,11 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## **Planned Enhancements**
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some planned enhancements
 
-### \[Proposed\] Undo/redo feature
+### 1.) \[New Feature\] Undo/redo feature
 
 #### Proposed Implementation
 
@@ -232,11 +232,42 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+### 2.) \[Enhancement\] Input Validation for `find`
 
-### \[Proposed\] Data archiving
+Currently, there is no input validation for the `find` command. This means that an input such as 
+> `find &^%$*&!%$(*&`
 
-_{Explain here how the data archiving feature will be implemented}_
+would be accepted despite it not being possibly part of any name.
+
+Another possible confusion is if the `/strict` prefix were mistyped as `strict/`, causing an input such as 
+> `find strict/ Homura`
+
+to instead search for the names `strict/` and `Homura` not strictly rather than searching `Homura` strictly
+
+A future update could parse the input and give an error message to the user when an invalid search name is entered.
+
+### 3.) \[Enhancement\] Duplicate Detection for `add`
+
+Currently, CareConnect compares strings case insensitively. However, it still takes into account spaces.
+
+This means that names such as "Akemi Homura" and "Akemi &nbsp;&nbsp;&nbsp; Homura" count as different people 
+even though they likely should refer to the same person.
+
+We could add a check that splits the name by whitespace and compares the parts case-insensitively, then give a warning to the user if a potential duplicate is found.
+
+### 4.) \[Enhancement\] Non-ambiguous `untag t/all` or `unprescribe m/all`
+
+Currently, there is some slight ambiguity in these delete all functions. They could be interpreted as 
+removing the tag "all" or removing the medicine "all".
+
+It is very unlikely that a user would create a tag named "all" or prescribe a medicine "all", since they don't 
+mean anything in the context of a patient under the care of a social worker.
+
+However, removing this ambiguity would still be preferable. This could be done by making them 
+entirely separate commands like `untagAll` and `unprescribeAll`, or making the keyword to trigger 
+the deletion not a valid tag/medicine so there is no ambiguity such as `untag t/[ALL]` and 
+`unprescribe m/[ALL]` since `[` and `]` are not valid characters for tags and medicines.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -302,27 +333,27 @@ unless specified otherwise)
 
 * 3a. User enters an invalid phone number.
   * 3a1. PatientBook shows an error message.
-    * 3a2. User enters a valid phone number.
+  * 3a2. User enters a valid phone number.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3b. User enters an invalid email.
   * 3b1. PatientBook shows an error message.
-    * 3b2. User enters a valid email.
+  * 3b2. User enters a valid email.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3c. User omits one or more required fields.
   * 3c1. PatientBook shows an error message.
-    * 3c2. User enters all required information.
+  * 3c2. User enters all required information.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3d. User enters details for a patient with same name and phone number as an existing patient.
   * 3d1. PatientBook alerts the user about the duplicate.
-    * 3d2. User enters different information or cancels the operation.
+  * 3d2. User enters different information or cancels the operation.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 **Use case: Delete a patient**
 
@@ -571,7 +602,6 @@ Use case ends.
 
 * **Social Workers**: The target demographic, specifically those who
   do patient visits for the elderly
-* **Name**: The name of a patient in the application.
 * **Contacts**: Information such as phone number, address, and email that
   can be used to reach a patient in the application.
 * **Tag**: A label assigned to a patient in the application.
@@ -593,41 +623,99 @@ testers are expected to do more *exploratory* testing.
 ### Launch and shutdown
 
 1. Initial launch
-
-   1. Download the jar file and copy into an empty folder
-
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Download the jar file and copy into an empty folder.
+   1. Double-click the jar file <br>
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimal.
 
 1. Saving window preferences
-
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
+   Expected: The most recent window size and location is retained.
 
 ### Deleting a patient
-
 1. Deleting a patient while all patients are being shown
-
    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
+      Expected: The first patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
    1. Test case: `delete 0`<br>
       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size) <br>
       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
+    1. Find the JSON file with the data in the `data` folder.
+    1. Delete it while CareConnect is closed.
+    1. Launch the app and see how it runs. <br>
+       Expected: Launch the app with the default sample data list.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+1. Dealing with corrupted data files
+    1. Prerequisites: The data folder exists with the JSON file storing the data.
+    1. Find the JSON file with the data in the `data` folder.
+    1. Modify it manually such that it is no longer a valid JSON file (e.g., by mismatching the curly braces).
+    1. Launch the app and see how it runs.
+   
+    Expected: Launch the app as normal with a blank list.
 
-1. _{ more test cases …​ }_
+### Editing a patient
+
+1. Editing a patient's name
+   1. Prerequisites: Have a list of at least 3 patients, none of which are named "Akemi Homura" or "Kaname Madoka".
+   1. Test case: `edit 1 n/Akemi Homura` <br> 
+   Expected: The name of the 1st patient is successfully changed to "Akemi Homura".
+   1. Test case: `edit 3 n/Kaname Madoka` <br>
+   Expected: The name of the 3rd patient is successfully changed to "Kaname Madoka".
+
+1. Editing a patient's address
+   1. Prerequisites: Have a list of at least 2 patients.
+   1. Test case: `edit 2 a/Kamihama City` <br>
+   Expected: The address of the 2nd patient is successfully changed to "Kamihama City".
+
+### Tagging and untagging a patient
+
+1. Tagging patients
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no tags.
+   1. Test case: `tag 1 t/Dysphoria t/ASD` <br>
+   Expected: Successfully add *both* Dysphoria and ASD as tags to the 1st patient.
+   1. Test case: `tag 1 t/ASD` <br>
+   Expected: Get an error saying that the 1st patient already has the ASD tag (due to the previous test).
+   1. Test case: `tag 3 t/Anxiety` <br>
+   Expected: Successfully add Anxiety as a tag to the 3rd patient.
+
+1. Untagging patients
+   1. Prerequisites: Have a list of at least 2 patients, all of which have the tags "Dysphoria", "ASD", and "Anxiety".
+   1. Test case: `untag 1 t/ASD` <br>
+   Expected: Successfully remove only the ASD tag from the 1st patient.
+   1. Test case: `untag 1 t/ASD` <br>
+   Expected: Get an error saying that the 1st patient does not have the tag ASD (due to the previous test).
+   1. Test case: `untag 2 t/Dysphoria t/Anxiety` <br>
+   Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient.
+
+1. Using the untag all feature
+   1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 tags.
+   1. Test case: `untag 2 t/all` <br>
+   Expected: Successfully remove all tags from the 2nd patient.
+
+### Prescribing and unprescribing medicine
+
+1. Prescribing medicine
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no medicine.
+   1. Test case: `prescribe 1 m/Estrogen m/Anti-androgens` <br>
+   Expected: Successfully prescribe *both* Estrogen and Anti-androgens to the 1st patient.
+   1. Test case: `prescribe 1 m/Estrogen` <br> 
+   Expected: Get an error saying that the 1st patient already has Estrogen prescribed (due to the previous test).
+   1. Test case: `prescribe 3 m/Testosterone` <br>
+   Expected: Successfully prescribe Testosterone to the 3rd patient.
+
+1. Unprescribing medicine
+   1. Prerequisites: Have at least 2 patients, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed.
+   1. Test case: `unprescribe 2 m/Ibuprofen` <br>
+   Expected: Successfully unprescribe only Ibuprofen from the 2nd patient.
+   1. Test case: `unprescribe 2 m/Estrogen m/Ibuprofen` <br>
+   Expected: Get an error saying that the 2nd patient does not have Ibuprofen prescribed (due to the previous test).
+
+1. Using the unprescribe all feature
+   1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 prescribed medicines.
+   1. Test case: `unprescribe 2 m/all` <br>
+   Expected: Successfully unprescribe all medicines from the 2nd patient.

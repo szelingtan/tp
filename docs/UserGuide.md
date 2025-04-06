@@ -60,7 +60,7 @@ prescriptions and last visit information** on a single app.
 
     * `list` : Lists all patient contacts.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-12-25` : Adds a contact named `John Doe` to the patient contact book.
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12 m/Insulin` : Adds a contact named `John Doe` to the patient contact book.
 
     * `delete 3` : Deletes the third contact shown in the current list.
 
@@ -125,7 +125,7 @@ prescriptions and last visit information** on a single app.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for `exit` command and `clear` command will be ignored.<br>
   e.g. if the command specifies `exit 123`, it will be interpreted as `exit`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -239,6 +239,7 @@ Tag an existing patient in the patient contact book.
 * At least one tag must be provided.
 * Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes`
   tag to the same patient as they would be considered as duplicate tags.
+* Avoid using `all` as a tag, because trying to untag it will trigger the deletion of all tags from the selected patient.
 
 **Examples:**
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
@@ -272,6 +273,7 @@ Adds medication to an existing patient in the patient contact book.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 * Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
+* Avoid using `all` as a medicine, because trying to unprescribe it will trigger the deletion of all medicines from the selected patient.
 
 **Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
