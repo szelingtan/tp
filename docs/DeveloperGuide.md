@@ -255,6 +255,19 @@ even though they likely should refer to the same person.
 
 We could add a check that splits the name by whitespace and compares the parts case-insensitively, then give a warning to the user if a potential duplicate is found.
 
+### 4.) \[Enhancement\] Non-ambiguous `untag t/all` or `unprescribe m/all`
+
+Currently, there is some slight ambiguity in these delete all functions. They could be interpreted as 
+removing the tag "all" or removing the medicine "all".
+
+It is very unlikely that a user would create a tag named "all" or prescribe a medicine "all", since they don't 
+mean anything in the context of a patient under the care of a social worker.
+
+However, removing this ambiguity would still be preferable. This could be done by making them 
+entirely separate commands like `untagAll` and `unprescribeAll`, or making the keyword to trigger 
+the deletion not a valid tag/medicine so there is no ambiguity such as `untag t/[ALL]` and 
+`unprescribe m/[ALL]` since `[` and `]` are not valid characters for tags and medicines.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
