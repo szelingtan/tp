@@ -169,7 +169,7 @@ Edits an existing patient at the specified index in the patient contact book.
 **Examples:**
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the second patient to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower` Edits the name of the second patient to be `Betsy Crower`.
 
 **Note:**
 
