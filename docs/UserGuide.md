@@ -47,13 +47,13 @@ prescriptions and last visit information** on a single app.
    A guide on how to install the required software can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
-   The `.jar` file can be found under the Assets section. ![Assets](images/jar.png)
+   The `.jar` file can be found under the Assets section. ![Assets](images/quickstart.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for your CareConnect.
 
 4. Open a command terminal, enter the folder containing the jar file using the `cd` command, and use the `java -jar CareConnect.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![UI](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -143,7 +143,7 @@ Adds a patient to the patient contact book.
 
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG] [m/MEDICINE]…​`
 
-* Refer to the [Input Requirements](#input-requirements)
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements)
 <div markdown="span" class="alert alert-primary">:bulb: Tip:
 A patient can have any number of tags (including 0).
 </div>
@@ -220,6 +220,7 @@ Finds patients whose names contain any of the given keywords.
 * `find /strict Doe John` returns `0 patients listed` <br>
 
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+*The result after executing the command `find alex david`.*
 
 
 ## Patient Data Management
@@ -310,7 +311,8 @@ Adds a last visit record to an existing patient in the patient contact book.
 * Adds last visit record to the patient at the specified `INDEX` in the displayed patient list.
 * The LAST_VISIT_DATE field must be provided.
 * Format for LAST_VISIT_DATE: `YYYY-MM-DD`
-* LAST_VISIT_DATE must be a valid calendar date on or before the current system date. Future dates are not accepted.
+* LAST_VISIT_DATE must be a valid calendar date on or before today's date (as shown on your computer's system).
+  Future dates are not accepted.
 
 **Examples:**
 *  `lastVisit 1 d/2025-03-15` Adds the last visited date `2025-03-15` to the first patient.
