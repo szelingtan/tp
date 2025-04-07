@@ -291,8 +291,8 @@ Add medication(s) to an existing patient in the patient contact book.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 * Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
-* Avoid prescribing `all` as a medicine as there is no such medication name and because inputting
-  `unprescribe INDEX m/all` deletes all medicines from the selected patient.
+* Avoid using `all` as a medicine name.
+  * The keyword `m/all` is reserved for removing all medications and **may cause unintended behaviour if used incorrectly**.
 * Preceding and/or trailing white spaces will be ignored when prescribing medication
 
 **Examples:**
