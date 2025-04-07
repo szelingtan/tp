@@ -175,8 +175,10 @@ Edits an existing patient at the specified index in the patient contact book.
 
 * At least one of the optional fields must be provided.
 - The `edit` command can only modify name, phone, email, and address.
-- Use `tag`, `untag`, `prescribe`, and `unprescribe` to manage the patient's tags and medicine.
-
+- The `edit` command **cannot** modify tags, medicine and last visit date.
+  - Use `tag` and `untag`to manage the patient's tags.
+  - Use `prescribe` and `unprescribe` to mange the patient's medicine.
+  - Use `lastVisit` and `delLastVisit` to manage the patient's last visit date.
 
 ### Deleting a patient : `delete`
 
@@ -240,9 +242,8 @@ Tag an existing patient in the patient contact book.
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`
 
 * Adds the specified tags to the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one tag must be provided.
-* Tags are case-insensitive. This means that you cannot add the `Diabetes` tag and `diabetes`
+* Tags are case-sensitive. This means that you can add the `Diabetes` tag and `diabetes`.
   tag to the same patient as they would be considered as duplicate tags.
 * Avoid using `all` as a tag, because trying to untag it will trigger the deletion of all tags from the selected patient.
 
@@ -256,8 +257,7 @@ Untag an existing patient in the patient contact book.
 
 **Format:** `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
 
-* Removes the specified tags from the patient at the specified `INDEX`. 
-* The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Removes the specified tags from the patient at the specified `INDEX`.
 * At least one tag must be provided.
 
 **Examples:**
@@ -294,7 +294,6 @@ book.
 **Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
 * Removes medication from the patient at the specified `INDEX` in the displayed patient list.
-* `unprescribe INDEX m/all` is case-insensitive.
 * `unprescribe INDEX m/all` removes all medications from the patient.
   * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
     (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
