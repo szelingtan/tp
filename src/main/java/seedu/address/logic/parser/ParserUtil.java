@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -193,5 +194,18 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Finds and returns the first duplicate in a list of strings if it exists
+     * @param listStrsToAdd List of strings to check
+     * @return the duplicate input, if found
+     */
+    public static String findDuplicateInputs(List<String> listStrsToAdd) {
+        Set<String> seen = new HashSet<>();
+        return listStrsToAdd.stream()
+                .filter(s -> !seen.add(s.toLowerCase()))
+                .findFirst()
+                .orElse(null);
     }
 }
