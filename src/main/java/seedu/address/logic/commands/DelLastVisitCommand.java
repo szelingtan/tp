@@ -17,8 +17,7 @@ public class DelLastVisitCommand extends Command {
     public static final String COMMAND_WORD = "delLastVisit";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the last visit of the patient identified "
-            + "by the index number used in the last patient listing "
-            + "by setting it to NA. "
+            + "by the index number used in the last patient listing."
             + '\n'
             + "Parameters: INDEX (must be a positive integer) "
             + '\n'

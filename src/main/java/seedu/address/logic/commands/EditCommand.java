@@ -51,6 +51,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PATIENT_SUCCESS = "Edited patient: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the patient list.";
+    public static final String MESSAGE_EDIT_NOT_ALLOWED = "Medicine, Tag and Last Visit cannot be edited with the edit "
+        + "command.\nUse the prescribe, unprescribe, tag, untag, lastVisit and delLastVisit commands respectively.";
+    public static final String MESSAGE_NO_RESULTING_CHANGE = "The inputted edit command does not result in any "
+            + "changes to the specified patient.";
 
     private final Index index;
     private final EditPatientDescriptor editPatientDescriptor;
@@ -81,6 +85,9 @@ public class EditCommand extends Command {
 
         if (!patientToEdit.isSamePatient(editedPatient) && model.hasPatient(editedPatient)) {
             throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        }
+        if (patientToEdit.equals(editedPatient)) {
+            throw new CommandException(MESSAGE_NO_RESULTING_CHANGE);
         }
 
         model.setPatient(patientToEdit, editedPatient);
