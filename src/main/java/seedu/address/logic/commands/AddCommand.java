@@ -47,8 +47,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT = "A patient with the same name already "
             + "exists in the patient list. Multiple patients with the same name are currently not"
-            + " allowed in the list. You may use identifiers to distinguish between "
-            + "patients with identical names.";
+            + " allowed in the list. Please kindly refer to our user guide for more details. ";
 
     private final Patient toAdd;
 

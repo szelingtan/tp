@@ -137,6 +137,10 @@ prescriptions and last visit information** on a single app.
 A core set of commands for managing your patient records.
 These functions allow you to add new patients to the system, edit their basic contact information, remove patients, view all patients, and search for specific patients by name.
 
+## Handling Duplicate Patients
+Note that you multiple patients may have the same `phone number`, `email`, `address`, `last 
+visit`, `tag`, `medicine`, but not the same **`name`**. 
+
 ### Adding a patient: `add`
 
 Adds a patient to the patient contact book.
