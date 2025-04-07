@@ -186,12 +186,12 @@ Edits an existing patient at the specified index in the patient contact book.
 **Note:**
 
 * At least one of the optional fields must be provided.
-* The new input must differ from the current patient’s value. Editing a field to the same value will be rejected.
-- The `edit` command can only modify name, phone, email, and address.
-- The `edit` command **cannot** modify tags, medicine and last visit date.
-  - Use `tag` and `untag`to manage the patient's tags.
-  - Use `prescribe` and `unprescribe` to mange the patient's medicine.
-  - Use `lastVisit` and `delLastVisit` to manage the patient's last visit date.
+* If the inputted edit command does not result in any changes to specified patient, it will not be allowed.
+* The `edit` command can only modify name, phone, email, and address.
+* The `edit` command **cannot** modify tags, medicine and last visit date.
+  * Use `tag` and `untag`to manage the patient's tags.
+  * Use `prescribe` and `unprescribe` to mange the patient's medicine.
+  * Use `lastVisit` and `delLastVisit` to manage the patient's last visit date.
 
 ### Deleting a patient : `delete`
 
