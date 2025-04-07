@@ -69,6 +69,17 @@ prescriptions and last visit information** on a single app.
     * `exit` : Exits the app.
 
 6. Refer to the [Features](#features) and [Command Summary](#command-summary) below for details of each command.
+7. Refer to the [UI Layout](#ui-layout) below for a run-through of the user-interface of CareConnect.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## User-interface Layout
+
+### CareConnect Overview
+![UI](images/ui-layout-overall.png)
+
+### Patient Card
+![UI](images/ui-layout-patient.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -175,6 +186,7 @@ Edits an existing patient at the specified index in the patient contact book.
 **Note:**
 
 * At least one of the optional fields must be provided.
+* The new input must differ from the current patient’s value. Editing a field to the same value will be rejected.
 - The `edit` command can only modify name, phone, email, and address.
 - The `edit` command **cannot** modify tags, medicine and last visit date.
   - Use `tag` and `untag`to manage the patient's tags.
