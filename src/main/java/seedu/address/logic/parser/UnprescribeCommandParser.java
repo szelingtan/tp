@@ -56,14 +56,18 @@ public class UnprescribeCommandParser implements Parser<UnprescribeCommand> {
             throw new ParseException(String.format(PrescribeCommand.REPEATED_MED_ERROR, duplicate));
         }
 
-        // If we get here, the index format is valid
+        Index index;
         try {
-            Index index = ParserUtil.parseIndex(preamble);
+            index = ParserUtil.parseIndex(preamble);
+        } catch (ParseException pe) {
+            throw new ParseException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
+
+        try {
             Set<Medicine> medsToRemove = ParserUtil.parseMedsUnprescribe(argMultimap.getAllValues(PREFIX_MEDICINE));
             return new UnprescribeCommand(index, medsToRemove);
         } catch (ParseException pe) {
-            // For any other parsing issues (like too large numbers)
-            throw new ParseException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+            throw new ParseException("Invalid medicine format. " + pe.getMessage());
         }
     }
 }
