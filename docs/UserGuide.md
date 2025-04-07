@@ -164,7 +164,7 @@ A patient can have any number of tags (including 0).
 
 Edits an existing patient at the specified index in the patient contact book.
 
-**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
 **Examples:**
 
