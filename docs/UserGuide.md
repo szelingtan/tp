@@ -150,6 +150,8 @@ Adds a patient to the patient contact book.
 * For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements)
 <div markdown="span" class="alert alert-primary">:bulb: Tip:
 A patient can have any number of tags (including 0).
+</div> <div markdown="span" class="alert alert-warning">:warning: 
+**Warning:** Do not add `t/all`, as untagging `t/all` will remove all tags from that specific patient.
 </div>
 
 **Examples:**
