@@ -267,18 +267,19 @@ Untag an existing patient in the patient contact book.
 
 ### Adding medication to a patient : `prescribe`
 
-Adds medication to an existing patient in the patient contact book.
+Add medication(s) to an existing patient in the patient contact book.
 
 **Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 
-* Adds the specified medications to the patient at the specified `INDEX`.
+* Add the specified medication(s) to the patient at the specified `INDEX`.
 * At least one medicine name must be provided.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 * Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
-* Avoid using `all` as a medicine, because trying to unprescribe it will trigger the deletion of all medicines from the selected patient.
+* Avoid prescribing `all` as a medicine as there is no such medication name and because inputting
+  `unprescribe INDEX m/all` delete all medicines from the selected patient.
 
 **Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
@@ -287,7 +288,8 @@ Adds medication to an existing patient in the patient contact book.
 
 ### Removing medication from a patient : `unprescribe`
 
-Removes specific or all medication from an existing patient in the patient contact book.
+Removes specific medication(s) or all medications from an existing patient in the patient contact 
+book.
 
 **Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
