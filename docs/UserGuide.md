@@ -69,7 +69,7 @@ prescriptions and last visit information** on a single app.
     * `exit` : Exits the app.
 
 6. Refer to the [Features](#features) and [Command Summary](#command-summary) below for details of each command.
-7. Refer to the [UI Layout](#ui-layout) below for a run-through of the user-interface of CareConnect.
+7. Refer to the [UI Layout](#user-interface-layout) below for a run-through of the user-interface of CareConnect.
 
 --------------------------------------------------------------------------------------------------------------------
 
