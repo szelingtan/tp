@@ -270,7 +270,8 @@ Tag an existing patient in the patient contact book.
 * At least one tag must be provided.
 * Tags are case-sensitive. This means that you can add the `Diabetes` tag and `diabetes`.
   tag to the same patient as they would be considered as duplicate tags.
-* Avoid using `all` as a tag, because trying to untag it will trigger the deletion of all tags from the selected patient.
+* Avoid using `all` as a tag.
+    * The keyword `t/all` is reserved for removing all tags and **may cause unintended behaviour if used incorrectly**.
 
 **Examples:**
 *  `tag 1 t/diabetes` Add the tag `diabetes` to the first patient.
