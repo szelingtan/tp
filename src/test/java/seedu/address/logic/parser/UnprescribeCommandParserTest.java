@@ -45,7 +45,7 @@ public class UnprescribeCommandParserTest {
         Index targetIndex = INDEX_FIRST_PATIENT;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_MEDICINE;
 
-        assertParseFailure(parser, userInput, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        assertParseFailure(parser, userInput, Medicine.MESSAGE_CONSTRAINTS);
     }
 
     @Test
