@@ -96,15 +96,16 @@ prescriptions and last visit information** on a single app.
 
 ### Input Requirements
 
-| Input        | Requirements                                                                                                                                                                                                                                                                        | Example                             |
-|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
-| **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. Other non-specified formats such as special characters including @ are currently not supported.                 | Tan Ah Kow                          |
-| **PHONE**    | Contains only numbers, minimum 3 and maximum 16 digits. Note that only one phone number input is allowed.                                                                                                                                                                           | 87874848                            |
-| **EMAIL**    | Must follow `<local-part>@<domain>` format. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
-| **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                                   | Blk 519 Serangoon Avenue 1, #12-345 |
-| **MEDICINE** | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid. **Medicines are case-insensitive**.                                                                                                                        | Paracetamol, Insulin                |
-| **TAG**      | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid. **Tags are case-sensitive**.                                                                                                               | Diabetes, Osteoporosis              |
-| **INDEX**    | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                             | 1                                   |
+| Input               | Requirements                                                                                                                                                                                                                                                                        | Example                             |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| **NAME**            | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. Other non-specified formats such as special characters including @ are currently not supported.                 | Tan Ah Kow                          |
+| **PHONE**           | Contains only numbers, minimum 3 and maximum 16 digits. Note that only one phone number input is allowed.                                                                                                                                                                           | 87874848                            |
+| **EMAIL**           | Must follow `<local-part>@<domain>` format. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
+| **ADDRESS**         | No restrictions, cannot be blank.                                                                                                                                                                                                                                                   | Blk 519 Serangoon Avenue 1, #12-345 |
+| **MEDICINE**        | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid. **Medicines are case-insensitive**.                                                                                                                        | Paracetamol, Insulin                |
+| **TAG**             | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid. **Tags are case-sensitive**.                                                                                                               | Diabetes, Osteoporosis              |
+| **LAST_VISIT_DATE** | Must follow `YYYY-MM-DD` format.                                                                                                                                                                                                                                                    | 1                                   |
+| **INDEX**           | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                             | 1                                   |
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
@@ -147,7 +148,7 @@ Adds a patient to the patient contact book.
 
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG] [m/MEDICINE]…​`
 
-* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements)
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
 <div markdown="span" class="alert alert-primary">:bulb: Tip:
 A patient can have any number of tags (including 0).
 </div>
@@ -240,7 +241,7 @@ Use these commands to maintain comprehensive patient health records beyond basic
 Tag an existing patient in the patient contact book.
 
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`
-
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
 * Adds the specified tags to the patient at the specified `INDEX`.
 * At least one tag must be provided.
 * Tags are case-sensitive. This means that you can add the `Diabetes` tag and `diabetes`.
@@ -270,7 +271,7 @@ Untag an existing patient in the patient contact book.
 Add medication(s) to an existing patient in the patient contact book.
 
 **Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
-
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
 * Add the specified medication(s) to the patient at the specified `INDEX`.
 * At least one medicine name must be provided.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
@@ -312,10 +313,9 @@ book.
 Adds a last visit record to an existing patient in the patient contact book.
 
 **Format:** `lastVisit INDEX d/LAST_VISIT_DATE`
-
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
 * Adds last visit record to the patient at the specified `INDEX` in the displayed patient list.
 * The LAST_VISIT_DATE field must be provided.
-* Format for LAST_VISIT_DATE: `YYYY-MM-DD`
 * LAST_VISIT_DATE must be a valid calendar date on or before today's date (as shown on your computer's system).
   Future dates are not accepted.
 
