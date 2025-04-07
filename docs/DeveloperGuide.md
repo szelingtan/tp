@@ -2,6 +2,53 @@
 layout: page
 title: Developer Guide
 ---
+## Table of Contents
+1. [Developer Guide](#developer-guide)
+2. [Acknowledgements](#acknowledgements)
+3. [Setting up, getting started](#setting-up-getting-started)
+4. [Design](#design)
+    - [Architecture](#architecture)
+    - [UI component](#ui-component)
+    - [Logic component](#logic-component)
+    - [Special Case: ClearCommandParser](#special-case-clearcommandparser-)
+    - [Model component](#model-component)
+    - [Storage component](#storage-component)
+    - [Common classes](#common-classes)
+5. [Implementation](#implementation)
+    - [Sort feature](#sort-feature)
+        - [Current Implementation](#current-implementation)
+        - [Class Structure](#class-structure)
+        - [SortCommand](#sortcommand)
+        - [SortCommandParser](#sortcommandparser)
+        - [Logic Interface](#logic-interface)
+        - [LogicManager](#logicmanager)
+        - [Model Interface](#model-interface)
+        - [ModelManager](#modelmanager)
+        - [Execution Flow](#execution-flow)
+        - [Design considerations](#design-considerations)
+        - [Interactions with other features](#interactions-with-other-features)
+6. [Proposed Enhancements](#proposed-enhancements)
+    - [Undo/redo feature](#proposed-undoredo-feature)
+        - [Proposed Implementation](#proposed-implementation)
+        - [Design considerations](#design-considerations-1)
+    - [Data archiving](#proposed-data-archiving)
+7. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+8. [Appendix: Requirements](#appendix-requirements)
+    - [Product scope](#product-scope)
+    - [User stories](#user-stories)
+    - [Use cases](#use-cases)
+        - [UC01 List all students under User](#use-case-uc01-list-all-students-under-user)
+        - [UC02 Delete a student](#use-case-uc02-delete-a-student)
+        - [UC03 Add a student](#use-case-uc03-add-a-student)
+    - [Non-Functional Requirements](#non-functional-requirements)
+    - [Prof-iler](#prof-iler)
+    - [Glossary](#glossary)
+    - [Project](#project-the-title-of-the-research-project-a-student-is-working-on)
+9. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    - [Launch and shutdown](#launch-and-shutdown)
+    - [Deleting a student](#deleting-a-student)
+    - [Saving data](#saving-data)
+
 ## **Acknowledgements**
 
 * We would like to acknowledge the following repository as the foundational starting point for our project:
@@ -24,7 +71,9 @@ bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/
 
 ### Architecture
 
-<img src="images/ArchitectureDiagram.png" width="280" />
+<div align="center">
+  <img src="images/ArchitectureDiagram.png" width="280" />
+</div>
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -58,7 +107,9 @@ Each of the four main components (also shown in the diagram above),
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-<img src="images/ComponentManagers.png" width="300" />
+<div align="center">
+  <img src="images/ComponentManagers.png" width="300" />
+</div>
 
 The sections below give more details of each component.
 
@@ -66,7 +117,9 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+<div align="center">
+  <img src="images/UiClassDiagram.png" alt="Structure of the UI Component" />
+</div>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PatientListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
@@ -97,10 +150,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a patient).<br>
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a patient).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -118,7 +171,7 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the patients' data i.e., all `patient` objects (which are contained in a `UniquepatientList` object).
+* stores the patients' data i.e., all `patient` objects (which are contained in a `UniquePatientList` object).
 * stores the currently 'selected' `patient` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<patient>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
