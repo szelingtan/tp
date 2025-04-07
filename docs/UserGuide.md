@@ -404,6 +404,7 @@ Furthermore, certain edits can cause the CareConnect to behave in unexpected way
 | **Data backup**      | Recommended copy of the data file before manual editing to prevent data loss.                  |
 
 ### Other Terms
+
 | Term                 | Definition                                                                                                                                                      |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Case-sensitive**   | Uppercase and lowercase letters are treated as **different** characters. For example, `Diabetes` and `diabetes` would be treated as different tags.             |
