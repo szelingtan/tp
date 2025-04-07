@@ -48,8 +48,7 @@ prescriptions and last visit information** on a single app.
 - A guide on how to install the required software can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
 2. Download CareConnect</br>
-Download the latest version of CareConnect:
-   1. Access the latest release from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
+   1. Access the latest release of CareConnect from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
    2. Under **Assets**, click to download the file titled `CareConnect.jar`. ![Assets](images/quickstart.png)
 
 3. Set up CareConnect 
