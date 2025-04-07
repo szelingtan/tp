@@ -159,18 +159,18 @@ Adds a patient to the patient contact book.
 
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG] [m/MEDICINE]…​`
 
-* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
 <div markdown="span" class="alert alert-primary">:bulb: Tip:
-A patient can have any number of tags (including 0).
+A patient can have any number of tags and medicine (including 0).
 </div>
+
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
+* Patients with the same name are not allowed, but you can add multiple
+  patients with the same phone number, email, address, last visit date, medicine and tags.
 
 **Examples:**
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/2025-01-12 m/Insulin`
 * `add n/James Ho p/98280482 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/2025-01-25 t/diabetes`
 
-**Note:**
-* Patients with the same name are not allowed, but you can add multiple
-  patients with the same phone number, email, address, last visit date and tags.
 
 ### Editing a patient : `edit`
 
