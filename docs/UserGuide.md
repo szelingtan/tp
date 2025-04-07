@@ -6,7 +6,7 @@ title: User Guide
 # CareConnect User Guide
 
 CareConnect is a **desktop app for managing patients,
-optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface(GUI)**.
+optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)**.
 Created for social workers, CareConnect allows you to not only **track patient contacts** but also their **diagnosis,
 prescriptions and last visit information** on a single app.
 
@@ -16,7 +16,7 @@ prescriptions and last visit information** on a single app.
 * [Input Requirements](#input-requirements)
 * [Features](#features)
     * [Patient Management](#patient-management)
-        * [Adding a patient: `add`](#adding-a-patient-add)
+        * [Adding a patient: `add`](#adding-a-patient--add)
         * [Editing a patient: `edit`](#editing-a-patient--edit)
         * [Deleting a patient: `delete`](#deleting-a-patient--delete)
         * [Listing all patients: `list`](#listing-all-patients--list)
@@ -153,7 +153,7 @@ These functions allow you to add new patients to the system, edit their basic co
 Note that multiple patients may have the same `phone number`, `email`, `address`, `last 
 visit`, `tag`, `medicine`, but not the same **`name`**. 
 
-### Adding a patient: `add`
+### Adding a patient : `add`
 
 Adds a patient to the patient contact book.
 
@@ -190,7 +190,7 @@ Edits an existing patient at the specified index in the patient contact book.
 * The `edit` command can only modify name, phone, email, and address.
 * The `edit` command **cannot** modify tags, medicine and last visit date.
   * Use `tag` and `untag`to manage the patient's tags.
-  * Use `prescribe` and `unprescribe` to mange the patient's medicine.
+  * Use `prescribe` and `unprescribe` to manage the patient's medicine.
   * Use `lastVisit` and `delLastVisit` to manage the patient's last visit date.
 
 ### Deleting a patient : `delete`
@@ -292,7 +292,7 @@ Add medication(s) to an existing patient in the patient contact book.
 * Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
 * Avoid prescribing `all` as a medicine as there is no such medication name and because inputting
-  `unprescribe INDEX m/all` delete all medicines from the selected patient.
+  `unprescribe INDEX m/all` deletes all medicines from the selected patient.
 * Preceding and/or trailing white spaces will be ignored when prescribing medication
 
 **Examples:**
@@ -419,7 +419,7 @@ Furthermore, certain edits can cause the CareConnect to behave in unexpected way
 
 ### Other Terms
 
-| Term                 | Definition                                                                                                                                                      |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Case-sensitive**   | Uppercase and lowercase letters are treated as **different** characters. For example, `Diabetes` and `diabetes` would be treated as different tags.             |
-| **Case-insensitive** | Uppercase and lowercase letters are treated as the **same** characters. For example, `insulin`, `Insulin` and `INSULIN` would be treated as different medicine. |
+| Term                 | Definition                                                                                                                                                     |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Case-sensitive**   | Uppercase and lowercase letters are treated as **different** characters. For example, `Diabetes` and `diabetes` would be treated as different tags.            |
+| **Case-insensitive** | Uppercase and lowercase letters are treated as the **same** characters. For example, `insulin`, `Insulin` and `INSULIN` would be treated as the same medicine. |
