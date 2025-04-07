@@ -1,15 +1,7 @@
----
-layout: page
-title: Developer Guide
----
-* Table of Contents
-{:toc}
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* We would like to acknowledge the following repository as the foundational starting point for our project:
+[nus-cs2103-AY2425S2/tp](https://github.com/nus-cs2103-AY2425S2/tp)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -23,7 +15,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -72,7 +64,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `patientListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PatientListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -95,7 +87,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+<div markdown="span" class="alert alert-info">information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
 
 How the `Logic` component works:
@@ -122,7 +114,7 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `patient` objects (which are contained in a `UniquepatientList` object).
+* stores the patients' data i.e., all `patient` objects (which are contained in a `UniquepatientList` object).
 * stores the currently 'selected' `patient` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<patient>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
@@ -141,7 +133,7 @@ The `Model` component,
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both the patients' data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -151,47 +143,47 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## **Planned Enhancements**
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some planned enhancements
 
-### \[Proposed\] Undo/redo feature
+### 1.) \[New Feature\] Undo/redo feature
 
 #### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` — Saves the current Care Connect state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous Care Connect state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone Care Connect state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial Care Connect state, and the `currentStatePointer` pointing to that single Care Connect state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
 Step 2. The user executes `delete 5` command to delete the 5th patient in the patient book. The 
-`delete` command calls `Model#commitAddressBook()`, causing the modified state of the patient book 
-after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+`delete` command calls `Model#commitAddressBook()`, causing the modified state of the Care Connect.
+after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted Care Connect state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified Care Connect state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the Care Connect state will not be saved into the `addressBookStateList`.
 
 </div>
 
-Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous Care Connect state, and restores the Care Connect to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial CareConnect state, then there are no previous CareConnect states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -208,9 +200,9 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the Care Connect to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest Care Connect state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
@@ -219,7 +211,7 @@ patient book, such as `list`, will usually not call `Model#commitAddressBook()`,
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all Care Connect states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -240,11 +232,42 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+### 2.) \[Enhancement\] Input Validation for `find`
 
-### \[Proposed\] Data archiving
+Currently, there is no input validation for the `find` command. This means that an input such as 
+> `find &^%$*&!%$(*&`
 
-_{Explain here how the data archiving feature will be implemented}_
+would be accepted despite it not being possibly part of any name.
+
+Another possible confusion is if the `/strict` prefix were mistyped as `strict/`, causing an input such as 
+> `find strict/ Homura`
+
+to instead search for the names `strict/` and `Homura` not strictly rather than searching `Homura` strictly
+
+A future update could parse the input and give an error message to the user when an invalid search name is entered.
+
+### 3.) \[Enhancement\] Duplicate Detection for `add`
+
+Currently, CareConnect compares strings case insensitively. However, it still takes into account spaces.
+
+This means that names such as "Akemi Homura" and "Akemi &nbsp;&nbsp;&nbsp; Homura" count as different people 
+even though they likely should refer to the same person.
+
+We could add a check that splits the name by whitespace and compares the parts case-insensitively, then give a warning to the user if a potential duplicate is found.
+
+### 4.) \[Enhancement\] Non-ambiguous `untag t/all` or `unprescribe m/all`
+
+Currently, there is some slight ambiguity in these delete all functions. They could be interpreted as 
+removing the tag "all" or removing the medicine "all".
+
+It is very unlikely that a user would create a tag named "all" or prescribe a medicine "all", since they don't 
+mean anything in the context of a patient under the care of a social worker.
+
+However, removing this ambiguity would still be preferable. This could be done by making them 
+entirely separate commands like `untagAll` and `unprescribeAll`, or making the keyword to trigger 
+the deletion not a valid tag/medicine so there is no ambiguity such as `untag t/[ALL]` and 
+`unprescribe m/[ALL]` since `[` and `]` are not valid characters for tags and medicines.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -310,27 +333,27 @@ unless specified otherwise)
 
 * 3a. User enters an invalid phone number.
   * 3a1. PatientBook shows an error message.
-    * 3a2. User enters a valid phone number.
+  * 3a2. User enters a valid phone number.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3b. User enters an invalid email.
   * 3b1. PatientBook shows an error message.
-    * 3b2. User enters a valid email.
+  * 3b2. User enters a valid email.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3c. User omits one or more required fields.
   * 3c1. PatientBook shows an error message.
-    * 3c2. User enters all required information.
+  * 3c2. User enters all required information.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 3d. User enters details for a patient with same name and phone number as an existing patient.
   * 3d1. PatientBook alerts the user about the duplicate.
-    * 3d2. User enters different information or cancels the operation.
+  * 3d2. User enters different information or cancels the operation.
 
-        Use case resumes at step 3.
+      Use case resumes at step 3.
 
 **Use case: Delete a patient**
 
@@ -385,6 +408,46 @@ Use case ends.
     * 3b1. PatientBook shows an error message.
 
       Use case resumes at step 3.
+      Use Case: Untag a patient
+      Main Success Scenario (MSS)
+
+**Use case: Untag a patient**
+
+**MSS**
+
+1. User requests to list patients
+2. PatientBook shows a list of patients
+3. User requests to remove tags from a specific patient using one of the following: 
+untag to remove specific tags, or remove all tags
+4. PatientBook removes the tags accordingly and confirms the removal
+
+Use case ends.
+
+**Extensions**
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. PatientBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. No tags are specified with t/
+    * 3b1. PatientBook shows an error message.
+
+      Use case resumes at step 3.
+      Use Case: Untag a patient
+      Main Success Scenario (MSS)
+  
+* 3c. The specified tags are not present in the patient’s tag list
+    * 3c1. PatientBook shows an error message
+    * 
+      Use case resumes at step 3.
+  
+* 3d. The patient has no tags, but the user uses untag INDEX t/all
+    * PatientBook shows an error message indicating there are no tags to remove
+    * Use case resumes at step 3.
 
 **Use case: Add medication to a patient**
 
@@ -539,7 +602,6 @@ Use case ends.
 
 * **Social Workers**: The target demographic, specifically those who
   do patient visits for the elderly
-* **Name**: The name of a patient in the application.
 * **Contacts**: Information such as phone number, address, and email that
   can be used to reach a patient in the application.
 * **Tag**: A label assigned to a patient in the application.
@@ -561,41 +623,99 @@ testers are expected to do more *exploratory* testing.
 ### Launch and shutdown
 
 1. Initial launch
-
-   1. Download the jar file and copy into an empty folder
-
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Download the jar file and copy into an empty folder.
+   1. Double-click the jar file <br>
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimal.
 
 1. Saving window preferences
-
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
+   Expected: The most recent window size and location is retained.
 
 ### Deleting a patient
-
 1. Deleting a patient while all patients are being shown
-
    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
+      Expected: The first patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
    1. Test case: `delete 0`<br>
       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size) <br>
       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
+    1. Find the JSON file with the data in the `data` folder.
+    1. Delete it while CareConnect is closed.
+    1. Launch the app and see how it runs. <br>
+       Expected: Launch the app with the default sample data list.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+1. Dealing with corrupted data files
+    1. Prerequisites: The data folder exists with the JSON file storing the data.
+    1. Find the JSON file with the data in the `data` folder.
+    1. Modify it manually such that it is no longer a valid JSON file (e.g., by mismatching the curly braces).
+    1. Launch the app and see how it runs.
+   
+    Expected: Launch the app as normal with a blank list.
 
-1. _{ more test cases …​ }_
+### Editing a patient
+
+1. Editing a patient's name
+   1. Prerequisites: Have a list of at least 3 patients, none of which are named "Akemi Homura" or "Kaname Madoka".
+   1. Test case: `edit 1 n/Akemi Homura` <br> 
+   Expected: The name of the 1st patient is successfully changed to "Akemi Homura".
+   1. Test case: `edit 3 n/Kaname Madoka` <br>
+   Expected: The name of the 3rd patient is successfully changed to "Kaname Madoka".
+
+1. Editing a patient's address
+   1. Prerequisites: Have a list of at least 2 patients.
+   1. Test case: `edit 2 a/Kamihama City` <br>
+   Expected: The address of the 2nd patient is successfully changed to "Kamihama City".
+
+### Tagging and untagging a patient
+
+1. Tagging patients
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no tags.
+   1. Test case: `tag 1 t/Dysphoria t/ASD` <br>
+   Expected: Successfully add *both* Dysphoria and ASD as tags to the 1st patient.
+   1. Test case: `tag 1 t/ASD` <br>
+   Expected: Get an error saying that the 1st patient already has the ASD tag (due to the previous test).
+   1. Test case: `tag 3 t/Anxiety` <br>
+   Expected: Successfully add Anxiety as a tag to the 3rd patient.
+
+1. Untagging patients
+   1. Prerequisites: Have a list of at least 2 patients, all of which have the tags "Dysphoria", "ASD", and "Anxiety".
+   1. Test case: `untag 1 t/ASD` <br>
+   Expected: Successfully remove only the ASD tag from the 1st patient.
+   1. Test case: `untag 1 t/ASD` <br>
+   Expected: Get an error saying that the 1st patient does not have the tag ASD (due to the previous test).
+   1. Test case: `untag 2 t/Dysphoria t/Anxiety` <br>
+   Expected: Successfully remove both the Dysphoria and Anxiety tags from the 2nd patient.
+
+1. Using the untag all feature
+   1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 tags.
+   1. Test case: `untag 2 t/all` <br>
+   Expected: Successfully remove all tags from the 2nd patient.
+
+### Prescribing and unprescribing medicine
+
+1. Prescribing medicine
+   1. Prerequisites: Have a list of at least 3 patients, all of which have no medicine.
+   1. Test case: `prescribe 1 m/Estrogen m/Anti-androgens` <br>
+   Expected: Successfully prescribe *both* Estrogen and Anti-androgens to the 1st patient.
+   1. Test case: `prescribe 1 m/Estrogen` <br> 
+   Expected: Get an error saying that the 1st patient already has Estrogen prescribed (due to the previous test).
+   1. Test case: `prescribe 3 m/Testosterone` <br>
+   Expected: Successfully prescribe Testosterone to the 3rd patient.
+
+1. Unprescribing medicine
+   1. Prerequisites: Have at least 2 patients, all of which have Estrogen, Anti-androgens, and Ibuprofen prescribed.
+   1. Test case: `unprescribe 2 m/Ibuprofen` <br>
+   Expected: Successfully unprescribe only Ibuprofen from the 2nd patient.
+   1. Test case: `unprescribe 2 m/Estrogen m/Ibuprofen` <br>
+   Expected: Get an error saying that the 2nd patient does not have Ibuprofen prescribed (due to the previous test).
+
+1. Using the unprescribe all feature
+   1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 prescribed medicines.
+   1. Test case: `unprescribe 2 m/all` <br>
+   Expected: Successfully unprescribe all medicines from the 2nd patient.

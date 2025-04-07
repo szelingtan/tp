@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalPatients.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -27,20 +26,20 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newpatient_success() {
+    public void execute_newPatient_success() {
         Patient validPatient = new PatientBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPatient(validPatient);
 
         assertCommandSuccess(new AddCommand(validPatient), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPatient)),
+                String.format(AddCommand.MESSAGE_SUCCESS, validPatient.getName()),
                 expectedModel);
     }
 
     @Test
-    public void execute_duplicatepatient_throwsCommandException() {
-        Patient patientInList = model.getAddressBook().getpatientList().get(0);
+    public void execute_duplicatePatient_throwsCommandException() {
+        Patient patientInList = model.getAddressBook().getPatientList().get(0);
         assertCommandFailure(new AddCommand(patientInList), model,
                 AddCommand.MESSAGE_DUPLICATE_PATIENT);
     }

@@ -24,7 +24,7 @@ public class LastVisitCommand extends Command {
             + "by the index number used in the last patient listing. "
             + "Existing last visit will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DATE + "[LAST VISIT DATE]\n"
+            + PREFIX_DATE + "[LAST-VISIT-DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "2025-05-01";
 
@@ -56,8 +56,15 @@ public class LastVisitCommand extends Command {
 
         model.setPatient(patientToEdit, editedpatient);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+        String successMessage = generateSuccessMessage(editedpatient);
+        LastVisit prevLastVisit = patientToEdit.getLastVisit();
+        if (prevLastVisit != null && lastVisit.lastVisitDate.isBefore(prevLastVisit.lastVisitDate)) {
+            successMessage = successMessage + "\n" + String.format("Warning: you have set the last visit date "
+                            + "of patient %1$s to a date earlier than the previous last visit date of %2$s",
+                    patientToEdit.getName(), patientToEdit.getLastVisit().lastVisitDate);
+        }
 
-        return new CommandResult(generateSuccessMessage(editedpatient));
+        return new CommandResult(successMessage);
     }
 
     /**

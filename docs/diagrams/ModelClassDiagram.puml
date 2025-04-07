@@ -18,6 +18,8 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Medicine
+Class LastVisit
 Class Tag
 
 Class I #FFFFFF
@@ -41,9 +43,9 @@ Patient *-> Name
 Patient *--> Phone
 Patient *--> Email
 Patient *--> Address
-Patient *-> LastVisit
-Patient *--> "*" Tag
-Patient *--> "*" Medicine
+Patient -> LastVisit
+Patient --> "*" Tag
+Patient --> "*" Medicine
 
 Patient -[hidden]up--> I
 UniquePatientList -[hidden]right-> I

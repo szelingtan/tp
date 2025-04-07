@@ -14,7 +14,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds any number of tags to a specified patient.
+ * Adds one or more tags to a specified patient.
  */
 public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
@@ -24,7 +24,7 @@ public class TagCommand extends Command {
             + '\n'
             + "Parameters: INDEX t/tag [t/more_tags]..."
             + '\n'
-            + "Example: " + COMMAND_WORD + "39 t/High Blood Pressure "
+            + "Example: " + COMMAND_WORD + " 3 t/High Blood Pressure "
             + "t/Seafood Allergy";
     public static final String NO_TAG_INCLUDED_ERROR =
             "Please add at least one tag when using the tag command."
@@ -51,10 +51,10 @@ public class TagCommand extends Command {
     }
 
     /**
-     * Generates the msg to send upon successful deletion.
+     * Generates the msg to send upon successful addition.
      *
      * @param patient The newly modified patient.
-     * @return The msg to send upon successful deletion.
+     * @return The msg to send upon successful addition.
      */
     private static String generateSuccessMessage(Patient patient,
               HashSet<Tag> tagsToAdd) {
@@ -67,16 +67,16 @@ public class TagCommand extends Command {
     }
 
     private static String generateExistingTagErrMsg(
-            HashSet<Tag> dupplicateTags, Patient patient) {
+        HashSet<Tag> duplicateTags, Patient patient) {
         String tagsStr = "";
-        for (Tag t : dupplicateTags) {
+        for (Tag t : duplicateTags) {
             tagsStr += t.toString() + " ";
         }
         return "Tag(s) " + tagsStr + "already exist for " + patient.getName();
     }
 
     /**
-     * Executes the stored `tag` cmd.
+     * Executes the stored `tag` command.
      *
      * @param model {@code Model} which the command should operate on.
      * @return The {@code CommandResult}.
@@ -84,7 +84,6 @@ public class TagCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // Basing off of `EditCommand.java`
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPatientList();
 

@@ -9,14 +9,13 @@ import static seedu.address.testutil.TypicalPatients.ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -28,27 +27,27 @@ import seedu.address.testutil.PatientBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullpatient_throwsNullPointerException() {
+    public void constructor_nullPatient_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
     public void execute_patientAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingpatientAdded modelStub = new ModelStubAcceptingpatientAdded();
+        ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
         Patient validPatient = new PatientBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPatient).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPatient)),
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPatient.getName()),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPatient), modelStub.patientsAdded);
+        assertEquals(List.of(validPatient), modelStub.patientsAdded);
     }
 
     @Test
-    public void execute_duplicatepatient_throwsCommandException() {
+    public void execute_duplicatePatient_throwsCommandException() {
         Patient validPatient = new PatientBuilder().build();
         AddCommand addCommand = new AddCommand(validPatient);
-        ModelStub modelStub = new ModelStubWithpatient(validPatient);
+        ModelStub modelStub = new ModelStubWithPatient(validPatient);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PATIENT, () -> addCommand.execute(modelStub));
     }
@@ -85,7 +84,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that has all the methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -162,10 +161,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single patient.
      */
-    private class ModelStubWithpatient extends ModelStub {
+    private class ModelStubWithPatient extends ModelStub {
         private final Patient patient;
 
-        ModelStubWithpatient(Patient patient) {
+        ModelStubWithPatient(Patient patient) {
             requireNonNull(patient);
             this.patient = patient;
         }
@@ -178,9 +177,9 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the patient being added.
+     * A Model stub that always accepts the patient being added.
      */
-    private class ModelStubAcceptingpatientAdded extends ModelStub {
+    private class ModelStubAcceptingPatientAdded extends ModelStub {
         final ArrayList<Patient> patientsAdded = new ArrayList<>();
 
         @Override

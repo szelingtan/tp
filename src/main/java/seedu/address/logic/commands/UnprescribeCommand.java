@@ -22,7 +22,7 @@ import seedu.address.model.patient.Patient;
  * and removes the specified medicine from that patient's medical record.
  */
 public class UnprescribeCommand extends Command {
-    public static final Medicine REMOVE_ALL_PLACEHOLDER = new Medicine("-");
+    public static final Medicine REMOVE_ALL_PLACEHOLDER = new Medicine("PLACEHOLDER");
     public static final String COMMAND_WORD = "unprescribe";
 
     public static final String MESSAGE_REMOVE_MED_SUCCESS = "Removed medication(s) %1$s from patient: %2$s";
@@ -77,7 +77,7 @@ public class UnprescribeCommand extends Command {
             return removeAllMedication(model, patientToEdit);
         }
 
-        // Remove specified medications
+        // Else, remove specified medications
         return removeSpecifiedMedications(model, patientToEdit);
     }
 
@@ -108,7 +108,7 @@ public class UnprescribeCommand extends Command {
             }
         }
 
-        // Create new set of medicines
+        // Create a new set of medicines
         for (Medicine currentMedicine : currentMedicines) {
             if (!medicinesToRemove.contains(currentMedicine)) {
                 updatedMedicines.add(currentMedicine);
@@ -139,7 +139,7 @@ public class UnprescribeCommand extends Command {
     }
 
     /**
-     * Generates a command execution success message when removing a specific medication from
+     * Generates a command execution success message when removing the specified medication(s) from
      * {@code patientToEdit}.
      */
     private String generateSuccessMessage(Patient patientToEdit) {
