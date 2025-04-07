@@ -47,13 +47,13 @@ prescriptions and last visit information** on a single app.
    A guide on how to install the required software can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
-   The `.jar` file can be found under the Assets section. ![Assets](images/jar.png)
+   The `.jar` file can be found under the Assets section. ![Assets](images/quickstart.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for your CareConnect.
 
 4. Open a command terminal, enter the folder containing the jar file using the `cd` command, and use the `java -jar CareConnect.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![UI](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -96,15 +96,15 @@ prescriptions and last visit information** on a single app.
 
 ### Input Requirements
 
-| Input        | Requirements                                                                                                                                                                                                                                                                 | Example                             |
-|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
-| **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. Other non-specified formats such as special characters including @ are currently not supported.          | Tan Ah Kow                          |
-| **PHONE**    | Numbers only, minimum 3 digits.                                                                                                                                                                                                                                              | 87874848                            |
-| **EMAIL**    | Must follow `<local-part>@<domain>`. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
-| **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                            | Blk 519 Serangoon Avenue 1, #12-345 |
-| **MEDICINE** | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.                                                                                                                                                     | Paracetamol, Insulin                |
-| **TAG**      | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.                                                                                                                                     | Diabetes, Osteoporosis              |
-| **INDEX**    | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                      | 1                                   |
+| Input        | Requirements                                                                                                                                                                                                                                                                        | Example                             |
+|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. Other non-specified formats such as special characters including @ are currently not supported.                 | Tan Ah Kow                          |
+| **PHONE**    | Contains only numbers, minimum 3 digits. Note that only one phone number input is allowed.                                                                                                                                                                                          | 87874848                            |
+| **EMAIL**    | Must follow `<local-part>@<domain>` format. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
+| **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                                   | Blk 519 Serangoon Avenue 1, #12-345 |
+| **MEDICINE** | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.                                                                                                                                                            | Paracetamol, Insulin                |
+| **TAG**      | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.                                                                                                                                            | Diabetes, Osteoporosis              |
+| **INDEX**    | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                             | 1                                   |
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
@@ -137,13 +137,17 @@ prescriptions and last visit information** on a single app.
 A core set of commands for managing your patient records.
 These functions allow you to add new patients to the system, edit their basic contact information, remove patients, view all patients, and search for specific patients by name.
 
+## Handling Patient Details
+Note that multiple patients may have the same `phone number`, `email`, `address`, `last 
+visit`, `tag`, `medicine`, but not the same **`name`**. 
+
 ### Adding a patient: `add`
 
 Adds a patient to the patient contact book.
 
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [d/LAST_VISIT_DATE] [t/TAG] [m/MEDICINE]…​`
 
-* Refer to the [Input Requirements](#input-requirements)
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements)
 <div markdown="span" class="alert alert-primary">:bulb: Tip:
 A patient can have any number of tags (including 0).
 </div>
@@ -220,6 +224,7 @@ Finds patients whose names contain any of the given keywords.
 * `find /strict Doe John` returns `0 patients listed` <br>
 
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+*The result after executing the command `find alex david`.*
 
 
 ## Patient Data Management
@@ -310,7 +315,8 @@ Adds a last visit record to an existing patient in the patient contact book.
 * Adds last visit record to the patient at the specified `INDEX` in the displayed patient list.
 * The LAST_VISIT_DATE field must be provided.
 * Format for LAST_VISIT_DATE: `YYYY-MM-DD`
-* LAST_VISIT_DATE must be a valid calendar date on or before the current system date. Future dates are not accepted.
+* LAST_VISIT_DATE must be a valid calendar date on or before today's date (as shown on your computer's system).
+  Future dates are not accepted.
 
 **Examples:**
 *  `lastVisit 1 d/2025-03-15` Adds the last visited date `2025-03-15` to the first patient.
