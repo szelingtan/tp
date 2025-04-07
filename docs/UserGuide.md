@@ -99,11 +99,11 @@ prescriptions and last visit information** on a single app.
 | Input        | Requirements                                                                                                                                                                                                                                                                        | Example                             |
 |--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
 | **NAME**     | Alphanumeric, can contain spaces, cannot be blank. Duplicate names are not allowed (case-insensitive). e.g. "John Doe" and "JOHN DOE" are considered the same name. Other non-specified formats such as special characters including @ are currently not supported.                 | Tan Ah Kow                          |
-| **PHONE**    | Contains only numbers, minimum 3 digits. Note that only one phone number input is allowed.                                                                                                                                                                                          | 87874848                            |
+| **PHONE**    | Contains only numbers, minimum 3 and maximum 16 digits. Note that only one phone number input is allowed.                                                                                                                                                                           | 87874848                            |
 | **EMAIL**    | Must follow `<local-part>@<domain>` format. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
 | **ADDRESS**  | No restrictions, cannot be blank.                                                                                                                                                                                                                                                   | Blk 519 Serangoon Avenue 1, #12-345 |
-| **MEDICINE** | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid.                                                                                                                                                            | Paracetamol, Insulin                |
-| **TAG**      | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid.                                                                                                                                            | Diabetes, Osteoporosis              |
+| **MEDICINE** | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid. **Medicines are case-insensitive**.                                                                                                                        | Paracetamol, Insulin                |
+| **TAG**      | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid. **Tags are case-sensitive**.                                                                                                               | Diabetes, Osteoporosis              |
 | **INDEX**    | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                             | 1                                   |
 
 --------------------------------------------------------------------------------------------------------------------
@@ -164,12 +164,12 @@ A patient can have any number of tags (including 0).
 
 Edits an existing patient at the specified index in the patient contact book.
 
-**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] …​`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
 **Examples:**
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the second patient to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower` Edits the name of the second patient to be `Betsy Crower`.
 
 **Note:**
 
@@ -267,18 +267,19 @@ Untag an existing patient in the patient contact book.
 
 ### Adding medication to a patient : `prescribe`
 
-Adds medication to an existing patient in the patient contact book.
+Add medication(s) to an existing patient in the patient contact book.
 
 **Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
 
-* Adds the specified medications to the patient at the specified `INDEX`.
+* Add the specified medication(s) to the patient at the specified `INDEX`.
 * At least one medicine name must be provided.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
 * You may add multiple medications by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
 * Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
-* Avoid using `all` as a medicine, because trying to unprescribe it will trigger the deletion of all medicines from the selected patient.
+* Avoid prescribing `all` as a medicine as there is no such medication name and because inputting
+  `unprescribe INDEX m/all` delete all medicines from the selected patient.
 
 **Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
@@ -287,7 +288,8 @@ Adds medication to an existing patient in the patient contact book.
 
 ### Removing medication from a patient : `unprescribe`
 
-Removes specific or all medication from an existing patient in the patient contact book.
+Removes specific medication(s) or all medications from an existing patient in the patient contact 
+book.
 
 **Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
