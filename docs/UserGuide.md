@@ -328,10 +328,10 @@ Deletes the last visit information of a patient
 
 **Format:** `delLastVisit INDEX`
 
-* Deletes last visit record from the patient at the specified `INDEX` in the displayed patient list.
+* Deletes the last visit record from the patient at the specified `INDEX` in the displayed patient list.
 
 Examples:
-*  `delLastVisit 1` deletes the last visit information of a patient.
+*  `delLastVisit 1` deletes the last visit information of the first patient in the displayed patient list.
 
 ## App Navigation
 
@@ -379,7 +379,7 @@ Furthermore, certain edits can cause the CareConnect to behave in unexpected way
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
-## CareConnect Technical Glossary
+## CareConnect Glossary
 
 ### Quick Start Terms
 
@@ -402,3 +402,9 @@ Furthermore, certain edits can cause the CareConnect to behave in unexpected way
 | **Preferences file** | A file (preferences.json) that stores application settings like window position.               |
 | **Saving the data**  | Process that occurs automatically after any command that changes data in CareConnect.          |
 | **Data backup**      | Recommended copy of the data file before manual editing to prevent data loss.                  |
+
+### Other Terms
+| Term                 | Definition                                                                                                                                                      |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Case-sensitive**   | Uppercase and lowercase letters are treated as **different** characters. For example, `Diabetes` and `diabetes` would be treated as different tags.             |
+| **Case-insensitive** | Uppercase and lowercase letters are treated as the **same** characters. For example, `insulin`, `Insulin` and `INSULIN` would be treated as different medicine. |
