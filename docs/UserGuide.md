@@ -293,6 +293,7 @@ Add medication(s) to an existing patient in the patient contact book.
   `panadol` medication to the same patient as they would be considered as duplicate medication.
 * Avoid prescribing `all` as a medicine as there is no such medication name and because inputting
   `unprescribe INDEX m/all` delete all medicines from the selected patient.
+* Preceding and/or trailing white spaces will be ignored when prescribing medication
 
 **Examples:**
 *  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
@@ -313,6 +314,7 @@ book.
     and **all medicines will be removed from the specified patient**.
 * You may remove multiple medications by including multiple medicine names.
   * e.g. `unprescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
+* Preceding and/or trailing white spaces will be ignored when unprescribing medication
 
 **Examples:**
 *  `unprescribe 1 m/all` Removes all medication from the first patient.
