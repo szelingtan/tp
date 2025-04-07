@@ -26,6 +26,8 @@ public class PrescribeCommand extends Command {
 
     public static final String MESSAGE_ADD_MED_SUCCESS = "Added medication(s) %1$s to patient: %2$s";
     public static final String MESSAGE_DUPLICATE_MED = "This patient already has medicine: %1$s";
+    public static final String REPEATED_MED_ERROR = "Medicine [%1$s] was entered multiple times.\n"
+            + "Duplicate inputs are not allowed.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": adds new medication(s) to the patient specified "
