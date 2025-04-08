@@ -87,6 +87,7 @@ prescriptions and last visit information** on a single app.
 - Review the [Input Requirements](#input-requirements) to ensure your patient entries follow the correct format.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## User-interface Layout
 
@@ -119,6 +120,8 @@ prescriptions and last visit information** on a single app.
 
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ### Input Requirements
 
@@ -244,7 +247,6 @@ Finds patients whose names contain any of the given keywords.
   * e.g. `Hans Bo` will match `Bo Hans`
 * `find` patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* `find /strict` Returns only exact match or displays `0 patients listed`
 
 **Examples:**
 
