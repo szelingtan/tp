@@ -204,16 +204,19 @@ The `add` feature enables users to add new patients to the patient list.
 #### Execution flow
 
 1. User inputs the command to create a new patient
-2. A `LogicManager` object is called to execute the command
-3. The `LogicManager` object calls the `parseCommand` method of an `addressBookParser` object to parse the user's input
-4. The `addressBookParser` matches the command, identifying the `add` command's `Command Word` (which is `add`),
+1. A `LogicManager` object is called to execute the command
+1. The `LogicManager` object calls the `parseCommand` method of an `addressBookParser` object to parse the user's input
+1. The `addressBookParser` matches the command, identifying the `add` command's `Command Word` (which is `add`),
    and thus creates an `addCommandParser`.
-5. The `parse` method of that `addCommandParser` object is called, which parses
-   the user's input and returns an `addCommand` object to the `addressBookParser` object.
-6. This `addCommand` is then returned to the `LogicManager` object, which calls the `execute` method 
+1. The `parse` method of that `addCommandParser` object is called, which parses
+   the user's arguments and returns an `addCommand` object to the `addressBookParser` object.
+1. This `addCommand` is then returned to the `LogicManager` object, which calls the `execute` method 
    in the `addCommand` object, passing in a `model` object.
-7. In the `execute` method, the `addPatient` method of the `model` is called, which adds a patient to the `model`.
-8. The command finishes executing, and a success message is displayed.
+1. In the `execute` method, the `hasPatient` method of the `model` is called to check if the patient already exists.
+1. If the patient does not already exist in the `model`, `addPatient` is called, which adds a patient to the `model`.
+1. The command finishes executing, and a success message is displayed.
+
+<img src="images/AddSequenceDiagram.png"/>
 
 ### [Proposed] Undo/redo feature
 
