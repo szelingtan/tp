@@ -3,7 +3,6 @@ layout: page
 title: CareConnect Developer Guide
 ---
 ## Table of Contents
-## Table of Contents
 1. [Developer Guide](#developer-guide)
 2. [Acknowledgements](#acknowledgements)
 3. [Setting up, getting started](#setting-up-getting-started)
@@ -15,41 +14,32 @@ title: CareConnect Developer Guide
     - [Model component](#model-component)
     - [Storage component](#storage-component)
     - [Common classes](#common-classes)
-5. [Implementation](#implementation)
-    - [Sort feature](#sort-feature)
-        - [Current Implementation](#current-implementation)
-        - [Class Structure](#class-structure)
-        - [SortCommand](#sortcommand)
-        - [SortCommandParser](#sortcommandparser)
-        - [Logic Interface](#logic-interface)
-        - [LogicManager](#logicmanager)
-        - [Model Interface](#model-interface)
-        - [ModelManager](#modelmanager)
-        - [Execution Flow](#execution-flow)
-        - [Design considerations](#design-considerations)
-        - [Interactions with other features](#interactions-with-other-features)
+5. [Implementations of Key Features](#implementations-of-key-features)
+    - [Add feature](#add-feature)
 6. [Proposed Enhancements](#proposed-enhancements)
-    - [Undo/redo feature](#proposed-undoredo-feature)
+    - [Undo/redo feature](#undoredo-feature)
         - [Proposed Implementation](#proposed-implementation)
-        - [Design considerations](#design-considerations-1)
-    - [Data archiving](#proposed-data-archiving)
+        - [Design considerations](#design-considerations)
 7. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 8. [Appendix: Requirements](#appendix-requirements)
     - [Product scope](#product-scope)
     - [User stories](#user-stories)
     - [Use cases](#use-cases)
-        - [UC01 List all students under User](#use-case-uc01-list-all-students-under-user)
-        - [UC02 Delete a student](#use-case-uc02-delete-a-student)
-        - [UC03 Add a student](#use-case-uc03-add-a-student)
     - [Non-Functional Requirements](#non-functional-requirements)
-    - [Prof-iler](#prof-iler)
     - [Glossary](#glossary)
-    - [Project](#project-the-title-of-the-research-project-a-student-is-working-on)
 9. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
     - [Launch and shutdown](#launch-and-shutdown)
-    - [Deleting a student](#deleting-a-student)
+    - [Deleting a patient](#deleting-a-patient)
     - [Saving data](#saving-data)
-10. [Appendix: Effort](#appendix-effort)
+    - [Editing a patient](#editing-a-patient)
+    - [Tagging and untagging a patient](#tagging-and-untagging-a-patient)
+    - [Prescribing and unprescribing medicine](#prescribing-and-unprescribing-medicine)
+10. [Appendix: Planned Enhancements](#appendixplanned-enhancements)
+    - [1. Input Validation for find](#1-enhancement-input-validation-for-find)
+    - [2. Duplicate Detection for add](#2-enhancement-duplicate-detection-for-add)
+    - [3. Non-ambiguous untag t/all or unprescribe m/all](#3-enhancement-non-ambiguous-untag-tall-or-unprescribe-mall)
+    - [4. Rename internal addressBook to careConnect](#4-enhancement-renaming-internal-uses-of-addressbook-to-careconnect)
+11. [Appendix: Effort](#appendix-effort)
 
 ## **Acknowledgements**
 
@@ -814,5 +804,62 @@ Currently, many internal functions and classes still reference `addressBook`, wh
 still references `addressBook`. In the future, we hope to replace instances of `addressBook` with `CareConnect`, to
 better reflect `CareConnect`'s status as separate from `addressBook`.
 
+------------------------------------------------------------------------------------------------------------------------
+## Appendix: Effort
 
->>>>>>> 13947f112a062696634c0531772110df368626d2
+CareConnect is a significant extension of the AddressBook Level 3 (AB3) base project. While AB3 operates on a single `Person` entity, CareConnect supports a model involving multiple interconnected entities:
+`Patient`, `Tag`, `Medicine`, and `VisitHistory`.
+The effort required to design, implement, and polish these features demanded considerably more design planning, code refactoring, testing, and documentation.
+
+---
+
+### Difficulty Level & Challenges Faced
+
+- **Multi-entity Data Model**: One of the biggest design shifts was moving from AB3's flat `Person` model to a relational structure. Each `Patient` could have multiple `Tags`, `Medicines`, and optionally a `Last Visit` date. This required the creation of `UniqueTagList`, bidirectional references, deduplication logic, and additional parsing and serialization layers.
+
+- **Feature Granularity & Complexity**: The team implemented granular commands such as `untag`, `unprescribe`, and `delLastVisit` — each with nuanced logic and edge cases. Features like `untag INDEX t/all` or `find /strict` needed custom parsing logic and well-defined behavioral constraints to avoid ambiguity.
+
+- **Robust CLI-Driven Input Design**: The command-line interface was not only feature-rich, but also robust against invalid inputs. Input requirements such as strictly formatted dates, unique (case-insensitive) names, and custom validation for phone/email/medicine/tag types ensured reliability and prevented user confusion.
+
+- **Interactive JavaFX GUI**: The GUI was developed to provide a clean, informative interface while remaining reactive to CLI inputs. Changes in model state (e.g., tag removal, patient deletion) were automatically reflected in the UI through observable bindings.
+
+- **Undo/Redo with Entity State**: The inclusion of `Undo` and `Redo` required the development of a `VersionedAddressBook` that could store and restore complex model states. Given the expanded data relationships, the effort to correctly snapshot and rollback patient changes was substantial.
+
+- **User-Centered Design**: The app was designed with social workers in mind — users who are domain experts but not necessarily tech-savvy. Thus, the command syntax, field naming, help documentation, and error messages were all carefully written to be intuitive and context-appropriate.
+
+---
+
+### Project Effort
+
+This project went through several development phases:
+
+- **Architectural Planning**: Reorganizing the AB3 structure to support a multi-entity design while preserving modularity.
+- **Core Feature Implementation**: Creating commands like `prescribe`, `untag`, `lastVisit`, and `delLastVisit` required model changes, storage updates, and thorough command testing.
+- **Refactoring and Encapsulation**: Efforts were made to encapsulate logic (e.g., duplicate tag detection, unprescribe-all behavior), improving maintainability and scalability.
+- **Testing & QA**: Over 100 test cases were written to ensure command correctness, parser robustness, and GUI functionality. Stubs such as `ClearConfirmationWindowStub` were introduced for testability.
+- **Documentation**: A comprehensive [User Guide](UserGuide.md) and [Developer Guide](DeveloperGuide.md) were produced, complete with usage examples, diagrams, and manual testing instructions.
+
+---
+
+### Reuse and Adaptation
+
+About **8–10%** of the overall development effort was saved through reuse and adaptation:
+
+- **SE-EDU’s `VersionedAddressBook`** design was used as a conceptual base for implementing undo/redo, but was customized heavily to handle `Patient` and associated nested objects.
+- **JavaFX GUI classes** such as `UiPart`, `CommandBox`, and `MainWindow` were extended and customized to support contextual error messages and live-updating patient lists.
+- **Diagram generation tools** and markdown structuring conventions were borrowed from SE-EDU guides and adapted to our domain-specific components (e.g., UML for `Patient`–`Medicine`–`Tag` relationships).
+
+---
+
+### Summary
+
+CareConnect stands as a well-engineered, user-centered, and extensible desktop application. Compared to AB3, this project presented:
+- A **higher degree of domain modeling**
+- A **wider range of commands** with real-world parallels
+- A **more polished and testable GUI**
+- A **more rigorous input and error handling system**
+- And a **scalable architecture** designed for future extensions (e.g., support for scheduling, visit history tracking)
+
+The result is a feature-rich, production-quality CLI+GUI hybrid tailored for social workers — providing them with the tools to manage sensitive patient information efficiently and safely.
+
+>>>>>>> Thank you!
