@@ -11,7 +11,8 @@ public class Medicine {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Medicine names should only contain letters, numbers, hyphens (-), and underscores (_).\n"
-            + "Medicine names cannot start or end with a special character.\n";
+            + "Medicine names cannot start or end with a special character.\n"
+            + "Preceding and/or trailing whitespaces will be ignored.";
     public static final String VALIDATION_REGEX = "^[A-Za-z0-9](?:[A-Za-z0-9_-]*[A-Za-z0-9])?$";
 
     public final String medName;
