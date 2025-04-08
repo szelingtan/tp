@@ -128,9 +128,9 @@ prescriptions and last visit information** on a single app.
 | **PHONE**           | Contains only numbers, minimum 3 and maximum 16 digits. Note that only one phone number input is allowed.                                                                                                                                                                           | 87874848                            |
 | **EMAIL**           | Must follow `<local-part>@<domain>` format. The `<local-part>` should only contain alphanumeric characters, except for `+`, `_`, `.` and `-` and cannot start or end with any special characters. The `<domain>` should only contain alphanumeric characters and the `.` character. | tanahkow@yahoo.com                  |
 | **ADDRESS**         | No restrictions, cannot be blank.                                                                                                                                                                                                                                                   | Blk 519 Serangoon Avenue 1, #12-345 |
-| **MEDICINE**        | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid. **Medicines are case-insensitive**.                                                                                                                        | Paracetamol, Insulin                |
+| **MEDICINE**        | Alphanumeric, '-' and '_' allowed, **but cannot start or end with a special character**. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid. **Medicines are case-insensitive**.                                                                  | Paracetamol, Insulin                |
 | **TAG**             | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid. **Tags are case-sensitive**.                                                                                                               | Diabetes, Osteoporosis              |
-| **LAST_VISIT_DATE** | Must follow `YYYY-MM-DD` format.                                                                                                                                                                                                                                                    | 2025-03-15                          |
+| **LAST_VISIT_DATE** | Must follow `YYYY-MM-DD` format. Cannot be more recent than today's date.                                                                                                                                                                                                           | 2025-01-01                          |
 | **INDEX**           | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                             | 1                                   |
 
 --------------------------------------------------------------------------------------------------------------------
@@ -193,20 +193,20 @@ Edits an existing patient at the specified index in the patient contact book.
 
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
+* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
+* At least one of the optional fields must be provided.
+* If the inputted edit command does not result in any changes to specified patient, it will not be allowed.
+* The `edit` command can only modify **name, phone, email, and address.**
+* The `edit` command **cannot** modify **tags, medicine and last visit date.**
+    * Use `tag` and `untag`to manage the patient's tags.
+    * Use `prescribe` and `unprescribe` to manage the patient's medicine.
+    * Use `lastVisit` and `delLastVisit` to manage the patient's last visit date.
+
 **Examples:**
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the first patient to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the second patient to be `Betsy Crower`.
 
-**Note:**
-
-* At least one of the optional fields must be provided.
-* If the inputted edit command does not result in any changes to specified patient, it will not be allowed.
-* The `edit` command can only modify name, phone, email, and address.
-* The `edit` command **cannot** modify tags, medicine and last visit date.
-  * Use `tag` and `untag`to manage the patient's tags.
-  * Use `prescribe` and `unprescribe` to manage the patient's medicine.
-  * Use `lastVisit` and `delLastVisit` to manage the patient's last visit date.
 
 ### Deleting a patient : `delete`
 
@@ -244,7 +244,7 @@ Finds patients whose names contain any of the given keywords.
   * e.g. `Hans Bo` will match `Bo Hans`
 * `find` patients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* `find /strict` Returns only exact match or displays "0 patients listed"
+* `find /strict` Returns only exact match or displays `0 patients listed`
 
 **Examples:**
 
@@ -253,7 +253,7 @@ Finds patients whose names contain any of the given keywords.
 * `find /strict John` returns only if a patient with the exact name `John` exists
 * `find /strict Doe John` returns `0 patients listed` <br>
 
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+![result for 'find alex david'](images/findAlexDavidResult.png)
 *The result after executing the command `find alex david`.*
 
 
@@ -268,11 +268,11 @@ Use these commands to maintain comprehensive patient health records beyond basic
 Tag an existing patient in the patient contact book.
 
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`
-* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
+* For more information on the input requirements for the `TAG` field, please refer to the [Input Requirements](#input-requirements).
 * Adds the specified tags to the patient at the specified `INDEX`.
 * At least one tag must be provided.
-* Tags are case-sensitive. This means that you can add the `Diabetes` tag and `diabetes`.
-  tag to the same patient as they would be considered as duplicate tags.
+* Tags are case-sensitive. This means that you can add the `Diabetes` tag and `diabetes`
+  tag to the same patient as they would not be considered as duplicate tags.
 * Avoid using `all` as a tag.
     * The keyword `t/all` is reserved for removing all tags and **may cause unintended behaviour if used incorrectly**.
 
@@ -286,6 +286,7 @@ Untag an existing patient in the patient contact book.
 
 **Format:** `untag INDEX t/TAG [t/MORE_TAGS]…​` or `untag INDEX t/all`
 
+* For more information on the input requirements for the `TAG` field, please refer to the [Input Requirements](#input-requirements).
 * Removes the specified tags from the patient at the specified `INDEX`.
 * At least one tag must be provided.
 
@@ -299,22 +300,22 @@ Untag an existing patient in the patient contact book.
 Add medication(s) to an existing patient in the patient contact book.
 
 **Format:** `prescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​`
-* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
+* For more information on the input requirements for the `MEDICINE_NAME` field, please refer to the [Input Requirements](#input-requirements).
 * Add the specified medication(s) to the patient at the specified `INDEX`.
 * At least one medicine name must be provided.
 * The medication will be added on to existing medications, i.e. adding of medications is cumulative.
-* You may add multiple medications by including multiple medicine names.
+* You may add multiple medications at once by including multiple medicine names.
   * e.g. `prescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
-* Medicines are case-insensitive. This means that you cannot add the `Panadol` medication and
+* Medicines are **case-insensitive**. This means that you cannot add the `Panadol` medication and
   `panadol` medication to the same patient as they would be considered as duplicate medication.
 * Avoid using `all` as a medicine name.
   * The keyword `m/all` is reserved for removing all medications and **may cause unintended behaviour if used incorrectly**.
-* Preceding and/or trailing white spaces will be ignored when prescribing medication
+* Preceding and/or trailing white spaces will be ignored when prescribing medication.
 
 **Examples:**
-*  `prescribe 1 m/Insulin` adds `Insulin` to the first patient's prescription.
+*  `prescribe 1 m/Insulin` adds `Insulin` to the first patient.
 *  `prescribe 2 m/Insulin m/Acetaminophen_Codeine` adds `Insulin` and `Acetaminophen_Codeine` to
-   the second patient's prescription.
+   the second patient.
 
 ### Removing medication from a patient : `unprescribe`
 
@@ -323,14 +324,15 @@ book.
 
 **Format:** `unprescribe INDEX m/MEDICINE_NAME [m/MORE_MEDICINE_NAMES]…​` or `unprescribe INDEX m/all`
 
+* For more information on the input requirements for the `MEDICINE_NAME` field, please refer to the [Input Requirements](#input-requirements).
 * Removes medication from the patient at the specified `INDEX` in the displayed patient list.
 * `unprescribe INDEX m/all` removes all medications from the patient.
   * If you include `m/all` in a valid `unprescribe` command along with other medicine names,
     (like `unprescribe 1 m/all m/paracetamol`), **all other medicine names specified will be ignored**, 
     and **all medicines will be removed from the specified patient**.
-* You may remove multiple medications by including multiple medicine names.
+* You may remove multiple medications at once by including multiple medicine names.
   * e.g. `unprescribe INDEX m/MEDICINE_NAME_ONE m/MEDICINE_NAME_TWO`
-* Preceding and/or trailing white spaces will be ignored when unprescribing medication
+* Preceding and/or trailing white spaces will be ignored when unprescribing medication.
 
 **Examples:**
 *  `unprescribe 1 m/all` Removes all medication from the first patient.
@@ -343,10 +345,10 @@ book.
 Adds a last visit record to an existing patient in the patient contact book.
 
 **Format:** `lastVisit INDEX d/LAST_VISIT_DATE`
-* For more information on the input requirements for each field, please refer to the [Input Requirements](#input-requirements).
+* For more information on the input requirements for the `LAST_VISIT_DATE` field, please refer to the [Input Requirements](#input-requirements).
 * Adds last visit record to the patient at the specified `INDEX` in the displayed patient list.
-* The LAST_VISIT_DATE field must be provided.
-* LAST_VISIT_DATE must be a valid calendar date on or before today's date (as shown on your computer's system).
+* The `LAST_VISIT_DATE` field must be provided.
+* `LAST_VISIT_DATE` must be a valid calendar date on or before today's date (as shown on your computer's system).
   Future dates are not accepted.
 
 **Examples:**
