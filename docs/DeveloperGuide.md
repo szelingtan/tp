@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Developer Guide
+title: CareConnect Developer Guide
 ---
 ## Table of Contents
 1. [Developer Guide](#developer-guide)
@@ -14,40 +14,32 @@ title: Developer Guide
     - [Model component](#model-component)
     - [Storage component](#storage-component)
     - [Common classes](#common-classes)
-5. [Implementation](#implementation)
-    - [Sort feature](#sort-feature)
-        - [Current Implementation](#current-implementation)
-        - [Class Structure](#class-structure)
-        - [SortCommand](#sortcommand)
-        - [SortCommandParser](#sortcommandparser)
-        - [Logic Interface](#logic-interface)
-        - [LogicManager](#logicmanager)
-        - [Model Interface](#model-interface)
-        - [ModelManager](#modelmanager)
-        - [Execution Flow](#execution-flow)
-        - [Design considerations](#design-considerations)
-        - [Interactions with other features](#interactions-with-other-features)
+5. [Implementations of Key Features](#implementations-of-key-features)
+    - [Add feature](#add-feature)
 6. [Proposed Enhancements](#proposed-enhancements)
-    - [Undo/redo feature](#proposed-undoredo-feature)
+    - [Undo/redo feature](#undoredo-feature)
         - [Proposed Implementation](#proposed-implementation)
-        - [Design considerations](#design-considerations-1)
-    - [Data archiving](#proposed-data-archiving)
+        - [Design considerations](#design-considerations)
 7. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 8. [Appendix: Requirements](#appendix-requirements)
     - [Product scope](#product-scope)
     - [User stories](#user-stories)
     - [Use cases](#use-cases)
-        - [UC01 List all students under User](#use-case-uc01-list-all-students-under-user)
-        - [UC02 Delete a student](#use-case-uc02-delete-a-student)
-        - [UC03 Add a student](#use-case-uc03-add-a-student)
     - [Non-Functional Requirements](#non-functional-requirements)
-    - [Prof-iler](#prof-iler)
     - [Glossary](#glossary)
-    - [Project](#project-the-title-of-the-research-project-a-student-is-working-on)
 9. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
     - [Launch and shutdown](#launch-and-shutdown)
-    - [Deleting a student](#deleting-a-student)
+    - [Deleting a patient](#deleting-a-patient)
     - [Saving data](#saving-data)
+    - [Editing a patient](#editing-a-patient)
+    - [Tagging and untagging a patient](#tagging-and-untagging-a-patient)
+    - [Prescribing and unprescribing medicine](#prescribing-and-unprescribing-medicine)
+10. [Appendix: Planned Enhancements](#appendixplanned-enhancements)
+    - [1. Input Validation for find](#1-enhancement-input-validation-for-find)
+    - [2. Duplicate Detection for add](#2-enhancement-duplicate-detection-for-add)
+    - [3. Non-ambiguous untag t/all or unprescribe m/all](#3-enhancement-non-ambiguous-untag-tall-or-unprescribe-mall)
+    - [4. Rename internal addressBook to careConnect](#4-enhancement-renaming-internal-uses-of-addressbook-to-careconnect)
+11. [Appendix: Effort](#appendix-effort)
 
 ## **Acknowledgements**
 
@@ -200,47 +192,66 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Planned Enhancements**
+## **Implementations of Key Features**
 
-This section describes some planned enhancements
+This section describes detailed implementation notes for  the `add` feature
+(A Patient Management Feature) to help you gain a 
+better understanding of CareConnect.
 
-### 1.) \[New Feature\] Undo/redo feature
+### Add feature
+The `add` feature enables users to add new patients to the patient list.
+
+#### Execution flow
+
+1. User inputs the command to create a new patient
+2. A `LogicManager` object is called to execute the command
+3. The `LogicManager` object calls the `parseCommand` method of an `addressBookParser` object to parse the user's input
+4. The `addressBookParser` matches the command, identifying the `add` command's `Command Word` (which is `add`),
+   and thus creates an `addCommandParser`.
+5. The `parse` method of that `addCommandParser` object is called, which parses
+   the user's input and returns an `addCommand` object to the `addressBookParser` object.
+6. This `addCommand` is then returned to the `LogicManager` object, which calls the `execute` method 
+   in the `addCommand` object, passing in a `model` object.
+7. In the `execute` method, the `addPatient` method of the `model` is called, which adds a patient to the `model`.
+8. The command finishes executing, and a success message is displayed.
+
+### [Proposed] Undo/redo feature
 
 #### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current Care Connect state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous Care Connect state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone Care Connect state from its history.
+* `VersionedAddressBook#commit()` — Saves the current AddressBook state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous AddressBook state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone AddressBook state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial Care Connect state, and the `currentStatePointer` pointing to that single Care Connect state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial AddressBook state, and the `currentStatePointer` pointing to that single AddressBook state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
 Step 2. The user executes `delete 5` command to delete the 5th patient in the patient book. The 
-`delete` command calls `Model#commitAddressBook()`, causing the modified state of the Care Connect.
-after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted Care Connect state.
+`delete` command calls `Model#commitAddressBook()`, causing the modified state of the AddressBook.
+after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted AddressBook state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified Care Connect state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified AddressBook state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the Care Connect state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the AddressBook state will not be saved into the `addressBookStateList`.
 
 </div>
 
-Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous Care Connect state, and restores the Care Connect to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous AddressBook state, and restores the AddressBook to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial CareConnect state, then there are no previous CareConnect states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -257,9 +268,9 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the Care Connect to that state.
+The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the AddressBook to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest Care Connect state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest AddressBook state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
@@ -268,7 +279,7 @@ patient book, such as `list`, will usually not call `Model#commitAddressBook()`,
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all Care Connect states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all AddressBook states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -280,50 +291,15 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire patient book.
+* **Alternative 1 (current choice):** Saves the entire patient list.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+  * Cons: We must ensure that the implementations of each command are correct.
 
-### 2.) \[Enhancement\] Input Validation for `find`
-
-Currently, there is no input validation for the `find` command. This means that an input such as 
-> `find &^%$*&!%$(*&`
-
-would be accepted despite it not being possibly part of any name.
-
-Another possible confusion is if the `/strict` prefix were mistyped as `strict/`, causing an input such as 
-> `find strict/ Homura`
-
-to instead search for the names `strict/` and `Homura` not strictly rather than searching `Homura` strictly
-
-A future update could parse the input and give an error message to the user when an invalid search name is entered.
-
-### 3.) \[Enhancement\] Duplicate Detection for `add`
-
-Currently, CareConnect compares strings case insensitively. However, it still takes into account spaces.
-
-This means that names such as "Akemi Homura" and "Akemi &nbsp;&nbsp;&nbsp; Homura" count as different people 
-even though they likely should refer to the same person.
-
-We could add a check that splits the name by whitespace and compares the parts case-insensitively, then give a warning to the user if a potential duplicate is found.
-
-### 4.) \[Enhancement\] Non-ambiguous `untag t/all` or `unprescribe m/all`
-
-Currently, there is some slight ambiguity in these delete all functions. They could be interpreted as 
-removing the tag "all" or removing the medicine "all".
-
-It is very unlikely that a user would create a tag named "all" or prescribe a medicine "all", since they don't 
-mean anything in the context of a patient under the care of a social worker.
-
-However, removing this ambiguity would still be preferable. This could be done by making them 
-entirely separate commands like `untagAll` and `unprescribeAll`, or making the keyword to trigger 
-the deletion not a valid tag/medicine so there is no ambiguity such as `untag t/[ALL]` and 
-`unprescribe m/[ALL]` since `[` and `]` are not valid characters for tags and medicines.
 
 
 
@@ -372,7 +348,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `PatientBook` and the **Actor** is the `user`, 
+(For all use cases below, the **System** is the `CareConnect` and the **Actor** is the `user`, 
 unless specified otherwise)
 
 **Use case: Add a patient**
@@ -380,34 +356,34 @@ unless specified otherwise)
 **MSS**
 
 1.  User requests to add a patient
-2.  PatientBook prompts for patient details
+2.  CareConnect prompts for patient details
 3.  User enters patient's name, phone number, email, and address
-4.  PatientBook adds the patient and confirms the addition
+4.  CareConnect adds the patient and confirms the addition
 
     Use case ends.
 
 **Extensions**
 
 * 3a. User enters an invalid phone number.
-  * 3a1. PatientBook shows an error message.
+  * 3a1. CareConnect shows an error message.
   * 3a2. User enters a valid phone number.
 
       Use case resumes at step 3.
 
 * 3b. User enters an invalid email.
-  * 3b1. PatientBook shows an error message.
+  * 3b1. CareConnect shows an error message.
   * 3b2. User enters a valid email.
 
       Use case resumes at step 3.
 
 * 3c. User omits one or more required fields.
-  * 3c1. PatientBook shows an error message.
+  * 3c1. CareConnect shows an error message.
   * 3c2. User enters all required information.
 
       Use case resumes at step 3.
 
 * 3d. User enters details for a patient with same name and phone number as an existing patient.
-  * 3d1. PatientBook alerts the user about the duplicate.
+  * 3d1. CareConnect alerts the user about the duplicate.
   * 3d2. User enters different information or cancels the operation.
 
       Use case resumes at step 3.
@@ -417,9 +393,9 @@ unless specified otherwise)
 **MSS**
 
 1.  User requests to list patients
-2.  PatientBook shows a list of patients
+2.  CareConnect shows a list of patients
 3.  User requests to delete a specific patient in the list
-4.  PatientBook deletes the patient and confirms the deletion
+4.  CareConnect deletes the patient and confirms the deletion
 
 Use case ends.
 
@@ -430,12 +406,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-  * 3a1. PatientBook shows an error message.
+  * 3a1. CareConnect shows an error message.
 
     Use case resumes at step 2.
 
 * 3b. User does not specify an index.
-  * 3b1. PatientBook shows an error message.
+  * 3b1. CareConnect shows an error message.
 
     Use case resumes at step 2.
 
@@ -444,9 +420,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  PatientBook shows a list of patients
+2.  CareConnect shows a list of patients
 3.  User requests to tag a specific patient with a category
-4.  PatientBook adds the tag to the patient and confirms the addition
+4.  CareConnect adds the tag to the patient and confirms the addition
 
 Use case ends.
 
@@ -457,12 +433,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. PatientBook shows an error message.
+    * 3a1. CareConnect shows an error message.
 
         Use case resumes at step 2.
 
 * 3b. User does not specify a tag name.
-    * 3b1. PatientBook shows an error message.
+    * 3b1. CareConnect shows an error message.
 
       Use case resumes at step 3.
       Use Case: Untag a patient
@@ -473,10 +449,10 @@ Use case ends.
 **MSS**
 
 1. User requests to list patients
-2. PatientBook shows a list of patients
+2. CareConnect shows a list of patients
 3. User requests to remove tags from a specific patient using one of the following: 
 untag to remove specific tags, or remove all tags
-4. PatientBook removes the tags accordingly and confirms the removal
+4. CareConnect removes the tags accordingly and confirms the removal
 
 Use case ends.
 
@@ -486,24 +462,24 @@ Use case ends.
   Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. PatientBook shows an error message.
+    * 3a1. CareConnect shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. No tags are specified with t/
-    * 3b1. PatientBook shows an error message.
+    * 3b1. CareConnect shows an error message.
 
       Use case resumes at step 3.
       Use Case: Untag a patient
       Main Success Scenario (MSS)
   
 * 3c. The specified tags are not present in the patient’s tag list
-    * 3c1. PatientBook shows an error message
+    * 3c1. CareConnect shows an error message
     * 
       Use case resumes at step 3.
   
 * 3d. The patient has no tags, but the user uses untag INDEX t/all
-    * PatientBook shows an error message indicating there are no tags to remove
+    * CareConnect shows an error message indicating there are no tags to remove
     * Use case resumes at step 3.
 
 **Use case: Add medication to a patient**
@@ -511,9 +487,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  PatientBook shows a list of patients
+2.  CareConnect shows a list of patients
 3.  User requests to add medication for a specific patient
-4.  PatientBook adds the medication to the patient's record and confirms the addition
+4.  CareConnect adds the medication to the patient's record and confirms the addition
 
 Use case ends.
 
@@ -524,12 +500,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-  * 3a1. PatientBook shows an error message.
+  * 3a1. CareConnect shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. User does not specify medication details.
-  * 3b1. PatientBook shows an error message.
+  * 3b1. CareConnect shows an error message.
 
     Use case resumes at step 3.
 
@@ -538,9 +514,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  PatientBook shows a list of patients
+2.  CareConnect shows a list of patients
 3.  User requests to delete medication for a specific patient
-4.  PatientBook removes the medication from the patient's record and confirms the deletion
+4.  CareConnect removes the medication from the patient's record and confirms the deletion
 
 Use case ends.
 
@@ -551,12 +527,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-  * 3a1. PatientBook shows an error message.
+  * 3a1. CareConnect shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. The patient has no medication records.
-  * PatientBook shows an error message.
+  * CareConnect shows an error message.
 
     Use case ends.
 
@@ -565,9 +541,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  PatientBook shows a list of patients
+2.  CareConnect shows a list of patients
 3.  User requests to add medication for a specific patient
-4.  PatientBook adds the medication to the patient's record and confirms the addition
+4.  CareConnect adds the medication to the patient's record and confirms the addition
 
 Use case ends.
 
@@ -578,12 +554,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. PatientBook shows an error message.
+    * 3a1. CareConnect shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. User does not specify medication details.
-    * 3b1. PatientBook shows an error message.
+    * 3b1. CareConnect shows an error message.
 
       Use case resumes at step 3.
 
@@ -592,9 +568,9 @@ Use case ends.
 **MSS**
 
 1.  User requests to list patients
-2.  PatientBook shows a list of patients
+2.  CareConnect shows a list of patients
 3.  User requests to delete the last visit record of a specific patient
-4.  PatientBook removes the visit information and confirms the deletion
+4.  CareConnect removes the visit information and confirms the deletion
 
 Use case ends.
 
@@ -605,12 +581,12 @@ Use case ends.
     Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. PatientBook shows an error message.
+    * 3a1. CareConnect shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. The patient has no visit records.
-    * PatientBook shows an error message.
+    * CareConnect shows an error message.
 
       Use case ends.
 
@@ -775,4 +751,115 @@ testers are expected to do more *exploratory* testing.
 1. Using the unprescribe all feature
    1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 prescribed medicines.
    1. Test case: `unprescribe 2 m/all` <br>
+<<<<<<< HEAD
    Expected: Successfully unprescribe all medicines from the 2nd patient.
+=======
+   Expected: Successfully unprescribe all medicines from the 2nd patient.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix:Planned Enhancements**
+
+### The team size is **5**.
+
+### 1.) \[Enhancement\] Input Validation for `find`
+
+Currently, there is no input validation for the `find` command. This means that an input such as
+> `find &^%$*&!%$(*&`
+
+would be accepted despite it not being possibly part of any name.
+
+Another possible confusion is if the `/strict` prefix were mistyped as `strict/`, causing an input such as
+> `find strict/ Homura`
+
+to instead search for the names `strict/` and `Homura` not strictly rather than searching `Homura` strictly
+
+A future update could parse the input and give an error message to the user when an invalid search name is entered.
+
+### 2.) \[Enhancement\] Duplicate Detection for `add`
+
+Currently, CareConnect compares strings case insensitively. However, it still takes into account spaces.
+
+This means that names such as "Akemi Homura" and "Akemi &nbsp;&nbsp;&nbsp; Homura" count as different people
+even though they likely should refer to the same person.
+
+We could add a check that splits the name by whitespace and compares the parts case-insensitively, then give a warning to the user if a potential duplicate is found.
+
+### 3.) \[Enhancement\] Non-ambiguous `untag t/all` or `unprescribe m/all`
+
+Currently, there is some slight ambiguity in these delete all functions. They could be interpreted as
+removing the tag "all" or removing the medicine "all".
+
+It is very unlikely that a user would create a tag named "all" or prescribe a medicine "all", since they don't
+mean anything in the context of a patient under the care of a social worker.
+
+However, removing this ambiguity would still be preferable. This could be done by making them
+entirely separate commands like `untagAll` and `unprescribeAll`, or making the keyword to trigger
+the deletion not a valid tag/medicine so there is no ambiguity such as `untag t/[ALL]` and
+`unprescribe m/[ALL]` since `[` and `]` are not valid characters for tags and medicines.
+
+### 4.) \[Enhancement\] Renaming internal uses of `addressBook` to `careConnect`
+
+Currently, many internal functions and classes still reference `addressBook`, which is why most of the Developer Guide
+still references `addressBook`. In the future, we hope to replace instances of `addressBook` with `CareConnect`, to
+better reflect `CareConnect`'s status as separate from `addressBook`.
+
+------------------------------------------------------------------------------------------------------------------------
+## Appendix: Effort
+
+CareConnect is a significant extension of the AddressBook Level 3 (AB3) base project. While AB3 operates on a single `Person` entity, CareConnect supports a model involving multiple interconnected entities:
+`Patient`, `Tag`, `Medicine`, and `VisitHistory`.
+The effort required to design, implement, and polish these features demanded considerably more design planning, code refactoring, testing, and documentation.
+
+---
+
+### Difficulty Level & Challenges Faced
+
+- **Multi-entity Data Model**: One of the biggest design shifts was moving from AB3's flat `Person` model to a relational structure. Each `Patient` could have multiple `Tags`, `Medicines`, and optionally a `Last Visit` date. This required the creation of `UniqueTagList`, bidirectional references, deduplication logic, and additional parsing and serialization layers.
+
+- **Feature Granularity & Complexity**: The team implemented granular commands such as `untag`, `unprescribe`, and `delLastVisit` — each with nuanced logic and edge cases. Features like `untag INDEX t/all` or `find /strict` needed custom parsing logic and well-defined behavioral constraints to avoid ambiguity.
+
+- **Robust CLI-Driven Input Design**: The command-line interface was not only feature-rich, but also robust against invalid inputs. Input requirements such as strictly formatted dates, unique (case-insensitive) names, and custom validation for phone/email/medicine/tag types ensured reliability and prevented user confusion.
+
+- **Interactive JavaFX GUI**: The GUI was developed to provide a clean, informative interface while remaining reactive to CLI inputs. Changes in model state (e.g., tag removal, patient deletion) were automatically reflected in the UI through observable bindings.
+
+- **Undo/Redo with Entity State**: The inclusion of `Undo` and `Redo` required the development of a `VersionedAddressBook` that could store and restore complex model states. Given the expanded data relationships, the effort to correctly snapshot and rollback patient changes was substantial.
+
+- **User-Centered Design**: The app was designed with social workers in mind — users who are domain experts but not necessarily tech-savvy. Thus, the command syntax, field naming, help documentation, and error messages were all carefully written to be intuitive and context-appropriate.
+
+---
+
+### Project Effort
+
+This project went through several development phases:
+
+- **Architectural Planning**: Reorganizing the AB3 structure to support a multi-entity design while preserving modularity.
+- **Core Feature Implementation**: Creating commands like `prescribe`, `untag`, `lastVisit`, and `delLastVisit` required model changes, storage updates, and thorough command testing.
+- **Refactoring and Encapsulation**: Efforts were made to encapsulate logic (e.g., duplicate tag detection, unprescribe-all behavior), improving maintainability and scalability.
+- **Testing & QA**: Over 100 test cases were written to ensure command correctness, parser robustness, and GUI functionality. Stubs such as `ClearConfirmationWindowStub` were introduced for testability.
+- **Documentation**: A comprehensive [User Guide](UserGuide.md) and [Developer Guide](DeveloperGuide.md) were produced, complete with usage examples, diagrams, and manual testing instructions.
+
+---
+
+### Reuse and Adaptation
+
+About **8–10%** of the overall development effort was saved through reuse and adaptation:
+
+- **SE-EDU’s `VersionedAddressBook`** design was used as a conceptual base for implementing undo/redo, but was customized heavily to handle `Patient` and associated nested objects.
+- **JavaFX GUI classes** such as `UiPart`, `CommandBox`, and `MainWindow` were extended and customized to support contextual error messages and live-updating patient lists.
+- **Diagram generation tools** and markdown structuring conventions were borrowed from SE-EDU guides and adapted to our domain-specific components (e.g., UML for `Patient`–`Medicine`–`Tag` relationships).
+
+---
+
+### Summary
+
+CareConnect stands as a well-engineered, user-centered, and extensible desktop application. Compared to AB3, this project presented:
+- A **higher degree of domain modeling**
+- A **wider range of commands** with real-world parallels
+- A **more polished and testable GUI**
+- A **more rigorous input and error handling system**
+- And a **scalable architecture** designed for future extensions (e.g., support for scheduling, visit history tracking)
+
+The result is a feature-rich, production-quality CLI+GUI hybrid tailored for social workers — providing them with the tools to manage sensitive patient information efficiently and safely.
+
+>>>>>>> Thank you!
