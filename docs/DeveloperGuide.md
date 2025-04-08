@@ -778,11 +778,11 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: Have a list of at least 2 patients, all of which have at least 2 prescribed medicines.
    1. Test case: `unprescribe 2 m/all` <br>
    Expected: Successfully unprescribe all medicines from the 2nd patient.
-
+------------------------------------------------------------------------------------------------------------------------
 ## Appendix: Effort
 
-CareConnect is a significant extension of the AddressBook Level 3 (AB3) base project. While AB3 operates on a single `Person` entity, 
-CareConnect supports a model involving multiple interconnected entities: `Patient`, `Tag`, `Medicine`, and `VisitHistory`.
+CareConnect is a significant extension of the AddressBook Level 3 (AB3) base project. While AB3 operates on a single `Person` entity, CareConnect supports a model involving multiple interconnected entities: 
+`Patient`, `Tag`, `Medicine`, and `VisitHistory`.
 The effort required to design, implement, and polish these features demanded considerably more design planning, code refactoring, testing, and documentation.
 
 ---
@@ -796,6 +796,8 @@ The effort required to design, implement, and polish these features demanded con
 - **Robust CLI-Driven Input Design**: The command-line interface was not only feature-rich, but also robust against invalid inputs. Input requirements such as strictly formatted dates, unique (case-insensitive) names, and custom validation for phone/email/medicine/tag types ensured reliability and prevented user confusion.
 
 - **Interactive JavaFX GUI**: The GUI was developed to provide a clean, informative interface while remaining reactive to CLI inputs. Changes in model state (e.g., tag removal, patient deletion) were automatically reflected in the UI through observable bindings.
+
+- **Undo/Redo with Entity State**: The inclusion of `Undo` and `Redo` required the development of a `VersionedAddressBook` that could store and restore complex model states. Given the expanded data relationships, the effort to correctly snapshot and rollback patient changes was substantial.
 
 - **User-Centered Design**: The app was designed with social workers in mind — users who are domain experts but not necessarily tech-savvy. Thus, the command syntax, field naming, help documentation, and error messages were all carefully written to be intuitive and context-appropriate.
 
@@ -833,4 +835,3 @@ CareConnect stands as a well-engineered, user-centered, and extensible desktop a
 - And a **scalable architecture** designed for future extensions (e.g., support for scheduling, visit history tracking)
 
 The result is a feature-rich, production-quality CLI+GUI hybrid tailored for social workers — providing them with the tools to manage sensitive patient information efficiently and safely.
-
