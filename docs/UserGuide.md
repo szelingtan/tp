@@ -43,31 +43,32 @@ prescriptions and last visit information** on a single app.
 
 ## Quick start
 
-1. Check your system compatibility
-- Ensure you have Java `17` or above installed in your Computer.<br>
+1. Check your system compatibility:
+- Ensure you have **Java 17** or above installed on your computer.<br>
 - A guide on how to install the required software can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
-2. Download CareConnect</br>
+2. Download CareConnect:
    1. Access the latest release of CareConnect from [here](https://github.com/AY2425S2-CS2103T-T17-2/tp/releases).<br>
    2. Under **Assets**, click to download the file titled `CareConnect.jar`. ![Assets](images/quickstart.png)
 
-3. Set up CareConnect 
-   1. Move the downloaded `.jar` file into a folder where you would like to keep your add data. (You can also create a new folder!)
+3. Set up CareConnect:
+   1. Move the downloaded `.jar` file into a folder where you would like to keep your app data. (You can also create a new folder!)
    2. Open the **Command Prompt** (Windows) or **Terminal** (Mac/Linux) .
       - A guide to access Command Prompt (Windows) [here](https://www.dell.com/support/kbdoc/en-us/000130703/the-command-prompt-what-it-is-and-how-to-use-it-on-a-dell-system#:~:text=Press%20the%20Windows%20key%20%2B%20r,opens%20the%20Command%20Prompt%20window.).
       - A guide to access Terminal (Mac/Linux) [here](https://support.apple.com/en-sg/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac).
    3. In the Command Prompt or Terminal:
       - Type `cd` followed by the folder path where your `CareConnect.jar` file is stored.
-      - Example: `cd Downloads/Work` where `CareConnect.jar` is stored in a folder named `Work` within `Downloads`. 
+      - Example: `cd Downloads/Work` where `CareConnect.jar` is stored in a folder named `Work` within `Downloads`.
    4. Run this command: `java -jar CareConnect.jar`
-5. Start using the app.
-   - The CareConnect app, similar to the image below, should appear within a few seconds (with sample data preloaded).</br>
+
+4. Launch CareConnect:
+- Once launched, the CareConnect window should appear within a few seconds, as shown below (with sample data preloaded).
 ![UI](images/Ui.png)
+- Refer to the [User Interface Layout](#user-interface-layout) below for a run-through of the user-interface of CareConnect.
 
-6. Refer to the [User Interface Layout](#user-interface-layout) below for a run-through of the user-interface of CareConnect.
-
-7. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+5. Get Started with Sample Commands:
+- Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+- Some example commands you can try:
 
     * `list` : Lists all patient contacts.
 
@@ -79,8 +80,11 @@ prescriptions and last visit information** on a single app.
 
     * `exit` : Exits the app.
 
-8. When you are ready to start adding your own patient contacts, `clear` the list and add your own patients using the `add` command.
-9. Refer to the [Features](#features) and [Command Summary](#command-summary) below for details of each command.
+6. Set up your own patient list:
+- When you are ready to start adding your own patient contacts, `clear` the list and add your own patients using the `add` command.
+7. What's next:
+- Check out the [Features](#features) and [Command Summary](#command-summary) to explore what CareConnect can do.
+- Review the [Input Requirements](#input-requirements) to ensure your patient entries follow the correct format.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -126,7 +130,7 @@ prescriptions and last visit information** on a single app.
 | **ADDRESS**         | No restrictions, cannot be blank.                                                                                                                                                                                                                                                   | Blk 519 Serangoon Avenue 1, #12-345 |
 | **MEDICINE**        | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid. **Medicines are case-insensitive**.                                                                                                                        | Paracetamol, Insulin                |
 | **TAG**             | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid. **Tags are case-sensitive**.                                                                                                               | Diabetes, Osteoporosis              |
-| **LAST_VISIT_DATE** | Must follow `YYYY-MM-DD` format. For example: "2025-03-15" is a valid last visit date.                                                                                                                                                                                              | 1                                   |
+| **LAST_VISIT_DATE** | Must follow `YYYY-MM-DD` format.                                                                                                                                                                                                                                                    | 2025-03-15                          |
 | **INDEX**           | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                             | 1                                   |
 
 --------------------------------------------------------------------------------------------------------------------
