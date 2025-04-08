@@ -61,6 +61,8 @@ prescriptions and last visit information** on a single app.
       - Example: `cd Downloads/Work` where `CareConnect.jar` is stored in a folder named `Work` within `Downloads`.
    4. Run this command: `java -jar CareConnect.jar`
 
+<div style="page-break-after: always;"></div>
+
 4. Launch CareConnect:
 - Once launched, the CareConnect window should appear within a few seconds, as shown below (with sample data preloaded).
 ![UI](images/Ui.png)
@@ -233,6 +235,8 @@ Shows a list of all patients in the patient contact book.
 Clears all entries from the patient contact book.
 
 **Format:** `clear`
+
+<div style="page-break-after: always;"></div>
 
 ### Locating patients by name: `find`
 
