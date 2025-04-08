@@ -44,7 +44,7 @@ prescriptions and last visit information** on a single app.
 ## Quick start
 
 1. Check your system compatibility:
-- Ensure you have **Java 17** or above installed on your Computer.<br>
+- Ensure you have **Java 17** or above installed on your computer.<br>
 - A guide on how to install the required software can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).
 
 2. Download CareConnect:
@@ -130,7 +130,7 @@ prescriptions and last visit information** on a single app.
 | **ADDRESS**         | No restrictions, cannot be blank.                                                                                                                                                                                                                                                   | Blk 519 Serangoon Avenue 1, #12-345 |
 | **MEDICINE**        | Alphanumeric, '-' and '_' allowed. For example: `low-blood-pressure` is a valid tag but `low blood pressure` is invalid. **Medicines are case-insensitive**.                                                                                                                        | Paracetamol, Insulin                |
 | **TAG**             | Alphanumeric, '-' and '_' allowed. For example: `acetaminophen_codeine` is a valid medicine name but `acetaminophen codeine` is invalid. **Tags are case-sensitive**.                                                                                                               | Diabetes, Osteoporosis              |
-| **LAST_VISIT_DATE** | Must follow `YYYY-MM-DD` format. For example: "2025-03-15" is a valid last visit date.                                                                                                                                                                                              | 1                                   |
+| **LAST_VISIT_DATE** | Must follow `YYYY-MM-DD` format.                                                                                                                                                                                                                                                    | 2025-03-15                          |
 | **INDEX**           | Index of patient in the displayed patient list to be edited. Must be a **positive integer** 1, 2, 3, …​                                                                                                                                                                             | 1                                   |
 
 --------------------------------------------------------------------------------------------------------------------
