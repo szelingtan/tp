@@ -55,7 +55,7 @@ prescriptions and last visit information** on a single app.
    1. Move the downloaded `.jar` file into a folder where you would like to keep your add data. (You can also create a new folder!)
    2. Open the **Command Prompt** (Windows) or **Terminal** (Mac/Linux) .
       - A guide to access Command Prompt (Windows) [here](https://www.dell.com/support/kbdoc/en-us/000130703/the-command-prompt-what-it-is-and-how-to-use-it-on-a-dell-system#:~:text=Press%20the%20Windows%20key%20%2B%20r,opens%20the%20Command%20Prompt%20window.).
-      - A guide to access Terminal (Mac/Linus) [here](https://support.apple.com/en-sg/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac).
+      - A guide to access Terminal (Mac/Linux) [here](https://support.apple.com/en-sg/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac).
    3. In the Command Prompt or Terminal:
       - Type `cd` followed by the folder path where your `CareConnect.jar` file is stored.
       - Example: `cd Downloads/Work` where `CareConnect.jar` is stored in a folder named `Work` within `Downloads`. 
