@@ -301,6 +301,18 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Cons: We must ensure that the implementations of each command are correct.
 
 
+### 5.) \[Enhancement\] Non-ambiguous Phone Number Handling
+Currently, the system only accepts plain numeric formats without hyphens or spaces (e.g., "83218099"). 
+While this implementation is clear and unambiguous, it limits user flexibility when entering phone numbers.
+
+It would be beneficial to expand the accepted formats to accommodate more common phone number patterns. 
+Users often prefer to enter phone numbers with formatting characters or country codes that align with standard conventions.
+
+This enhancement would expand phone number support to accept multiple formats such as `+65-8321-8099`, `+65 8321 8099`, or `(65) 8321 8099` 
+while still maintaining a consistent internal representation. 
+The application could implement format normalization that removes non-numeric characters for 
+storage while preserving the original format for display. 
+
 
 
 --------------------------------------------------------------------------------------------------------------------
